@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
+  devise_for :users, :controllers => { registrations: 'registrations_profile' }
 
-  devise_for :users
   root to: 'profiles#list'
 
 
