@@ -8,4 +8,10 @@ class ProfilePolicy < ApplicationPolicy
   def show?
     true
   end
+
+  def list?
+    true
+  end
+
+
 end
