@@ -22,7 +22,7 @@
             </div>
             <div class="modal-body">
               <% if user_signed_in? %>
-              <div class="btn btn-primary">booking</div>
+               <div id="root"></div>
               <% else %>
               <%= link_to "SignIn", new_user_session_path, class: "btn btn-primary" %>
               <% end %>

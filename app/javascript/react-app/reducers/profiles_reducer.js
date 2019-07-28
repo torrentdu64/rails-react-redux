@@ -5,9 +5,14 @@ export default function(state = [], action) {
     // case FETCH_POST:
     //   // action.payload is an object
     //   return [ action.payload ];
-    // // case POST_CREATED:
-    // //   // TODO: push it to the array of posts
-    // //   return state;
+     case 'BOOKING_CREATED':
+     if (state.map(booking => booking.id).includes(action.payload.id)) {
+        return state;
+      } else {
+        const copiedState = state.slice(0);
+        copiedState.push(action.payload);
+        return copiedState;
+      }
     default:
       return state;
   }
