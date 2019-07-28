@@ -9,10 +9,11 @@ class ProfilesController < ApplicationController
   end
 
   def index
+
   end
 
   def show
-
+    session[:profile] = false
   end
 
   def new
