@@ -1,2 +1,20 @@
 <h1>Profiles#edit</h1>
 <p>Find me in app/views/profiles/edit.html.erb</p>
+
+<%= simple_form_for @profile  do |f| %>
+<% if @profile.errors.any? %>
+    <div class="errors-container">
+      <ul>
+        <% @profile.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.input :name %>
+  <%= f.input :description %>
+  <%= f.input :phone %>
+  <div class="form-actions btn btn-success">
+    <%= f.button :submit, "update" %>
+  </div>
+<% end %>
