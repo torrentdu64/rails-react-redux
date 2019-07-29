@@ -28,7 +28,8 @@ export function createBooking(id, content) {
   }).then(r => r.json());
 
   return {
-    type: 'MESSAGE_POSTED',
+    type: 'BOOKING_POSTED',
     payload: promise // Will be resolved by redux-promise
+
   };
 }

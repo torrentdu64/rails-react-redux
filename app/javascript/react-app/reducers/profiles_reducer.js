@@ -5,10 +5,12 @@ export default function(state = [], action) {
     // case FETCH_POST:
     //   // action.payload is an object
     //   return [ action.payload ];
-     case 'BOOKING_CREATED':
+     case 'BOOKING_CREATE':
      if (state.map(booking => booking.id).includes(action.payload.id)) {
         return state;
-      } else {
+      } else if(action.payload.errors === 'errors') {
+          return action.payload.errors
+      }else {
         const copiedState = state.slice(0);
         copiedState.push(action.payload);
         return copiedState;

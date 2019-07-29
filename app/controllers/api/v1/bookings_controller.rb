@@ -3,21 +3,24 @@ class Api::V1::BookingsController < Api::V1::BaseController
 
 
   def create
-
-    p booking = Booking.new(booking_params)
-
-    booking.user = current_user
-
-    booking.save
-
-    authorize booking # see Message.as_json method
+    @booking = Booking.new(booking_params)
+    @booking.user = current_user
+    authorize @booking
+     p "------------------"
+    if @booking.save # see Message.as_json method
+     p render :create, status: :created
+        p "------------------"
+    else
+       p "--------else create booking---------"
+     p render_error
+     p "--------else create booking---------"
+    end
   end
 
   private
 
   def set_profile
-   p @profile = Profile.find_by(id: params[:profile_id])
-   p "set profile"
+    @profile = Profile.find_by(id: params[:profile_id])
   end
 
 
