@@ -4,8 +4,20 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
+
+    <% if session[:profile] === true %>
+
+    <%= f.hidden_field :profile, :value => true %>
+    <% else %>
+
+    <%= f.hidden_field :profile, :value => false %>
+    <% end %>
     <%= f.input :email,
                 required: true,
+                autofocus: true,
+                input_html: { autocomplete: "email" }%>
+    <%= f.input :phone,
+                required: false,
                 autofocus: true,
                 input_html: { autocomplete: "email" }%>
     <%= f.input :password,

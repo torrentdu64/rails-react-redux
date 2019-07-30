@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
 
+  devise_for :users, :controllers => { registrations: 'registrations' }
 
-  devise_for :users
   root to: 'profiles#list'
 
 
-  resources :profiles, only: [:show]
+  resources :profiles, only: [:show, :new, :create, :edit, :update, :destroy]
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
