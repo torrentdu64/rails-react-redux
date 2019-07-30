@@ -7,19 +7,29 @@ import { createBooking } from '../actions';
 
 class BookingsNew extends Component {
 
+  state = { modal: ''};
+
   onSubmit = (values) => {
-    console.log(values);
+
     const { id } = this.props.match.params;
     this.props.createBooking( id, values );
+    // this.setState({modal:  'modal'});
+    // if( errors === '' && !this.props.formError.errors ){
+
+    // }
+
   }
+
   renderError = ({error, touched}) => {
     if(touched && error){
       return <div>{error}</div>
     }
   }
 
+
+
   renderField = (field) => {
-    console.log(field);
+
     return (
       <div className="form-group">
         <label>{field.label}</label>
@@ -37,8 +47,9 @@ class BookingsNew extends Component {
 
 
 
+
   render() {
-    console.log("my props",this.props);
+    console.log("my props",this.props.formError.errors);
 
     return (
       <div>
@@ -49,13 +60,14 @@ class BookingsNew extends Component {
               type="datetime-local"
               component={this.renderField}
             />
+             {this.props.formError.errors}
 
-            <Field
+            {/*<Field
               label="date end"
               name="end_time"
               type="datetime-local"
               component={this.renderField}
-            />
+            />*/}
 
 
             <Field
@@ -65,16 +77,15 @@ class BookingsNew extends Component {
               component={this.renderField}
 
           />
-
-            <button className="btn btn-primary" type="submit"
-          disabled={this.props.pristine || this.props.submitting}>
+{/*data-dismiss={this.state.modal}*/}
+            <button  className="btn btn-primary" type="submit"
+          disabled={this.props.pristine || this.props.submitting} >
               Create Booking
             </button>
         </form>
-        { this.props.formError.map( er => {
-          return er
-        }) }
-
+        <div>
+          {this.props.formError.errors}
+        </div>
       </div>
     );
  }
@@ -88,15 +99,13 @@ const validate = (values) => {
   if(!values.duration) {
     errors.duration = "this field is require";
   }
-
   return errors;
-
 };
 
 const mapStateToProps = (state) => {
-    return { formError: state.errors }
+    return { formError: state.formError }
 }
 
-export default reduxForm({ form: 'newBookingForm',validate , initialValues: { user_id: 1, profile_id: 1 } })(
-  connect(null, { createBooking })(BookingsNew)
+export default reduxForm({ form: 'newBookingForm', validate  })(
+  connect(mapStateToProps, { createBooking })(BookingsNew)
 );
