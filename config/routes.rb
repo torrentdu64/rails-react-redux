@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     devise_for :users, :controllers => { registrations: 'registrations' }
     patch 'verif', to: 'registrations#create_code'
+    patch 'confirm', to: 'registrations#verif_code'
   end
   root to: 'profiles#list'
 
