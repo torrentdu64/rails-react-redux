@@ -6,7 +6,11 @@ class BookingPolicy < ApplicationPolicy
   end
 
   def create?
-    true
+    if user.profile == true
+      false
+    else
+      true
+    end
   end
 
 

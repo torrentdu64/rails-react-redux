@@ -1,6 +1,11 @@
 class RegistrationsController < Devise::RegistrationsController
 
+  def create_code
 
+    @sms = SmsApi.new(ENV['BURST_API_KEY'], ENV['BURST_API_SECRET'])
+    response = @sms.send("Hello from my app baby", params[:user][:phone] )
+
+  end
 
   def sign_up_params
     devise_parameter_sanitizer.sanitize(:sign_up)
