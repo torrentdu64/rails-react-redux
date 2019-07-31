@@ -1,17 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
+import DatePicker from "react-datepicker";
+
 import { createBooking } from '../actions';
 
 
 
 class BookingsNew extends Component {
 
-  state = { modal: ''};
+    constructor(props) {
+      super(props);
+      this.state = {
+        startDate: new Date()
+      };
+      this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(date) {
+      this.setState({
+        startDate: date
+      });
+    }
+
+
 
   onSubmit = (values) => {
 
     const { id } = this.props.match.params;
+    const start_time = this.state.startDate;
+    values = {...values, start_time: start_time};
+
     this.props.createBooking( id, values );
     // this.setState({modal:  'modal'});
     // if( errors === '' && !this.props.formError.errors ){
@@ -54,12 +73,23 @@ class BookingsNew extends Component {
     return (
       <div>
         <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-            <Field
+           {/* <Field
               label="date"
               name="start_time"
               type="datetime-local"
               component={this.renderField}
-            />
+            />*/}
+            <DatePicker
+                label="date"
+                name="start_time"
+                inline
+                selected={this.state.startDate}
+                onChange={this.handleChange}
+                showTimeSelect
+                dateFormat="Pp"
+                component={this.DatePicker}
+
+              />
              {this.props.formError.errors}
 
             {/*<Field
