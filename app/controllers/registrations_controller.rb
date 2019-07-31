@@ -21,7 +21,7 @@ class RegistrationsController < Devise::RegistrationsController
       @short = rand.to_s[2..7]
       current_user.update_attributes(phone: format_phone , code_conf: @short)
       @sms = SmsApi.new(ENV['BURST_API_KEY'], ENV['BURST_API_SECRET'])
-      message = "#{@short} is your verification code."
+      message = "#{@short} is your verification code. "  #is your verification code.
       response = @sms.send(message, current_user.phone )
 
       redirect_to  edit_user_registration_path
