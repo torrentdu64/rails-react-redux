@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     patch 'confirm', to: 'registrations#verif_code'
   end
   root to: 'profiles#list'
-
+  mount ActionCable.server => "/cable"
 
   resources :profiles, only: [:show, :new, :create, :edit, :update, :destroy]
 
