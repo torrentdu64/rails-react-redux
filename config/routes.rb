@@ -10,14 +10,16 @@ Rails.application.routes.draw do
 
   mount ActionCable.server => "/cable"
 
-  match '/sms' => 'bookings#reply', :via => :get
 
+  #match '/sms' => 'api/v1/bookings#reply', :via => :get
   resources :profiles, only: [:show, :new, :create, :edit, :update, :destroy]
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
+      match '/sms' => 'bookings#reply', :via => :get
       resources :profiles, only: [ :index, :show ] do
         resources :bookings, only: [ :create ]
+
       end
     end
   end
