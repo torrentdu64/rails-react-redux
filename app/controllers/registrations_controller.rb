@@ -43,7 +43,7 @@ class RegistrationsController < Devise::RegistrationsController
     if current_user.code_conf == params[:user][:code]
         current_user.update(phone_verif: true)
         flash[:alert] = "success verif"
-        redirect_to  edit_user_registration_path
+        redirect_to  "#{session[:verif_phone]}"
     elsif current_user.code_conf != params[:user][:code] && session[:v] <= 3
       flash[:alert] = "Code wrong just #{ 3 - session[:v] } attempt possible"
       session[:v] = session[:v] + 1
@@ -61,8 +61,8 @@ class RegistrationsController < Devise::RegistrationsController
 
   def account_update_params
     # count attempt for confirm phone number
-
     devise_parameter_sanitizer.sanitize(:account_update)
+
   end
 
   private

@@ -1,6 +1,6 @@
 class Api::V1::BookingsController < Api::V1::BaseController
   before_action :set_profile
-  # before_action :check_profile_false
+
 
 
   def create
@@ -12,6 +12,10 @@ class Api::V1::BookingsController < Api::V1::BaseController
     if @booking.save # see Message.as_json method
       # phone from Profile
       # set phone number for profile and user
+
+      @sms = SmsApi.new(ENV['BURST_API_KEY'], ENV['BURST_API_SECRET'])
+      message = " make reservation reply Yes or No  "  #is your verification code.
+      response = @sms.send(message, "+64212634663" )
       # match through the route the response
       # compute response
       #
@@ -27,13 +31,15 @@ class Api::V1::BookingsController < Api::V1::BaseController
    end
   end
 
+  def reply
+     @sms = SmsApi.new(ENV['BURST_API_KEY'], ENV['BURST_API_SECRET'])
+     message = " ping pong hot dog"  #is your verification code.
+      response = @sms.send(message, "+64212634663" )
+    binding.pry
+  end
+
   private
 
-  # def check_profile_false
-  #   if current_user.profile == true
-  #     redirect_to root_path()
-  #   end
-  # end
 
   def set_profile
     @profile = Profile.find_by(id: params[:profile_id])
