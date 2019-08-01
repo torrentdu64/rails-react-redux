@@ -15,7 +15,9 @@ class ProfilesIndex extends Component {
   }
 
   componentWillReceiveProps(nextProps) { // For after switching channels
-    if (this.props.selectedChannel != nextProps.selectedChannel) {
+    console.log('next', nextProps )
+    if (this.props.profiles != nextProps.profiles) {
+      console.log('i am enter bc diff props')
       this.subscribeActionCable(nextProps);
     }
   }
