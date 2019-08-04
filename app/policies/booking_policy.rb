@@ -13,6 +13,11 @@ class BookingPolicy < ApplicationPolicy
     end
   end
 
+  def reply
+    # verif if owner === record.owner
+    true
+  end
+
 
 
 end

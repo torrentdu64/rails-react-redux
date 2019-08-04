@@ -1,5 +1,6 @@
 class Api::V1::BookingsController < Api::V1::BaseController
   before_action :set_profile
+  skip_before_action :authenticate_user!, only: [:reply]
 
 
 
@@ -12,13 +13,18 @@ class Api::V1::BookingsController < Api::V1::BaseController
     if @booking.save # see Message.as_json method
       # phone from Profile
       # set phone number for profile and user
-
       @sms = SmsApi.new(ENV['BURST_API_KEY'], ENV['BURST_API_SECRET'])
       message = " make reservation reply Yes or No  "  #is your verification code.
-      response = @sms.send(message, "+64212634663" )
-
+      response = @sms.send(message, "+642041845759" )
+      p "================================="
+      p @sms
       p "====================================="
       p response
+      res = JSON.parse response.raw.options[:response_body]
+      #record message_id to booking
+      @message_id = res["message_id"]
+
+      binding.pry
       p "====================================="
 
       render :create, status: :created
@@ -28,19 +34,22 @@ class Api::V1::BookingsController < Api::V1::BaseController
   end
 
   def reply
+      # in-put => message_id
+      # @booking = booking.find(message_id)
+      # @user = @booking.user_id
+      # if yes
+      #   payment.charge
+      #   send sms info and charge
+      # else no
+      #   send info no charge
+      # end
+      #
+      #
+      # reply correct user
      @sms = SmsApi.new(ENV['BURST_API_KEY'], ENV['BURST_API_SECRET'])
      message = " ping pong hot dog"  #is your verification code.
-      response = @sms.send(message, "+64212634663" )
-    binding.pry
-    # match through the route the response
-      # compute response
-      #
-      # if yes
-      #   send info profile to user
-      # else no
-      #   send info statement
-      #
-      #
+     response = @sms.send(message, "+642041845759" )
+
   end
 
   private
