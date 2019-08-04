@@ -24,6 +24,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
       #record message_id to booking
       @message_id = res["message_id"]
 
+      @booking = @booking.update(message_id: @message_id)
       binding.pry
       p "====================================="
 
