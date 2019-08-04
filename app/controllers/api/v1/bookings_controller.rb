@@ -35,8 +35,8 @@ class Api::V1::BookingsController < Api::V1::BaseController
 
   def reply
       # in-put => message_id
-      # @booking = booking.find(message_id)
-      # @user = @booking.user_id
+      # @booking = booking.find_by(message_id: message_id)
+      # @user = User.fin_by(id: @booking.user_id )
       # if yes
       #   payment.charge
       #   send sms info and charge
