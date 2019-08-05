@@ -35,3 +35,10 @@ export function createBooking(id, content) {
 
   };
 }
+
+export function appendMessage(message) {
+  return {
+    type: 'MESSAGE_POSTED',
+    payload: message
+  }
+}

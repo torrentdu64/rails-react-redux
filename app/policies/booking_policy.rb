@@ -6,6 +6,15 @@ class BookingPolicy < ApplicationPolicy
   end
 
   def create?
+    if user.profile == true
+      false
+    else
+      true
+    end
+  end
+
+  def reply
+    # verif if owner === record.owner
     true
   end
 
