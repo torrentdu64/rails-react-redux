@@ -5,6 +5,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
 
 
   def create
+    raise
     @booking = Booking.new(booking_params)
     @booking.user = current_user
     authorize @booking

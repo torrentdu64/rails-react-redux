@@ -13,6 +13,7 @@ class BookingsNew extends Component {
       super(props);
       this.state = {
         startDate: new Date()
+
       };
       this.handleChange = this.handleChange.bind(this);
     }
@@ -32,6 +33,8 @@ class BookingsNew extends Component {
     values = {...values, start_time: start_time};
 
     this.props.createBooking( id, values );
+    // const disableModal = document.getElementById('book-submit-form');
+    // disableModal.setAttribute('data-dismiss', 'modal');
     // this.setState({modal:  'modal'});
     // if( errors === '' && !this.props.formError.errors ){
 
@@ -108,7 +111,7 @@ class BookingsNew extends Component {
 
           />
 {/*data-dismiss={this.state.modal}*/}
-            <button  className="btn btn-primary" type="submit"
+            <button id="book-submit-form" data-dismiss="modal" className="btn btn-primary" type="submit"
           disabled={this.props.pristine || this.props.submitting} >
               Create Booking
             </button>
