@@ -11,7 +11,7 @@ export function fetchProfiles() {
 
 
 
-export function createBooking(id, content) {
+export function createBooking(id, content, callback) {
   const url = `/api/v1/profiles/${id}/bookings`;
 
   const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
@@ -28,6 +28,8 @@ export function createBooking(id, content) {
     body: JSON.stringify(content)
   }).then(r => r.json())
   .catch(error => error.json());
+
+
 
   return {
     type: 'BOOKING_POSTED',

@@ -5,7 +5,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
 
 
   def create
-    raise
+
     @booking = Booking.new(booking_params)
     @booking.user = current_user
     authorize @booking
@@ -13,11 +13,12 @@ class Api::V1::BookingsController < Api::V1::BaseController
     @booking.end_time = @booking.end_time.to_datetime + Time.parse("#{@booking.duration}").seconds_since_midnight.seconds
     if @booking.save # see Message.as_json method
 
-       RequestProfileSmsJob.perform_later(@booking.id)
+       #RequestProfileSmsJob.perform_later(@booking.id)
 
 
       render :create, status: :created
     else
+
      render_error
    end
   end
