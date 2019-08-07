@@ -59,6 +59,8 @@ class ProfilesIndex extends Component {
           <div className="offset-sm-3 col-sm-6">
             <a href={`/profiles/${profile.id}`} key={profile.id}>
               <div style={style}>
+                <img src={profile.photo.url} alt="" height="42" width="42" />
+
                 <h5>{profile.name}</h5>
               </div>
             </a>
@@ -69,6 +71,7 @@ class ProfilesIndex extends Component {
   }
 
   render() {
+
     return (
       <div>
         <div className="text-center">
