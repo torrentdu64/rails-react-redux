@@ -3,6 +3,8 @@ class Profile < ApplicationRecord
 
   belongs_to :user
 
+  mount_uploader :photo, PhotoUploader
+
   after_create :broadcast_message
 
    def as_json(options = {})
