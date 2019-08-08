@@ -30,7 +30,7 @@ class ProfilesController < ApplicationController
     authorize @profile
 
     if @profile.save
-      redirect_to root_path()
+      redirect_to profile_path(@profile)
     else
       render :new
     end
@@ -62,7 +62,7 @@ class ProfilesController < ApplicationController
   private
 
     def profile_params
-      params.require(:profile).permit(:name, :description, :phone)
+      params.require(:profile).permit(:name, :description, :phone, :photo)
     end
 
    def set_profile
