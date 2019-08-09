@@ -141,24 +141,28 @@ class BookingsNew extends Component {
 
 
 
-  renderBusy = async  ()   =>  {
+  renderBusy =   ()   =>  {
 
 // https://github.com/Hacker0x01/react-datepicker/blob/master/docs-site/src/examples/inject_times.jsx
-     await this.props.busy.map( b => {
+     let res = []
+     return res =  this.props.busy.map( b => {
        const today = new Date(b.start_time);
 
-       const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+       const date = today
 
        const hours = today.getHours();
        const min = today.getMinutes();
 
-       const res =  [setHours(setMinutes(date, min), hours)];
-      debugger
-
+        return  setHours(setMinutes(date, min), hours);
+        // debugger
+        // return [setHours(setMinutes(new Date(), 0), 17), setHours(setMinutes(new Date(), 30), 18), setHours(setMinutes(new Date(), 30), 19), setHours(setMinutes(new Date(), 30), 17)]
 
       // return  new Date( b.start_time)
 
     });
+
+      debugger;
+      return [setHours(setMinutes(new Date(), 0), 17), setHours(setMinutes(new Date(), 30), 18), setHours(setMinutes(new Date(), 30), 19), setHours(setMinutes(new Date(), 30), 17)]
 
   }
 
@@ -195,8 +199,8 @@ class BookingsNew extends Component {
                 onChange={this.handleChange}
                 showTimeSelect
                 dateFormat="Pp"
-                 dateFormat="MMMM d, yyyy h:mm aa"
-                includeTimes={this.renderBusy()}
+
+                excludeTimes={this.renderBusy()}
 
 
 
