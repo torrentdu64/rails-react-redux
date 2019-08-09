@@ -3,12 +3,11 @@ export default function( state = [] , action){
     return {}
   }
   switch(action.type) {
-      case 'BOOKING_POSTED':
+
+      case 'FETCH_PROFILE_BUSY_TIME':
 
         return action.payload;
-      // case 'FETCH_PROFILE_BUSY_TIME':
 
-      //   return action.payload;
   default:
       return state;
   }

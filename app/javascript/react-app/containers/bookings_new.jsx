@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import DatePicker from "react-datepicker";
+import setMinutes from "date-fns/setMinutes";
+import setHours from "date-fns/setHours";
 
 import { createBooking, fetchProfileBusyTime } from '../actions';
 
@@ -39,7 +41,8 @@ class BookingsNew extends Component {
 
   componentDidMount() {
       const { id } = this.props.match.params;
-      const tab = this.props.fetchProfileBusyTime(id);
+       this.props.fetchProfileBusyTime(id);
+
 
   }
 
@@ -138,6 +141,29 @@ class BookingsNew extends Component {
 
 
 
+  renderBusy = async  ()   =>  {
+
+// https://github.com/Hacker0x01/react-datepicker/blob/master/docs-site/src/examples/inject_times.jsx
+     await this.props.busy.map( b => {
+       const today = new Date(b.start_time);
+
+       const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
+       const hours = today.getHours();
+       const min = today.getMinutes();
+
+       const res =  [setHours(setMinutes(date, min), hours)];
+      debugger
+
+
+      // return  new Date( b.start_time)
+
+    });
+
+  }
+
+
+
 
   render() {
     // console.log("my props",this.props.formError.errors);
@@ -169,6 +195,11 @@ class BookingsNew extends Component {
                 onChange={this.handleChange}
                 showTimeSelect
                 dateFormat="Pp"
+                 dateFormat="MMMM d, yyyy h:mm aa"
+                includeTimes={this.renderBusy()}
+
+
+
                 minDate={new Date()}
                 component={this.DatePicker}
 
@@ -196,7 +227,8 @@ class BookingsNew extends Component {
         </form>
 
         <div>
-          {this.props.formError.errors}
+
+
 
         </div>
       </div>
@@ -216,9 +248,13 @@ const validate = (values) => {
 };
 
 const mapStateToProps = (state) => {
-    return { formError: state.formError }
+
+    return {  formError: state.formError,
+              busy: state.busy
+     }
+
 }
 
 export default reduxForm({ form: 'newBookingForm', validate  })(
-  connect(mapStateToProps, { createBooking, fetchProfileBusyTime })(BookingsNew)
+  connect(mapStateToProps, { createBooking, fetchProfileBusyTime})(BookingsNew)
 );
