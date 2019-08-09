@@ -19,7 +19,7 @@ Rails.application.routes.draw do
       match '/sms' => 'bookings#reply', :via => :get
       resources :profiles, only: [ :index, :show ] do
         resources :bookings, only: [ :create ]
-
+        get 'busy', to: "bookings#booking_time"
       end
     end
   end

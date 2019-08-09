@@ -18,6 +18,10 @@ class BookingPolicy < ApplicationPolicy
     true
   end
 
+  def booking_time?
+    true
+  end
+
 
 
 end

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import DatePicker from "react-datepicker";
 
-import { createBooking } from '../actions';
+import { createBooking, fetchProfileBusyTime } from '../actions';
 
 
 
@@ -37,11 +37,18 @@ class BookingsNew extends Component {
 
   }
 
+  componentDidMount() {
+      const { id } = this.props.match.params;
+      const tab = this.props.fetchProfileBusyTime(id);
+
+  }
+
   componentWillReceiveProps  = (nextProps, nextState) => {
-     console.log("api =>>>>>>>>>>>" , nextProps.formError.errors );
-    console.log("api =>>>>>>>>>>>" , nextProps.formError.id );
+    //  console.log("api =>>>>>>>>>>>" , nextProps.formError.errors );
+    // console.log("api =>>>>>>>>>>>" , nextProps.formError.id );
     // const dismissModal = document.getElementById('book-submit-form');
       // dismissModal.setAttribute('data-dismiss', '');
+
     if(nextProps.formError.errors && nextProps.formError.errors.length){
 
       // dismissModal.setAttribute('data-dismiss', '');
@@ -162,6 +169,7 @@ class BookingsNew extends Component {
                 onChange={this.handleChange}
                 showTimeSelect
                 dateFormat="Pp"
+                minDate={new Date()}
                 component={this.DatePicker}
 
               />
@@ -189,6 +197,7 @@ class BookingsNew extends Component {
 
         <div>
           {this.props.formError.errors}
+
         </div>
       </div>
     );
@@ -211,5 +220,5 @@ const mapStateToProps = (state) => {
 }
 
 export default reduxForm({ form: 'newBookingForm', validate  })(
-  connect(mapStateToProps, { createBooking })(BookingsNew)
+  connect(mapStateToProps, { createBooking, fetchProfileBusyTime })(BookingsNew)
 );
