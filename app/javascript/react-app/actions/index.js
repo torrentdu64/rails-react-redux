@@ -46,6 +46,7 @@ export function appendMessage(message) {
 }
 
 export function fetchProfileBusyTime(id) {
+
   // AJAX request
   const promise = fetch(`/api/v1/profiles/${id}/busy`)
     .then(response => response.json());

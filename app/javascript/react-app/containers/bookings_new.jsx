@@ -20,10 +20,15 @@ class BookingsNew extends Component {
       this.handleChange = this.handleChange.bind(this);
     }
 
+
+
     handleChange(date) {
       this.setState({
         startDate: date
       });
+      const { id } = this.props.match.params;
+      this.props.fetchProfileBusyTime(id );
+
     }
 
 
@@ -40,17 +45,18 @@ class BookingsNew extends Component {
   }
 
   componentDidMount() {
-      const { id } = this.props.match.params;
-       this.props.fetchProfileBusyTime(id);
-
-
+     const { id } = this.props.match.params;
+      this.props.fetchProfileBusyTime(id );
   }
+
+
 
   componentWillReceiveProps  = (nextProps, nextState) => {
     //  console.log("api =>>>>>>>>>>>" , nextProps.formError.errors );
     // console.log("api =>>>>>>>>>>>" , nextProps.formError.id );
     // const dismissModal = document.getElementById('book-submit-form');
       // dismissModal.setAttribute('data-dismiss', '');
+
 
     if(nextProps.formError.errors && nextProps.formError.errors.length){
 
@@ -117,7 +123,8 @@ class BookingsNew extends Component {
   //   }
   // }
   //
-  renderBtnSubmit =() => {
+
+  renderBtnSubmit = () => {
     if(this.state.modal){
       return (
          <button  className="btn btn-success" data-dismiss="modal"
@@ -142,18 +149,59 @@ class BookingsNew extends Component {
 
 
   renderBusy =   ()   =>  {
+    // debugger
+    // if( this.state.startDate === this.props.busy){
+    //   debugger;
+    // }else {
+    //    this.state.startDate === this.props.busy
+    //   debugger;
+    // }
+
+
 
 // https://github.com/Hacker0x01/react-datepicker/blob/master/docs-site/src/examples/inject_times.jsx
-     let res = []
-     return res =  this.props.busy.map( b => {
-       const today = new Date(b.start_time);
+     let res = [];
+     res =  this.props.busy.map( b => {
 
-       const date = today
+       let today = new Date(b.start_time);
+       let select_day = new Date(this.state.startDate).getDate();
+       if( select_day === today.getDate()) {
 
-       const hours = today.getHours();
-       const min = today.getMinutes();
+       let date = today
+
+       let hours = today.getHours();
+       let min = today.getMinutes();
+
+
+
+
+
+
+          return  setHours(setMinutes(date, min), hours);
+        }
+        // debugger
+        // return [setHours(setMinutes(new Date(), 0), 17), setHours(setMinutes(new Date(), 30), 18), setHours(setMinutes(new Date(), 30), 19), setHours(setMinutes(new Date(), 30), 17)]
+
+      // return  new Date( b.start_time)
+
+    });
+    let res_2 = [];
+    res_2 =  this.props.busy.map( b => {
+       let today = new Date(b.end_time);
+       let select_day = new Date(this.state.startDate).getDate();
+        if( select_day === today.getDate()) {
+       let date = today
+
+       let hours = today.getHours();
+       let min = today.getMinutes();
+
+
+
+
+
 
         return  setHours(setMinutes(date, min), hours);
+      }
         // debugger
         // return [setHours(setMinutes(new Date(), 0), 17), setHours(setMinutes(new Date(), 30), 18), setHours(setMinutes(new Date(), 30), 19), setHours(setMinutes(new Date(), 30), 17)]
 
@@ -161,8 +209,11 @@ class BookingsNew extends Component {
 
     });
 
-      debugger;
-      return [setHours(setMinutes(new Date(), 0), 17), setHours(setMinutes(new Date(), 30), 18), setHours(setMinutes(new Date(), 30), 19), setHours(setMinutes(new Date(), 30), 17)]
+
+      return [ ...res, ...res_2 ];
+
+
+
 
   }
 
@@ -199,7 +250,6 @@ class BookingsNew extends Component {
                 onChange={this.handleChange}
                 showTimeSelect
                 dateFormat="Pp"
-
                 excludeTimes={this.renderBusy()}
 
 

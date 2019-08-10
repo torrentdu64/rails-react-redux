@@ -12,7 +12,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
     @booking.end_time = @booking.start_time
     @booking.end_time = @booking.end_time.to_datetime + Time.parse("#{@booking.duration}").seconds_since_midnight.seconds
     if @booking.save # see Message.as_json method
-
+    #binding.pry
        #RequestProfileSmsJob.perform_later(@booking.id)
 
 
