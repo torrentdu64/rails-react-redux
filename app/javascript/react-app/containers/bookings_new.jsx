@@ -315,14 +315,17 @@ class BookingsNew extends Component {
 
        let hours = today.getHours();
        let min = today.getMinutes();
-
-
+        let sisi = {};
+      if(min > 0 && duration_hour === 1){
+           debugger
+          sisi = setHours(setMinutes(new Date(b.start_time), + 0 ), + duration_hour);
+        }
 
 
 
         var i;
         for (i = 0; i < duration_hour; i++) {
-          let  hour_tab = setHours(setMinutes(date, min ), hours + duration_hour );
+          let  hour_tab = setHours(setMinutes(date, + 0 ), hours + duration_hour );
 
           return hour_tab;
         }
@@ -391,10 +394,19 @@ class BookingsNew extends Component {
        let hours = today.getHours();
        let min = today.getMinutes();
 
+        let sisi = {};
+
+        if( min > 0) {
+           sisi = setHours(setMinutes(new Date(b.start_time), 0 ), + 1);
+        }else if (min == 0) {
+           sisi = setHours(setMinutes(new Date(b.start_time), 30 ), hours);
+           debugger
+        }else if( min > 0 && duration_hour === 1){
+          sisi = setHours(setMinutes(new Date(b.start_time), 0 ), + duration_hour);
+           debugger
+        }
 
 
-       let sisi = setHours(setMinutes(new Date(b.start_time), 0 ), + 1);
-        debugger
         return sisi;
 
         // var i;
