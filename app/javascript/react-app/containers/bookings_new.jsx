@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
+import moment from 'moment'
+import Moment from 'react-moment';
+
 import DatePicker from "react-datepicker";
 import setMinutes from "date-fns/setMinutes";
 import setHours from "date-fns/setHours";
@@ -227,68 +230,75 @@ class BookingsNew extends Component {
 
 
 
-    let between_minutes = [];
-    between_minutes =  this.props.busy.map( b => {
-       let today = new Date(b.start_time);
-       let select_day = new Date(this.state.startDate).getDate();
-        if( select_day === today.getDate()) {
+    // let between_minutes = [];
+    // between_minutes =  this.props.busy.map( b => {
 
-        let duration_minute =  new Date(b.duration).getMinutes();
+    //    let today = new Date(b.start_time);
+    //    if(today === undefined){
+    //     let today = new Date(b.start_time);
+    //     }
+    //    let select_day = new Date(this.state.startDate).getDate();
+    //     if( select_day === today.getDate()) {
 
-
-       let date = today
-
-       let hours = today.getHours();
-       let min = today.getMinutes();
-
-       let duration_hour = new Date(b.duration).getHours();
-        const abac = {
-          30: 1,
-          1: 2,
-          31: 3,
-          2: 4,
-          32: 5
-        };
-        const  number_duration = duration_hour + duration_minute;
-
-        var i;
-        for(i = 0; i < abac[number_duration]; i++)  {
-
-          return setHours(setMinutes(date, min + 30 ), hours);
-        }
+    //     let duration_minute =  new Date(b.duration).getMinutes();
+    //     let duration_hour = new Date(b.duration).getHours();
 
 
+    //    let date = today
 
-      // if( duration_hour === 1 ){
+    //    let hours = today.getHours();
+    //    let min = today.getMinutes();
 
-      //     if(duration_minute === 30){
 
+    //     const abac = {
 
-      //       return setHours(setMinutes(date, min), hours + 1  ) ;
+    //       1: 2,
+    //       30: 1,
+    //       31: 3,
+    //       2: 4,
+    //       32: 5
+    //     };
+    //     const  number_duration = duration_hour + duration_minute;
 
-      //     }
+    //     var i;
+    //     for(i = 0; i < abac[number_duration]; i++)  {
 
-      //     if(min === 30 ){
-
-      //       return setHours(setMinutes(date, min + 30 ), hours + 1  );
-
-      //     }
-
-      //     return setHours(setMinutes(date, min + 30 ), hours  );
-
-      //  }
+    //       return setHours(setMinutes(date, min + 30 ), hours);
+    //     }
 
 
 
+    //   // if( duration_hour === 1 ){
 
-      //   return  setHours(setMinutes(date, min ), hours);
-      }
-        // debugger
-        // return [setHours(setMinutes(new Date(), 0), 17), setHours(setMinutes(new Date(), 30), 18), setHours(setMinutes(new Date(), 30), 19), setHours(setMinutes(new Date(), 30), 17)]
+    //   //     if(duration_minute === 30){
 
-      // return  new Date( b.start_time)
 
-    });
+    //   //       return setHours(setMinutes(date, min), hours + 1  ) ;
+
+    //   //     }
+
+    //   //     if(min === 30 ){
+
+    //   //       return setHours(setMinutes(date, min + 30 ), hours + 1  );
+
+    //   //     }
+
+    //   //     return setHours(setMinutes(date, min + 30 ), hours  );
+
+    //   //  }
+
+
+
+
+    //   //   return  setHours(setMinutes(date, min ), hours);
+
+    //   }
+    //     // debugger
+    //     // return [setHours(setMinutes(new Date(), 0), 17), setHours(setMinutes(new Date(), 30), 18), setHours(setMinutes(new Date(), 30), 19), setHours(setMinutes(new Date(), 30), 17)]
+
+    //   // return  new Date( b.start_time)
+
+    // });
 
 
      let between_hours = [];
@@ -299,22 +309,35 @@ class BookingsNew extends Component {
 
 
         let duration_hour = new Date(b.duration).getHours();
+        let duration_minute = new Date(b.duration).getMinutes();
 
-        let date = today
+        let date = today;
 
        let hours = today.getHours();
        let min = today.getMinutes();
 
-       if(duration_hour === 1){
-        return setHours(setMinutes(date, min + 30 ), hours );
-       }
-       if(duration_hour === 2){
+
+
+
+
         var i;
         for (i = 0; i < duration_hour; i++) {
-          return setHours(setMinutes(date, min + 30 ), hours + 1 );
+          let  hour_tab = setHours(setMinutes(date, min ), hours + duration_hour );
+
+          return hour_tab;
         }
 
-       }
+
+       // if(duration_hour === 1){
+       //  return setMinutes(date, min + 30 );
+       // }
+       // if(duration_hour === 2){
+       //  var i;
+       //  for (i = 0; i < duration_hour; i++) {
+       //    return setHours(setMinutes(date, min + 30 ), hours + 1 );
+       //  }
+
+      // }
 
         // switch( duration) {
 
@@ -353,6 +376,89 @@ class BookingsNew extends Component {
 
     });
 
+    let  between_minutes = [];
+    between_minutes =  this.props.busy.map( b => {
+       let today = new Date(b.start_time);
+       let select_day = new Date(this.state.startDate).getDate();
+        if( select_day === today.getDate()) {
+
+
+        let duration_hour = new Date(b.duration).getHours();
+        let duration_minute = new Date(b.duration).getMinutes();
+
+        let date = today;
+
+       let hours = today.getHours();
+       let min = today.getMinutes();
+
+
+
+       let sisi = setHours(setMinutes(new Date(b.start_time), 0 ), + 1);
+        debugger
+        return sisi;
+
+        // var i;
+        // for (i = 0; i < duration_hour; i++) {
+        //   if (duration_minute > 0){
+
+
+
+
+
+          // return min_tab;
+          }
+
+
+
+
+       // if(duration_hour === 1){
+       //  return setMinutes(date, min + 30 );
+       // }
+       // if(duration_hour === 2){
+       //  var i;
+       //  for (i = 0; i < duration_hour; i++) {
+       //    return setHours(setMinutes(date, min + 30 ), hours + 1 );
+       //  }
+
+      // }
+
+        // switch( duration) {
+
+        //   case duration_min === 30:
+        //     return  setHours(setMinutes(date, min + duration_min), hours );
+        //   case duration_hour === 1:
+        //     return setHours(setMinutes(date, min ), hours + duration_hour);
+        //   case duration_hour === 1 && duration_min === 30:
+        //     return setHours(setMinutes(date, min + duration_min  ), hours + duration_hour);
+        // default:
+        //     return state;
+        // }
+
+       // switch(b.duration > ) {
+
+       //  case :
+
+       //    return ;
+
+       //  default:
+       //      return state;
+       //  }
+
+
+
+
+
+
+
+        // return  setHours(setMinutes(date, min + duration_min), hours + duration_hour);
+
+        // debugger
+        // return [setHours(setMinutes(new Date(), 0), 17), setHours(setMinutes(new Date(), 30), 18), setHours(setMinutes(new Date(), 30), 19), setHours(setMinutes(new Date(), 30), 17)]
+
+      // return  new Date( b.start_time)
+
+    });
+
     let res_2 = [];
     res_2 =  this.props.busy.map( b => {
        let today = new Date(b.end_time);
@@ -377,8 +483,9 @@ class BookingsNew extends Component {
 
     });
 
+      // debugger
 
-      return [ ...res, ...res_2, ...between_minutes ];
+      return [ ...res, ...res_2, ...between_hours, ...between_minutes];
 
 
 
