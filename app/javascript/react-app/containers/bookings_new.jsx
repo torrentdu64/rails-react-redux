@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import moment from 'moment'
 import Moment from 'react-moment';
+import _ from 'lodash';
 
 import DatePicker from "react-datepicker";
 import setMinutes from "date-fns/setMinutes";
@@ -497,7 +498,7 @@ class BookingsNew extends Component {
         return min_tab;
       }
       if( duration_hour === 1  && duration_minute > 0 && min === 0) {
-        debugger
+
         let  min_tab = setMinutes(date, min + 30 );
         let  min_tab_2 = setMinutes(date, min + 30 );
         return [[min_tab], [min_tab_2]];
@@ -511,7 +512,7 @@ class BookingsNew extends Component {
 
         let min_tab = setMinutes(date, min + 30 );
         let min_tab_2 = setMinutes(date, min + 30 );
-        debugger
+
         return min_tab_2;
       }
       //  if( duration_hour === 1 && duration_minute > 0 && min === 0  ) {
@@ -707,7 +708,82 @@ let busy_hour = [];
 
 
 
+
+
         return  setHours(setMinutes(date, min), hours);
+      }
+        // debugger
+        // return [setHours(setMinutes(new Date(), 0), 17), setHours(setMinutes(new Date(), 30), 18), setHours(setMinutes(new Date(), 30), 19), setHours(setMinutes(new Date(), 30), 17)]
+
+      // return  new Date( b.start_time)
+
+    });
+        let test = [];
+    test =  this.props.busy.map( b => {
+       let today = new Date(b.start_time);
+       let select_day = new Date(this.state.startDate).getDate();
+        if( select_day === today.getDate()) {
+       let date = today
+
+       let hours = today.getHours();
+       let min = today.getMinutes();
+
+
+        let duration_hour = new Date(b.duration).getHours();
+        let duration_minute = new Date(b.duration).getMinutes();
+
+      let busy_time = [];
+
+      const hour_concat = duration_hour.toString();
+      const min_concat = duration_minute.toString();
+
+      const duration_time = hour_concat + min_concat;
+      const duration_time_interger = parseInt(duration_time);
+
+      const abac = {
+        30: 1,
+        10: 2,
+       130: 3
+      }
+
+      const start_busy_time = b.start_time;
+
+      if(abac[duration_time_interger] === 1){
+        moment(start_busy_time).add( 30, 'm').toDate();
+      }
+      if( abac[duration_time_interger] === 2){
+        busy_time.push(moment(start_busy_time).add( 30, 'm').toDate());
+        // busy_time.push(moment(start_busy_time).add( 1, 'h').toDate());
+
+        let minute_set = busy_time[0].getMinutes();
+        let hour_set = busy_time[0].getHours();
+
+        return new Date(start_busy_time).setMinutes(minute_set);
+      }
+      if(abac[duration_time_interger] === 3){
+        busy_time.push(moment(start_busy_time).add( 30, 'm').add( 1, 'h').toDate());
+        // busy_time.push(moment(start_busy_time).add( 1, 'h').toDate());
+
+        let minute_set = busy_time[0].getMinutes();
+        let hour_set = busy_time[0].getHours();
+
+        return [new Date(start_busy_time).setMinutes(minute_set), new Date(start_busy_time).setHours(hour_set)];
+
+      }
+
+      // let minut = 0;
+      // var i;
+      // for (i = 0; i < abac[duration_time_interger]; i++) {
+
+
+      //     busy_time.push( moment(b.start_time).add( 30, 'm').toDate() );
+      // }
+
+
+
+
+
+
       }
         // debugger
         // return [setHours(setMinutes(new Date(), 0), 17), setHours(setMinutes(new Date(), 30), 18), setHours(setMinutes(new Date(), 30), 19), setHours(setMinutes(new Date(), 30), 17)]
@@ -717,8 +793,9 @@ let busy_hour = [];
     });
 
       // debugger
-
-      return [ ...res, ...res_2, ...busy_min, ...busy_hour];
+    test
+debugger
+      return [ ...res, ...res_2, ...test ];
 
 
 

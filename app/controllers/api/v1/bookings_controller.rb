@@ -30,7 +30,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
 
   def booking_time
     @booking = Booking.where(profile_id: params[:profile_id]).where("start_time >= ?", Time.now)
-
+    #binding.pry
      authorize @booking
     render :booking_time, status: 200
   end
