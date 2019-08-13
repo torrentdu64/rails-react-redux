@@ -761,13 +761,15 @@ let busy_hour = [];
         return new Date(start_busy_time).setMinutes(minute_set);
       }
       if(abac[duration_time_interger] === 3){
-        busy_time.push(moment(start_busy_time).add( 30, 'm').add( 1, 'h').toDate());
-        // busy_time.push(moment(start_busy_time).add( 1, 'h').toDate());
+        busy_time.push(moment(start_busy_time).add( 30, 'm').toDate());
+        busy_time.push(moment(start_busy_time).add( 1, 'h').toDate());
 
         let minute_set = busy_time[0].getMinutes();
-        let hour_set = busy_time[0].getHours();
+        let hour_set = busy_time[1].getHours();
 
-        return [new Date(start_busy_time).setMinutes(minute_set), new Date(start_busy_time).setHours(hour_set)];
+
+
+        return new Date(start_busy_time).setMinutes(minute_set), new Date(start_busy_time).setHours(hour_set) ;
 
       }
 
