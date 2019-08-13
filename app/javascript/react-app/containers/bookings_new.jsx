@@ -317,18 +317,19 @@ class BookingsNew extends Component {
        let min = today.getMinutes();
         let sisi = {};
       if(min > 0 && duration_hour === 1){
-           debugger
+           // debugger
           sisi = setHours(setMinutes(new Date(b.start_time), + 0 ), + duration_hour);
         }
 
 
 
-        var i;
-        for (i = 0; i < duration_hour; i++) {
-          let  hour_tab = setHours(setMinutes(date, + 0 ), hours + duration_hour );
 
-          return hour_tab;
-        }
+        // var i;
+        // for (i = 0; i < duration_hour; i++) {
+        //   let  hour_tab = setHours(setMinutes(date, + 0 ), hours + duration_hour );
+
+        //   return hour_tab;
+        // }
 
 
        // if(duration_hour === 1){
@@ -400,10 +401,10 @@ class BookingsNew extends Component {
            sisi = setHours(setMinutes(new Date(b.start_time), 0 ), + 1);
         }else if (min == 0) {
            sisi = setHours(setMinutes(new Date(b.start_time), 30 ), hours);
-           debugger
+           // debugger
         }else if( min > 0 && duration_hour === 1){
           sisi = setHours(setMinutes(new Date(b.start_time), 0 ), + duration_hour);
-           debugger
+           // debugger
         }
 
 
@@ -471,6 +472,226 @@ class BookingsNew extends Component {
 
     });
 
+    let busy_min = [];
+    busy_min =  this.props.busy.map( b => {
+       let today = new Date(b.start_time);
+       let select_day = new Date(this.state.startDate).getDate();
+        if( select_day === today.getDate()) {
+
+
+        let duration_hour = new Date(b.duration).getHours();
+        let duration_minute = new Date(b.duration).getMinutes();
+
+        let date = today;
+
+       let hours = today.getHours();
+       let min = today.getMinutes();
+
+
+      if( duration_minute > 0  && min === 0 || min > 1) {
+        let  min_tab = setMinutes(date, min + 30 );
+        return min_tab;
+      }
+      if( duration_hour === 1  && min === 0 ) {
+        let  min_tab = setMinutes(date, min + 30 );
+        return min_tab;
+      }
+      if( duration_hour === 1  && duration_minute > 0 && min === 0) {
+        debugger
+        let  min_tab = setMinutes(date, min + 30 );
+        let  min_tab_2 = setMinutes(date, min + 30 );
+        return [[min_tab], [min_tab_2]];
+      }
+      if( duration_hour === 1  && duration_minute > 0 && min > 0) {
+        let  min_tab = setMinutes(date, min + 30 );
+        return min_tab;
+      }
+
+      if( duration_hour === 2 ) {
+
+        let min_tab = setMinutes(date, min + 30 );
+        let min_tab_2 = setMinutes(date, min + 30 );
+        debugger
+        return min_tab_2;
+      }
+      //  if( duration_hour === 1 && duration_minute > 0 && min === 0  ) {
+      //   debugger
+      //   let  min_tab = setMinutes(date, min + 30 );
+      //   let  min_tab_2 = setMinutes(date, min + 30 );
+      //   return [[min_tab], [min_tab_2]];
+      // }
+
+
+
+
+        // const abac = {
+        //   1: 2,
+        //   30: 1,
+        //   31: 3,
+        //   2: 4,
+        //   32: 5
+        // };
+
+        // const  number_duration = duration_hour + duration_minute;
+        // let newDateObj = [];
+        // var i;
+        // for (i = 0; i < abac[number_duration]; i++) {
+        //    newDateObj.push(moment(new Date(date)).add( 30, 'm').toDate())
+        // }
+
+        // 30 min +30
+        //
+        // 1 hour + 30 + 30
+
+
+
+       // return newDateObj;
+
+
+
+
+
+      // if( duration_hour === 0 && duration_minute > 1 && min === 0 ){
+      //   let  min_tab = setHours(setMinutes(date, min + duration_minute ), hours);
+      //   return min_tab;
+      //   // var i;
+      //   // for (i = 0; i < duration_hour; i++) {
+      //   //   let  min_tab = setHours(setMinutes(date, min + 30 ), hours   );
+
+      //   //   // debugger
+      //   //   // let  hour_tab = setHours(setMinutes(date, duration_minute ), hours + 1 );
+
+      //   //   return min_tab;
+      //   // }
+      // }
+
+      // if( duration_hour === 0 && duration_minute > 1 && min >= 30){
+      //   let  min_tab = setHours(setMinutes(date, min + duration_minute ), hours);
+      //   return min_tab;
+      // }
+
+      // if( duration_hour >= 1 && duration_minute == 0 ){
+
+
+
+
+      //     let  min_tab = setHours(setMinutes(date, min + 30 ), hours );
+      //     let  hour_tab = setHours(setMinutes(date, min ), hours + duration_hour);
+      //     debugger
+      //     return [min_tab, hour_tab];
+
+
+      // }
+
+
+        // if(duration_hour === 0 && duration_minute > 1 && min === 0 ){
+
+        //   var i;
+        //   for (i = 0; i < duration_hour; i++) {
+        //     let  min_tab = setHours(setMinutes(date, min + duration_minute ), hours  );
+        //     // let  hour_tab = setHours(setMinutes(date, 0 ), hours + duration_hour );
+
+        //     return min_tab;
+        //   }
+        // }
+
+
+       // if(duration_hour === 1){
+       //  return setMinutes(date, min + 30 );
+       // }
+       // if(duration_hour === 2){
+       //  var i;
+       //  for (i = 0; i < duration_hour; i++) {
+       //    return setHours(setMinutes(date, min + 30 ), hours + 1 );
+       //  }
+
+      // }
+
+        // switch( duration) {
+
+        //   case duration_min === 30:
+        //     return  setHours(setMinutes(date, min + duration_min), hours );
+        //   case duration_hour === 1:
+        //     return setHours(setMinutes(date, min ), hours + duration_hour);
+        //   case duration_hour === 1 && duration_min === 30:
+        //     return setHours(setMinutes(date, min + duration_min  ), hours + duration_hour);
+        // default:
+        //     return state;
+        // }
+
+       // switch(b.duration > ) {
+
+       //  case :
+
+       //    return ;
+
+       //  default:
+       //      return state;
+       //  }
+
+
+
+
+
+
+
+        // return  setHours(setMinutes(date, min + duration_min), hours + duration_hour);
+      }
+        // debugger
+        // return [setHours(setMinutes(new Date(), 0), 17), setHours(setMinutes(new Date(), 30), 18), setHours(setMinutes(new Date(), 30), 19), setHours(setMinutes(new Date(), 30), 17)]
+
+      // return  new Date( b.start_time)
+
+    });
+
+let busy_hour = [];
+    busy_hour =  this.props.busy.map( b => {
+       let today = new Date(b.start_time);
+       let select_day = new Date(this.state.startDate).getDate();
+      if( select_day === today.getDate()) {
+
+
+        let duration_hour = new Date(b.duration).getHours();
+        let duration_minute = new Date(b.duration).getMinutes();
+
+        let date = today;
+
+       let hours = today.getHours();
+       let min = today.getMinutes();
+
+
+
+
+        if( duration_hour === 1 && duration_minute > 0  && min === 0 ) {
+
+          let  hour_tab = setHours(date, hours + 1);
+
+          return hour_tab;
+        }
+        if( duration_hour === 1 && duration_minute > 0  && min > 0 ) {
+
+          let  hour_tab = setHours(date, hours + 1);
+
+          return hour_tab;
+        }
+        if( duration_hour === 2 && duration_minute === 0  && min == 0 ) {
+
+          let  hour_tab = setHours(setMinutes(date, min + 30  ), hours + 1 );
+
+
+          return hour_tab;
+        }
+      //  if( duration_hour === 1 && duration_minute > 0 && min === 0  ) {
+      //   debugger
+      //   let  min_tab = setMinutes(date, min + 30 );
+      //   let  min_tab_2 = setMinutes(date, min + 30 );
+      //   return [[min_tab], [min_tab_2]];
+      // }
+    }
+  });
+
+
+
     let res_2 = [];
     res_2 =  this.props.busy.map( b => {
        let today = new Date(b.end_time);
@@ -497,7 +718,7 @@ class BookingsNew extends Component {
 
       // debugger
 
-      return [ ...res, ...res_2, ...between_hours, ...between_minutes];
+      return [ ...res, ...res_2, ...busy_min, ...busy_hour];
 
 
 
