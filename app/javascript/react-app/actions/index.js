@@ -45,10 +45,10 @@ export function appendMessage(message) {
   }
 }
 
-export function fetchProfileBusyTime(id) {
+export function fetchProfileBusyTime(id, selected_date) {
 
   // AJAX request
-  const promise = fetch(`/api/v1/profiles/${id}/busy`)
+  const promise = fetch(`/api/v1/profiles/${id}/busy?q=${selected_date}`)
     .then(response => response.json());
 
   return {

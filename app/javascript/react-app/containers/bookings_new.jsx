@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import moment from 'moment'
-import Moment from 'react-moment';
-import _ from 'lodash';
+// import Moment from 'react-moment';
+// import _ from 'lodash';
 
 import DatePicker from "react-datepicker";
 import setMinutes from "date-fns/setMinutes";
@@ -21,17 +21,21 @@ class BookingsNew extends Component {
         startDate: new Date(),
         modal: false
       };
-      this.handleChange = this.handleChange.bind(this);
+      // this.handleChange = this.handleChange.bind(this);
     }
 
 
 
-    handleChange(date) {
-      this.setState({
+    handleChange = async (date) => {
+
+      await this.setState({
         startDate: date
       });
+
       const { id } = this.props.match.params;
-      this.props.fetchProfileBusyTime(id );
+      const selected_date = this.state.startDate;
+
+      this.props.fetchProfileBusyTime(id, moment(selected_date) );
 
     }
 
@@ -50,7 +54,10 @@ class BookingsNew extends Component {
 
   componentDidMount() {
      const { id } = this.props.match.params;
-      this.props.fetchProfileBusyTime(id );
+     const selected_date = this.state.startDate;
+
+
+       this.props.fetchProfileBusyTime(id, moment(selected_date) );
   }
 
 
@@ -153,6 +160,7 @@ class BookingsNew extends Component {
 
 
   renderBusy =   ()   =>  {
+    if( this.props.busy && this.props.busy.length){
     // debugger
     // if( this.state.startDate === this.props.busy){
     //   debugger;
@@ -176,19 +184,129 @@ class BookingsNew extends Component {
        let hours = today.getHours();
        let min = today.getMinutes();
 
-
-
-
-
-
           return  setHours(setMinutes(date, min), hours);
         }
-        // debugger
-        // return [setHours(setMinutes(new Date(), 0), 17), setHours(setMinutes(new Date(), 30), 18), setHours(setMinutes(new Date(), 30), 19), setHours(setMinutes(new Date(), 30), 17)]
+    });
 
-      // return  new Date( b.start_time)
+
+     let cond = [];
+     cond =  this.props.busy.map( b => {
+
+       let today = new Date(b.start_time);
+       let select_day = new Date(this.state.startDate).getDate();
+       if( select_day === today.getDate()) {
+
+       let date = today
+
+       let hours = today.getHours();
+       let min = today.getMinutes();
+
+        let duration_hour = new Date(b.duration).getHours();
+        let duration_minute = new Date(b.duration).getMinutes();
+
+      let busy_time = [];
+
+      const hour_concat = duration_hour.toString();
+      const min_concat = duration_minute.toString();
+
+      const duration_time = hour_concat + min_concat;
+      const duration_time_interger = parseInt(duration_time);
+
+
+      if( duration_time_interger === 10){
+
+        let  min_tab = setMinutes(date, min + 30 );
+        return min_tab;
+      }
+
+
+      if( duration_time_interger === 130){
+
+        return   setMinutes(date, min + 30 ) ;
+      }
+
+      if( duration_time_interger === 20){
+
+        return   setMinutes(date, min + 30 ) ;
+      }
+    }
+
+
 
     });
+
+    let cond_2 = [];
+     cond_2 =  this.props.busy.map( b => {
+
+       let today = new Date(b.start_time);
+       let select_day = new Date(this.state.startDate).getDate();
+       if( select_day === today.getDate()) {
+
+       let date = today
+
+       let hours = today.getHours();
+       let min = today.getMinutes();
+
+        let duration_hour = new Date(b.duration).getHours();
+        let duration_minute = new Date(b.duration).getMinutes();
+
+      let busy_time = [];
+
+      const hour_concat = duration_hour.toString();
+      const min_concat = duration_minute.toString();
+
+      const duration_time = hour_concat + min_concat;
+      const duration_time_interger = parseInt(duration_time);
+
+
+      if( duration_time_interger === 130){
+
+        return   setMinutes(date, min + 60 );
+      }
+
+      if( duration_time_interger === 20){
+
+        return   setMinutes(date, min + 60 );
+      }
+
+        }
+
+    });
+
+     let cond_3 = [];
+     cond_3 =  this.props.busy.map( b => {
+
+       let today = new Date(b.start_time);
+       let select_day = new Date(this.state.startDate).getDate();
+       if( select_day === today.getDate()) {
+
+       let date = today
+
+       let hours = today.getHours();
+       let min = today.getMinutes();
+
+        let duration_hour = new Date(b.duration).getHours();
+        let duration_minute = new Date(b.duration).getMinutes();
+
+      let busy_time = [];
+
+      const hour_concat = duration_hour.toString();
+      const min_concat = duration_minute.toString();
+
+      const duration_time = hour_concat + min_concat;
+      const duration_time_interger = parseInt(duration_time);
+
+
+
+      if( duration_time_interger === 20){
+
+        return   setMinutes(date, min + 90 );
+      }
+
+        }
+
+    });
+
 
 
     //  let between = [];
@@ -218,7 +336,7 @@ class BookingsNew extends Component {
     //     // return 2 obj
     //     let set_between_one = setHours(setMinutes(date, min + duration_minute ), hours  );
     //     let set_between_two = setHours(setMinutes(date, min ), hours + duration_hour );
-    //     debugger
+    //
     //     return {set_between_one , set_between_two}
     //    }
 
@@ -796,13 +914,14 @@ let busy_hour = [];
 
       // debugger
     test
-debugger
-      return [ ...res, ...res_2, ...test ];
+
+      return [ ...res, ...res_2, ...cond, ...cond_2, ...cond_3 ];
 
 
 
-
+    }
   }
+
 
 
 
@@ -834,11 +953,11 @@ debugger
                 name="start_time"
                 inline
                 selected={this.state.startDate}
-                onChange={this.handleChange}
+                onChange={  (date) => { this.handleChange(date) } }
                 showTimeSelect
                 dateFormat="Pp"
-                excludeTimes={this.renderBusy()}
 
+               excludeTimes={this.renderBusy()}
 
 
                 minDate={new Date()}
