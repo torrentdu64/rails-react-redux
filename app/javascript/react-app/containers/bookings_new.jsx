@@ -164,7 +164,7 @@ class BookingsNew extends Component {
           let date = today;
           let hours = today.getHours();
           let min = today.getMinutes();
-
+        debugger
         return  setHours(setMinutes(date, min), hours);
         }
       });
@@ -192,7 +192,7 @@ class BookingsNew extends Component {
 
 
 
-
+          debugger
           if( duration_time === "10"){
             return setMinutes(date, min + 30 );
           }
@@ -228,7 +228,7 @@ class BookingsNew extends Component {
           const duration_time = hour_concat + min_concat;
           //const duration_time_interger = parseInt(duration_time);
 
-
+          debugger
           if( duration_time === "130"){
             return setMinutes(date, min + 60 );
           }
@@ -258,7 +258,7 @@ class BookingsNew extends Component {
           const min_concat = duration_minute.toString();
           const duration_time = hour_concat + min_concat;
           //const duration_time_interger = parseInt(duration_time);
-
+          debugger
           if( duration_time === "20"){
             return setMinutes(date, min + 90 );
           }
@@ -276,7 +276,7 @@ class BookingsNew extends Component {
           let date = today
           let hours = today.getHours();
           let min = today.getMinutes();
-
+        debugger
         return  setHours(setMinutes(date, min), hours);
         }
       });
@@ -332,7 +332,8 @@ class BookingsNew extends Component {
             <Field
               label="time"
               name="duration"
-              type="time"
+              type="text"
+              pattern="[0-9]*"
               component={this.renderField}
             />
           {/*data-dismiss={this.state.modal}*/}

@@ -20,11 +20,11 @@ class ProfilePolicy < ApplicationPolicy
   end
 
   def update?
-    record.user == user
+    user_is_owner?
   end
 
   def destroy?
-    record.user == user
+    user_is_owner?
   end
 
   private

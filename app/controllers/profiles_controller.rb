@@ -17,15 +17,14 @@ class ProfilesController < ApplicationController
   end
 
   def new
-    if current_user.profile === true
+
       @profile = Profile.new
       authorize @profile
-    else
-      redirect_to root_path()
-    end
+
   end
 
   def create
+
     @profile = current_user.profiles.build(profile_params)
     authorize @profile
 
