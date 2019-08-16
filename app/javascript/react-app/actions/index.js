@@ -44,3 +44,15 @@ export function appendMessage(message) {
     payload: message
   }
 }
+
+export function fetchProfileBusyTime(id, selected_date) {
+
+  // AJAX request
+  const promise = fetch(`/api/v1/profiles/${id}/busy?q=${selected_date}`)
+    .then(response => response.json());
+
+  return {
+    type: 'FETCH_PROFILE_BUSY_TIME',
+    payload: promise
+  }
+}

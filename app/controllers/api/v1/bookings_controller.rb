@@ -12,8 +12,8 @@ class Api::V1::BookingsController < Api::V1::BaseController
     @booking.end_time = @booking.start_time
     @booking.end_time = @booking.end_time.to_datetime + Time.parse("#{@booking.duration}").seconds_since_midnight.seconds
     if @booking.save # see Message.as_json method
-
-       RequestProfileSmsJob.perform_later(@booking.id)
+    #binding.pry
+       #RequestProfileSmsJob.perform_later(@booking.id)
 
 
       render :create, status: :created
@@ -24,9 +24,25 @@ class Api::V1::BookingsController < Api::V1::BaseController
   end
 
   def reply
-
       ReplySmsJob.perform_later(params["message_id"], params["response"])
       render :reply, status: :created
+  end
+
+  def booking_time
+
+     selected_date = params[:q]
+      #binding.pry
+      #selected_date.to_date.to_formatted_s(:rfc822) #=> "14 Aug 2019"
+     # selected_date.to_datetime.to_formatted_s(:rfc822) => "Wed, 14 Aug 2019 12:24:35 +0000"
+      res =  selected_date.to_date.to_formatted_s(:rfc822)
+
+      end_point = res.to_date + 1.day
+
+    @booking = Booking.where(profile_id: params[:profile_id]).where("start_time >= ?  AND end_time <= ?", res, end_point )
+
+     authorize @booking
+
+    render :booking_time, status: 200
   end
 
   private

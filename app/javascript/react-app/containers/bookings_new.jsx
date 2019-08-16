@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form';
-import DatePicker from "react-datepicker";
+import { reduxForm, Field, reset } from 'redux-form';
+import moment from 'moment'
 
-import { createBooking } from '../actions';
+import DatePicker from "react-datepicker";
+import setMinutes from "date-fns/setMinutes";
+import setHours from "date-fns/setHours";
+
+import { createBooking, fetchProfileBusyTime } from '../actions';
 
 
 
@@ -15,18 +19,27 @@ class BookingsNew extends Component {
         startDate: new Date(),
         modal: false
       };
-      this.handleChange = this.handleChange.bind(this);
+      // this.handleChange = this.handleChange.bind(this);
     }
 
-    handleChange(date) {
-      this.setState({
+
+
+    handleChange = async (date) => {
+
+      await this.setState({
         startDate: date
       });
+
+      const { id } = this.props.match.params;
+      const selected_date = this.state.startDate;
+
+      this.props.fetchProfileBusyTime(id, moment(selected_date) );
+
     }
 
 
 
-  onSubmit = (values) => {
+  onSubmit =  (values) => {
 
     const { id } = this.props.match.params;
     const start_time = this.state.startDate;
@@ -34,29 +47,34 @@ class BookingsNew extends Component {
 
     this.props.createBooking( id, values);
 
+    const selected_date = this.state.startDate;
 
+   this.props.fetchProfileBusyTime(id, moment(selected_date) );
   }
 
+  componentDidMount() {
+    const { id } = this.props.match.params;
+    const selected_date = this.state.startDate;
+
+
+    this.props.fetchProfileBusyTime(id, moment(selected_date) );
+  }
+
+
+
   componentWillReceiveProps  = (nextProps, nextState) => {
-     console.log("api =>>>>>>>>>>>" , nextProps.formError.errors );
-    console.log("api =>>>>>>>>>>>" , nextProps.formError.id );
+    //  console.log("api =>>>>>>>>>>>" , nextProps.formError.errors );
+    // console.log("api =>>>>>>>>>>>" , nextProps.formError.id );
     // const dismissModal = document.getElementById('book-submit-form');
       // dismissModal.setAttribute('data-dismiss', '');
     if(nextProps.formError.errors && nextProps.formError.errors.length){
-
       // dismissModal.setAttribute('data-dismiss', '');
-
-    }else if(Number.isInteger(nextProps.formError.id) && nextProps.formError.id > 0){
-
-      this.setState({modal: true})
-
-      // dismissModal.setAttribute('data-dismiss', 'modal');
+    }else if(Number.isInteger(nextProps.formError.id) && nextProps.formError.id > 0   ){
 
 
+    this.props.reset();
+    // dismissModal.setAttribute('data-dismiss', 'modal');
     }
-
-
-
   }
 
 
@@ -85,64 +103,195 @@ class BookingsNew extends Component {
     );
   }
 
+  renderSuccess = async () => {
 
-  // next(){
-  //   if(this.state.modal === "modal"){
-  //     const classbtn = "btn btn-success appear";
-  //     return classbtn;
-  //   }else{
-  //     const classbtn = "btn btn-success hide";
-  //     return classbtn;
-  //   }
+    await this.setState({modal: false});
 
-  // }
+  }
 
-  // submitting(){
-  //   if(this.state.modal === ""){
-  //     const classbtn = "btn btn-success appear";
-  //     return classbtn;
-  //   }else{
-  //     const classbtn = "btn btn-success hide";
-  //     return classbtn;
-  //   }
-  // }
-  //
-  renderBtnSubmit =() => {
-    if(this.state.modal){
-      return (
-         <button  className="btn btn-success" data-dismiss="modal"
-           >
-              Great Success
-          </button>
-        );
+  renderCreateBooking =  () => {
+
+    this.setState({modal: true});
+    const { id } = this.props.match.params;
+    const selected_date = this.state.startDate;
 
 
-    }else{
-      return(
-         <button id="book-submit-form" className="btn btn-primary" type="submit"
-          disabled={  this.props.pristine || this.props.submitting} >
-              Create Booking
-          </button>
-        );
+    this.props.fetchProfileBusyTime(id, moment(selected_date) );
 
 
-    }
   }
 
 
 
 
+
+  renderBtnSubmit = () => {
+    if(this.state.modal){
+
+      return (
+         <button  className="btn btn-success" data-dismiss="modal"
+          onClick={this.renderSuccess}
+           >
+              Great Success
+          </button>
+      );
+
+
+    }else{
+      return(
+         <button id="book-submit-form" className="btn btn-primary" type="submit"
+          disabled={  this.props.pristine || this.props.submitting} onClick={this.renderCreateBooking}>
+              Create Booking
+          </button>
+      );
+    }
+  }
+
+
+
+  renderBusy =   ()   =>  {
+
+    if( this.props.busy && this.props.busy.length){
+        // https://github.com/Hacker0x01/react-datepicker/blob/master/docs-site/src/examples/inject_times.jsx
+      let res = [];
+      res =  this.props.busy.map( b => {
+
+        let today = new Date(b.start_time);
+        let select_day = new Date(this.state.startDate).getDate();
+
+        if( select_day === today.getDate()) {
+
+          let date = today;
+          let hours = today.getHours();
+          let min = today.getMinutes();
+
+        return  setHours(setMinutes(date, min), hours);
+        }
+      });
+
+
+      let cond = [];
+      cond =  this.props.busy.map( b => {
+
+        let today = new Date(b.start_time);
+        let select_day = new Date(this.state.startDate).getDate();
+
+        if( select_day === today.getDate()) {
+
+          let date = today;
+          let hours = today.getHours();
+          let min = today.getMinutes();
+
+          let duration_hour = new Date(b.duration).getHours();
+          let duration_minute = new Date(b.duration).getMinutes();
+
+          const hour_concat = duration_hour.toString();
+          const min_concat = duration_minute.toString();
+          const duration_time = hour_concat + min_concat;
+          //const duration_time_interger = parseInt(duration_time);
+
+
+
+
+          if( duration_time === "10"){
+            return setMinutes(date, min + 30 );
+          }
+
+          if( duration_time === "130"){
+            return setMinutes(date, min + 30 );
+          }
+
+          if( duration_time === "20"){
+            return setMinutes(date, min + 30 );
+          }
+        }
+      });
+
+      let cond_2 = [];
+      cond_2 =  this.props.busy.map( b => {
+
+      let today = new Date(b.start_time);
+      let select_day = new Date(this.state.startDate).getDate();
+
+        if( select_day === today.getDate()) {
+
+          let date = today;
+          let hours = today.getHours();
+          let min = today.getMinutes();
+
+          let duration_hour = new Date(b.duration).getHours();
+          let duration_minute = new Date(b.duration).getMinutes();
+
+          const hour_concat = duration_hour.toString();
+          const min_concat = duration_minute.toString();
+
+          const duration_time = hour_concat + min_concat;
+          //const duration_time_interger = parseInt(duration_time);
+
+
+          if( duration_time === "130"){
+            return setMinutes(date, min + 60 );
+          }
+
+          if( duration_time === "20"){
+            return setMinutes(date, min + 60 );
+          }
+        }
+      });
+
+      let cond_3 = [];
+      cond_3 =  this.props.busy.map( b => {
+
+        let today = new Date(b.start_time);
+        let select_day = new Date(this.state.startDate).getDate();
+
+        if( select_day === today.getDate()) {
+
+          let date = today;
+          let hours = today.getHours();
+          let min = today.getMinutes();
+
+          let duration_hour = new Date(b.duration).getHours();
+          let duration_minute = new Date(b.duration).getMinutes();
+
+          const hour_concat = duration_hour.toString();
+          const min_concat = duration_minute.toString();
+          const duration_time = hour_concat + min_concat;
+          //const duration_time_interger = parseInt(duration_time);
+
+          if( duration_time === "20"){
+            return setMinutes(date, min + 90 );
+          }
+        }
+      });
+
+      let res_2 = [];
+      res_2 =  this.props.busy.map( b => {
+
+        let today = new Date(b.end_time);
+        let select_day = new Date(this.state.startDate).getDate();
+
+        if( select_day === today.getDate()) {
+
+          let date = today
+          let hours = today.getHours();
+          let min = today.getMinutes();
+
+        return  setHours(setMinutes(date, min), hours);
+        }
+      });
+
+      return [ ...res, ...res_2, ...cond, ...cond_2, ...cond_3 ];
+    }
+  }
+
+
+
+//  minTime={moment(new Date())}
+// maxTime={moment(new Date()).add( 1 , 'h')}
+
   render() {
-    // console.log("my props",this.props.formError.errors);
-    //
-    // if(this.state.modal === 'modal'){
-    //   return(
-    //     <button  className="btn btn-primary" data-dismiss="modal" type="submit"
-    //       >
-    //           great  success
-    //       </button>
-    //     );
-    // }
+
 
     return (
       <div>
@@ -159,9 +308,14 @@ class BookingsNew extends Component {
                 name="start_time"
                 inline
                 selected={this.state.startDate}
-                onChange={this.handleChange}
+                onChange={  (date) => { this.handleChange(date) } }
                 showTimeSelect
                 dateFormat="Pp"
+
+                excludeTimes={this.renderBusy()}
+
+
+                minDate={new Date()}
                 component={this.DatePicker}
 
               />
@@ -180,15 +334,12 @@ class BookingsNew extends Component {
               name="duration"
               type="time"
               component={this.renderField}
-
-          />
-{/*data-dismiss={this.state.modal}*/}
+            />
+          {/*data-dismiss={this.state.modal}*/}
           {this.renderBtnSubmit()}
 
         </form>
-
         <div>
-          {this.props.formError.errors}
         </div>
       </div>
     );
@@ -198,7 +349,7 @@ class BookingsNew extends Component {
 const validate = (values) => {
   const errors = {};
   if(!values.start_time) {
-        errors.start_time = "this field is require";
+    errors.start_time = "this field is require";
   }
   if(!values.duration) {
     errors.duration = "this field is require";
@@ -207,9 +358,13 @@ const validate = (values) => {
 };
 
 const mapStateToProps = (state) => {
-    return { formError: state.formError }
+
+    return {  formError: state.formError,
+              busy: state.busy
+     }
+
 }
 
 export default reduxForm({ form: 'newBookingForm', validate  })(
-  connect(mapStateToProps, { createBooking })(BookingsNew)
+  connect(mapStateToProps, { createBooking, fetchProfileBusyTime})(BookingsNew)
 );
