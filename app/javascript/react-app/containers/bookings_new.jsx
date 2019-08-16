@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm, Field, reset } from 'redux-form';
 import moment from 'moment'
 
 import DatePicker from "react-datepicker";
@@ -45,7 +45,10 @@ class BookingsNew extends Component {
     const start_time = this.state.startDate;
     values = {...values, start_time: start_time};
 
-    this.props.createBooking( id, values);
+     this.props.createBooking( id, values);
+
+
+
 
 
   }
@@ -68,7 +71,8 @@ class BookingsNew extends Component {
     if(nextProps.formError.errors && nextProps.formError.errors.length){
       // dismissModal.setAttribute('data-dismiss', '');
     }else if(Number.isInteger(nextProps.formError.id) && nextProps.formError.id > 0){
-    this.setState({modal: true})
+    this.setState({modal: true});
+    this.props.reset();
     // dismissModal.setAttribute('data-dismiss', 'modal');
     }
   }
@@ -99,12 +103,19 @@ class BookingsNew extends Component {
     );
   }
 
+  renderSuccess =  () => {
+    this.setState({modal: false});
+
+
+  }
+
 
 
   renderBtnSubmit = () => {
     if(this.state.modal){
       return (
          <button  className="btn btn-success" data-dismiss="modal"
+          onClick={this.renderSuccess}
            >
               Great Success
           </button>
