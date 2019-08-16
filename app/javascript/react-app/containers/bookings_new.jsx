@@ -39,26 +39,25 @@ class BookingsNew extends Component {
 
 
 
-  onSubmit = (values) => {
+  onSubmit =  (values) => {
 
     const { id } = this.props.match.params;
     const start_time = this.state.startDate;
     values = {...values, start_time: start_time};
 
-     this.props.createBooking( id, values);
+    this.props.createBooking( id, values);
 
+    const selected_date = this.state.startDate;
 
-
-
-
+   this.props.fetchProfileBusyTime(id, moment(selected_date) );
   }
 
   componentDidMount() {
-     const { id } = this.props.match.params;
-     const selected_date = this.state.startDate;
+    const { id } = this.props.match.params;
+    const selected_date = this.state.startDate;
 
 
-       this.props.fetchProfileBusyTime(id, moment(selected_date) );
+    this.props.fetchProfileBusyTime(id, moment(selected_date) );
   }
 
 
@@ -70,8 +69,9 @@ class BookingsNew extends Component {
       // dismissModal.setAttribute('data-dismiss', '');
     if(nextProps.formError.errors && nextProps.formError.errors.length){
       // dismissModal.setAttribute('data-dismiss', '');
-    }else if(Number.isInteger(nextProps.formError.id) && nextProps.formError.id > 0){
-    this.setState({modal: true});
+    }else if(Number.isInteger(nextProps.formError.id) && nextProps.formError.id > 0   ){
+
+
     this.props.reset();
     // dismissModal.setAttribute('data-dismiss', 'modal');
     }
@@ -103,16 +103,31 @@ class BookingsNew extends Component {
     );
   }
 
-  renderSuccess =  () => {
-    this.setState({modal: false});
+  renderSuccess = async () => {
+
+    await this.setState({modal: false});
+
+  }
+
+  renderCreateBooking =  () => {
+
+    this.setState({modal: true});
+    const { id } = this.props.match.params;
+    const selected_date = this.state.startDate;
+
+
+    this.props.fetchProfileBusyTime(id, moment(selected_date) );
 
 
   }
 
 
 
+
+
   renderBtnSubmit = () => {
     if(this.state.modal){
+
       return (
          <button  className="btn btn-success" data-dismiss="modal"
           onClick={this.renderSuccess}
@@ -125,7 +140,7 @@ class BookingsNew extends Component {
     }else{
       return(
          <button id="book-submit-form" className="btn btn-primary" type="submit"
-          disabled={  this.props.pristine || this.props.submitting} >
+          disabled={  this.props.pristine || this.props.submitting} onClick={this.renderCreateBooking}>
               Create Booking
           </button>
       );
@@ -173,18 +188,20 @@ class BookingsNew extends Component {
           const hour_concat = duration_hour.toString();
           const min_concat = duration_minute.toString();
           const duration_time = hour_concat + min_concat;
-          const duration_time_interger = parseInt(duration_time);
+          //const duration_time_interger = parseInt(duration_time);
 
 
-          if( duration_time_interger === 10){
+
+
+          if( duration_time === "10"){
             return setMinutes(date, min + 30 );
           }
 
-          if( duration_time_interger === 130){
+          if( duration_time === "130"){
             return setMinutes(date, min + 30 );
           }
 
-          if( duration_time_interger === 20){
+          if( duration_time === "20"){
             return setMinutes(date, min + 30 );
           }
         }
@@ -209,14 +226,14 @@ class BookingsNew extends Component {
           const min_concat = duration_minute.toString();
 
           const duration_time = hour_concat + min_concat;
-          const duration_time_interger = parseInt(duration_time);
+          //const duration_time_interger = parseInt(duration_time);
 
 
-          if( duration_time_interger === 130){
+          if( duration_time === "130"){
             return setMinutes(date, min + 60 );
           }
 
-          if( duration_time_interger === 20){
+          if( duration_time === "20"){
             return setMinutes(date, min + 60 );
           }
         }
@@ -240,9 +257,9 @@ class BookingsNew extends Component {
           const hour_concat = duration_hour.toString();
           const min_concat = duration_minute.toString();
           const duration_time = hour_concat + min_concat;
-          const duration_time_interger = parseInt(duration_time);
+          //const duration_time_interger = parseInt(duration_time);
 
-          if( duration_time_interger === 20){
+          if( duration_time === "20"){
             return setMinutes(date, min + 90 );
           }
         }
