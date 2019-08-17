@@ -10,10 +10,11 @@ class Api::V1::BookingsController < Api::V1::BaseController
     @booking.user = current_user
     authorize @booking
     p "===================================================================="
+
     p "===================================================================="
-    p @booking.end_time = @booking.start_time.strftime('%Y/%d/%m')
+    p @booking.end_time = @booking.start_time
     p "===================================================================="
-    p @booking.end_time = @booking.end_time.to_datetime + Time.parse("#{@booking.duration}").seconds_since_midnight.seconds.strftime('%Y/%d/%m')
+    p @booking.end_time = @booking.end_time.to_datetime + Time.parse("#{@booking.duration}").seconds_since_midnight.seconds
     p "===================================================================="
     p @booking
     p "===================================================================="
@@ -21,7 +22,9 @@ class Api::V1::BookingsController < Api::V1::BaseController
     if @booking.save # see Message.as_json method
     #binding.pry
        #RequestProfileSmsJob.perform_later(@booking.id)
-
+    p "===================================================================="
+    p @booking
+    p "===================================================================="
 
       render :create, status: :created
     else
@@ -70,7 +73,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
   end
 
   def booking_params
-    params.require(:booking).permit(:start_time, :end_time, :duration, :user_id, :profile_id)
+    params.require(:booking).permit(:start_time, :duration, :user_id, :profile_id)
   end
 
 end
