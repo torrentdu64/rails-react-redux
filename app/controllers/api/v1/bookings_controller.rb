@@ -11,9 +11,9 @@ class Api::V1::BookingsController < Api::V1::BaseController
     authorize @booking
     p "===================================================================="
     p "===================================================================="
-    p @booking.end_time = @booking.start_time
+    p @booking.end_time = @booking.start_time.strftime('%Y/%d/%m')
     p "===================================================================="
-    p @booking.end_time = @booking.end_time.to_datetime + Time.parse("#{@booking.duration}").seconds_since_midnight.seconds
+    p @booking.end_time = @booking.end_time.to_datetime + Time.parse("#{@booking.duration}").seconds_since_midnight.seconds.strftime('%Y/%d/%m')
     p "===================================================================="
     p @booking
     p "===================================================================="
