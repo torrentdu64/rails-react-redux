@@ -126,7 +126,7 @@ class BookingsNew extends Component {
 
 
   renderBtnSubmit = () => {
-    if(this.state.modal){
+    if(this.state.modal && !this.props.formError.errors){
 
       return (
          <button  className="btn btn-success" data-dismiss="modal"
