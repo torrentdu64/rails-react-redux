@@ -5,13 +5,15 @@ class Api::V1::BookingsController < Api::V1::BaseController
 
 
   def create
-      p start = Time.zone.parse(params[:start_time]).utc
-      p duration =  Time.zone.parse(params[:duration]).utc
+      p start = Time.zone.local(params[:start_time]).utc
+
       p " parse the time"
       p "===================================================================="
       p @booking = Booking.new(start_time: start, duration: duration, profile_id: params[:profile_id])
 
       p "instance"
+      p @booking.update(start_time: start)
+      p "update"
       p "===================================================================="
       @booking.user = current_user
       authorize @booking
