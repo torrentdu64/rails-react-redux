@@ -115,6 +115,7 @@ class BookingsNew extends Component {
     const { id } = this.props.match.params;
     const selected_date = this.state.startDate;
 
+     console.log("my selected date start_time", moment(selected_date))
 
     this.props.fetchProfileBusyTime(id, moment(selected_date) );
 
