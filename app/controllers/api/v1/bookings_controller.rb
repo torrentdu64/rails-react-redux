@@ -34,13 +34,13 @@ class Api::V1::BookingsController < Api::V1::BaseController
       #binding.pry
       #selected_date.to_date.to_formatted_s(:rfc822) #=> "14 Aug 2019"
      # selected_date.to_datetime.to_formatted_s(:rfc822) => "Wed, 14 Aug 2019 12:24:35 +0000"
-    p res =  selected_date.to_date.strftime("%Y-%m-%d 12:00:00")
+    p res =  selected_date.to_date.strftime("%Y-%m-%d 00:00:00")
 
     p end_point = res.to_date + 1.day
 
-    p format_end_point = end_point.strftime("%Y-%m-%d 00:00:00")
+    p format_end_point = end_point.strftime("%Y-%m-%d 12:00:00")
 
-    p @booking = Booking.where(profile_id: params[:profile_id]).where("start_time >= ?  AND end_time <= ?", res, format_end_point )
+    p @booking = Booking.where(profile_id: params[:profile_id]).where("start_time >= ?  AND end_time < ?", res, format_end_point )
 
     authorize @booking
 
