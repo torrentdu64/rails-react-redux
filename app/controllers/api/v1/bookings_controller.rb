@@ -5,10 +5,11 @@ class Api::V1::BookingsController < Api::V1::BaseController
 
 
   def create
-      p params[:start_time] = Time.zone.parse(params[:start_time])
+      p start = Time.zone.parse(params[:start_time])
+      p duration =  Time.zone.parse(params[:duration])
       p " parse the time"
       p "===================================================================="
-      p @booking = Booking.new(start_time: Time.zone.parse(params[:start_time]), duration: params[:duration], profile_id: params[:profile_id])
+      p @booking = Booking.new(start_time: start, duration: duration, profile_id: params[:profile_id])
 
       p "instance"
       p "===================================================================="
