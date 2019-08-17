@@ -72,7 +72,7 @@ class BookingsNew extends Component {
     }else if(Number.isInteger(nextProps.formError.id) && nextProps.formError.id > 0   ){
 
 
-    this.props.reset();
+    // this.props.reset();
     // dismissModal.setAttribute('data-dismiss', 'modal');
     }
   }
@@ -140,12 +140,14 @@ class BookingsNew extends Component {
     }else{
       return(
          <button id="book-submit-form" className="btn btn-primary" type="submit"
-          disabled={  this.props.pristine || this.props.submitting} onClick={this.renderCreateBooking}>
+           onClick={this.renderCreateBooking}>
               Create Booking
           </button>
       );
     }
   }
+
+  // disabled={  this.props.pristine || this.props.submitting}
 
 
 
