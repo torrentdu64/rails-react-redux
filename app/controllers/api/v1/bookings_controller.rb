@@ -5,17 +5,22 @@ class Api::V1::BookingsController < Api::V1::BaseController
 
 
   def create
-
-    p @booking = Booking.new(booking_params)
-     p @booking.user = current_user
-    p authorize @booking
+      p "===================================================================="
+      p @booking = Booking.new(booking_params)
+      p "instance"
+      p "===================================================================="
+      @booking.user = current_user
+      authorize @booking
+    p "===================================================================="
+    p @booking
+    p "instance"
+    p "===================================================================="
+    p @booking.end_time =   @booking.start_time
+    p @booking
+    p "@booking.end_time from @booking.start_time"
     p "===================================================================="
 
-    p "===================================================================="
-    p @booking.end_time =  Time.strptime( @booking.start_time, '%m/%d/%Y %H:%M')
-    p "===================================================================="
-    p  set_date_end = @booking.end_time.to_datetime + Time.parse("#{@booking.duration}").seconds_since_midnight.seconds
-    p @booking.end_time = Time.strptime(set_date_end, '%m/%d/%Y %H:%M')
+    p @booking.end_time = @booking.end_time.to_datetime + Time.parse("#{@booking.duration}").seconds_since_midnight.seconds
     p "===================================================================="
     p @booking
     p "===================================================================="
