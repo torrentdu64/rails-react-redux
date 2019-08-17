@@ -10,7 +10,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
      p @booking.user = current_user
     p authorize @booking
     p "===================================================================="
-      Time.strptime(, '%m/%d/%Y %H:%M')
+
     p "===================================================================="
     p @booking.end_time =  Time.strptime( @booking.start_time, '%m/%d/%Y %H:%M')
     p "===================================================================="
