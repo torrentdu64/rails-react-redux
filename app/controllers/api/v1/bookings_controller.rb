@@ -38,7 +38,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
 
     p end_point = res.to_date + 1.day
 
-    p format_end_point = end_point.strftime("%Y-%m-%d 12:00:00")
+    p format_end_point = end_point.strftime("%Y-%m-%d 00:00:00")
 
     p @booking = Booking.where(profile_id: params[:profile_id]).where("start_time >= ?  AND end_time <= ?", res, format_end_point )
 
