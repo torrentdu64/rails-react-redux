@@ -7,7 +7,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
   def create
 
       p "===================================================================="
-      p @booking = Booking.new(booking_params)
+      p @booking = Booking.build(booking_params)
       p "instance"
       p "===================================================================="
       @booking.user = current_user
