@@ -5,6 +5,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
 
 
   def create
+      p params
       p "===================================================================="
       p @booking = Booking.new(booking_params)
       p "instance"

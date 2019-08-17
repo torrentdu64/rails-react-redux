@@ -2,6 +2,9 @@ class Booking < ApplicationRecord
   belongs_to :user
   belongs_to :profile
 
+  self.skip_time_zone_conversion_for_attributes = [:start_time]
+
+
   validate :validate_no_overlap_books_profile
 
   validates :start_time, presence: true, uniqueness: { scope: [:end_time , :profile_id, :user_id],
@@ -20,6 +23,11 @@ class Booking < ApplicationRecord
   end
 
   private
+
+  def start_time=(time)
+    write_attribute(:start_time, time ? time + time.utc_offset : nil)
+  end
+
 
 
   def validate_no_overlap_books_profile
