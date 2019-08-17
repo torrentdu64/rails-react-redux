@@ -9,8 +9,15 @@ class Api::V1::BookingsController < Api::V1::BaseController
     @booking = Booking.new(booking_params)
     @booking.user = current_user
     authorize @booking
-    @booking.end_time = @booking.start_time
-    @booking.end_time = @booking.end_time.to_datetime + Time.parse("#{@booking.duration}").seconds_since_midnight.seconds
+    p "===================================================================="
+    p "===================================================================="
+    p @booking.end_time = @booking.start_time
+    p "===================================================================="
+    p @booking.end_time = @booking.end_time.to_datetime + Time.parse("#{@booking.duration}").seconds_since_midnight.seconds
+    p "===================================================================="
+    p @booking
+    p "===================================================================="
+    p "===================================================================="
     if @booking.save # see Message.as_json method
     #binding.pry
        #RequestProfileSmsJob.perform_later(@booking.id)
