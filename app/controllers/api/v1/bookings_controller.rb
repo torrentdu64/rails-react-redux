@@ -12,7 +12,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
       p @booking = Booking.new(start_time: start, duration: duration, profile_id: params[:profile_id])
 
       p "instance"
-      p @booking.update(start_time: start)
+      p @booking.write_attribute(start_time: start)
       p "update"
       p "===================================================================="
       @booking.user = current_user
