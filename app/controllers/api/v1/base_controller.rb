@@ -1,4 +1,5 @@
 class Api::V1::BaseController < ActionController::API
+
   before_action :authenticate_user!
   include Pundit
 
@@ -10,6 +11,8 @@ class Api::V1::BaseController < ActionController::API
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
   private
+
+
 
   def user_not_authorized(exception)
     render json: {
