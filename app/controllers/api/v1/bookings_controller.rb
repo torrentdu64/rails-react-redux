@@ -5,7 +5,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
 
 
   def create
-      p start = Time.zone.local(params[:start_time]).utc
+      p start = Time.zone.local(params[:start_time])
 
       p " parse the time"
       p "===================================================================="
