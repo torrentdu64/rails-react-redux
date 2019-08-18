@@ -27,8 +27,8 @@ class Api::V1::BookingsController < Api::V1::BaseController
     p @booking
     p "===================================================================="
     p "===================================================================="
-    if @booking.save # see Message.as_json method
-      @booking.update_attributes('start_time', @booking.start_time, 'end_time', @booking.end_time)
+    if @booking.create!(start_time: @booking.start_time, end_time: @booking.end_time, duration: params[:duration], user_id: current_user, profile_id: params[:profile_id] ) # see Message.as_json method
+
     #binding.pry
        #RequestProfileSmsJob.perform_later(@booking.id)
     p "===================================================================="
