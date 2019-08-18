@@ -9,7 +9,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
     p "===================================================================="
     p @booking = Booking.new(booking_params)
     p "instance"
-    p start =  DateTime.new(params[:start_time])
+
     p "===================================================================="
     @booking.user = current_user
     authorize @booking
@@ -17,7 +17,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
     p @booking
     p "instance"
     p "===================================================================="
-    p @booking.end_time =   start
+    p @booking.end_time =   @booking.start_time
     p @booking
     p "@booking.end_time from @booking.start_time"
     p "===================================================================="
@@ -28,6 +28,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
     p "===================================================================="
     p "===================================================================="
     if @booking.save # see Message.as_json method
+      @booking.update_attribute('start_time', @booking.start_time, 'end_time', @booking.end_time)
     #binding.pry
        #RequestProfileSmsJob.perform_later(@booking.id)
     p "===================================================================="
