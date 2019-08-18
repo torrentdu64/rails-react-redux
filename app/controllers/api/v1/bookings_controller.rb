@@ -13,7 +13,8 @@ class Api::V1::BookingsController < Api::V1::BaseController
 
       p "instance"
       p @booking.write_attribute(start_time: start)
-      p "update"
+      p "write_attribute"
+      p @booking.start_time = start
       p "===================================================================="
       @booking.user = current_user
       authorize @booking
@@ -36,6 +37,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
        #RequestProfileSmsJob.perform_later(@booking.id)
     p "===================================================================="
     p @booking
+    p "save booking"
     p "===================================================================="
 
       render :create, status: :created
