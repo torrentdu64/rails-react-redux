@@ -44,7 +44,7 @@ Rails.application.configure do
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
-   config.action_cable.url = 'wss://rails-react-redux-2.herokuapp.com/cable'
+   config.action_cable.url = 'wss://#{ENV['RAILS_HOST']}/cable'
    config.action_cable.allowed_request_origins = [ 'http://rails-react-redux-2.herokuapp.com/', 'https://rails-react-redux-2.herokuapp.com/' ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
