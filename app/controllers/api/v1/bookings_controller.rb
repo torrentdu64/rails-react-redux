@@ -17,14 +17,14 @@ class Api::V1::BookingsController < Api::V1::BaseController
     p @booking
     p "instance"
     p "===================================================================="
-    p @booking.end_time =   Time.parse(@booking.start_time).utc
+    p @booking.end_time =   @booking.start_time + 1.day
     p @booking
     p "@booking.end_time from @booking.start_time"
     p "===================================================================="
 
     p @booking.end_time = @booking.end_time.to_datetime + Time.parse("#{@booking.duration}").seconds_since_midnight.seconds
     p "===================================================================="
-    p @booking.end_time = Time.parse(@booking.end_time).utc
+    p @booking.end_time
     p "===================================================================="
     p "===================================================================="
     if @booking.save(start_time: @booking.start_time, end_time: @booking.end_time, duration: params[:duration], user_id: current_user, profile_id: params[:profile_id] ) # see Message.as_json method
