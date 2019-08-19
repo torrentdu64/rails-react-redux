@@ -14,10 +14,10 @@ class Api::V1::BookingsController < Api::V1::BaseController
     @booking.user = current_user
     authorize @booking
     p "===================================================================="
-    p @booking
+    p @booking.start_time + 12*60*60
     p "instance"
     p "===================================================================="
-    p @booking.end_time =   @booking.start_time + 1.day
+    p @booking.end_time =   @booking.start_time
     p @booking
     p "@booking.end_time from @booking.start_time"
     p "===================================================================="
