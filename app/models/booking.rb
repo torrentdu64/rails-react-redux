@@ -1,7 +1,7 @@
 class Booking < ApplicationRecord
   belongs_to :user
   belongs_to :profile
-  before_save :set_start_time
+  # before_save :set_start_time
 
 
 
@@ -25,9 +25,9 @@ class Booking < ApplicationRecord
 
   private
 
-  def set_start_time
-    self.start_time = time.now.in_time_zone(self.user.time_zone).to_time
-  end
+  # def set_start_time
+  #   self.start_time = time.now.in_time_zone(self.user.time_zone).to_time
+  # end
 
 
 
