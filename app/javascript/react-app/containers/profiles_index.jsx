@@ -11,6 +11,7 @@ class ProfilesIndex extends Component {
   }
 
   componentDidMount() { // For the first channel
+    console.log("subscribeActionCable" , this.props)
     this.subscribeActionCable(this.props);
   }
 
@@ -36,11 +37,17 @@ class ProfilesIndex extends Component {
       {
         received: (profiles) => {
           if (profiles.channel === props.selectedChannel) {
+            console.log(profiles);
             props.appendMessage(profiles);
           }
         }
       }
     );
+  }
+
+  renderImg = (profile) => {
+   return  profile.photo.url
+
   }
 
 
@@ -58,9 +65,9 @@ class ProfilesIndex extends Component {
         <div className="row">
           <div className="offset-sm-3 col-sm-6">
             <a href={`/profiles/${profile.id}`} key={profile.id}>
-              <div style={style}>
-                <img src={profile.photo.url} alt="" height="42" width="42" />
+              <div style={style} id="image" >
 
+                <img src={this.renderImg(profile)} alt="" height="42" width="42" id="pic1" />
                 <h5>{profile.name}</h5>
               </div>
             </a>

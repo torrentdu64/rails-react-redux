@@ -12,7 +12,8 @@ class Profile < ApplicationRecord
       id: id,
       name: name,
       description: description,
-      created_at: created_at
+      phone: phone,
+      photo: photo
     }
   end
 
