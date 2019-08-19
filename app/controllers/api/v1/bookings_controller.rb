@@ -14,7 +14,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
     @booking.user = current_user
     authorize @booking
     p "===================================================================="
-    p @booking.start_time
+    p  start_time = @booking.start_time
     p "instance"
     p "===================================================================="
     p @booking.end_time =   @booking.start_time
@@ -22,12 +22,12 @@ class Api::V1::BookingsController < Api::V1::BaseController
     p "@booking.end_time from @booking.start_time"
     p "===================================================================="
 
-    p @booking.end_time = @booking.end_time.to_datetime + Time.parse("#{@booking.duration}").seconds_since_midnight.seconds
+    p end_time = @booking.end_time.to_datetime + Time.parse("#{@booking.duration}").seconds_since_midnight.seconds
     p "===================================================================="
     p @booking.end_time
     p "===================================================================="
     p "===================================================================="
-    if @booking.save(start_time: @booking.start_time + 12*60*60, end_time: @booking.end_time + 12*60*60, duration: params[:duration], user_id: current_user, profile_id: params[:profile_id] ) # see Message.as_json method
+    if @booking.save(start_time: start_time, end_time: end_time, duration: params[:duration], user_id: current_user, profile_id: params[:profile_id] ) # see Message.as_json method
 
     #binding.pry
        #RequestProfileSmsJob.perform_later(@booking.id)
