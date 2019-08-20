@@ -17,7 +17,8 @@ class BookingsNew extends Component {
       super(props);
       this.state = {
         startDate: new Date(),
-        modal: false
+        modal: false,
+        loading: null
       };
       // this.handleChange = this.handleChange.bind(this);
     }
@@ -105,11 +106,13 @@ class BookingsNew extends Component {
 
   renderSuccess = async () => {
 
+
+
     await this.setState({modal: false});
 
   }
 
-  renderCreateBooking =  () => {
+  renderCreateBooking =  async () => {
 
     this.setState({modal: true});
     const { id } = this.props.match.params;
@@ -117,7 +120,9 @@ class BookingsNew extends Component {
 
      console.log("my selected date start_time", moment(selected_date))
 
-    this.props.fetchProfileBusyTime(id, moment(selected_date) );
+    await this.props.fetchProfileBusyTime(id, moment(selected_date) );
+
+    this.setState({ loading: true});
 
 
   }
@@ -127,7 +132,23 @@ class BookingsNew extends Component {
 
 
   renderBtnSubmit = () => {
-    if(this.state.modal && !this.props.formError.errors){
+
+    if(this.state.loading === null){
+      return(
+         <button id="book-submit-form" className="btn btn-primary" type="submit"
+           onClick={this.renderCreateBooking}>
+              Create Booking
+          </button>
+          );
+    }
+
+
+
+    if(this.state.loading === false){
+      return <div>loading ....</div>
+    }
+
+    if(this.state.loading && this.state.modal && !this.props.formError.errors){
 
       return (
          <button  className="btn btn-success" data-dismiss="modal"
@@ -136,7 +157,6 @@ class BookingsNew extends Component {
               Great Success
           </button>
       );
-
 
     }else{
       return(
@@ -167,7 +187,7 @@ class BookingsNew extends Component {
           let date = today;
           let hours = today.getHours();
           let min = today.getMinutes();
-        debugger
+
         return  setHours(setMinutes(date, min), hours);
         }
       });
@@ -195,7 +215,7 @@ class BookingsNew extends Component {
 
 
 
-          debugger
+
           if( duration_time === "10"){
             return setMinutes(date, min + 30 );
           }
@@ -231,7 +251,7 @@ class BookingsNew extends Component {
           const duration_time = hour_concat + min_concat;
           //const duration_time_interger = parseInt(duration_time);
 
-          debugger
+
           if( duration_time === "130"){
             return setMinutes(date, min + 60 );
           }
@@ -261,7 +281,7 @@ class BookingsNew extends Component {
           const min_concat = duration_minute.toString();
           const duration_time = hour_concat + min_concat;
           //const duration_time_interger = parseInt(duration_time);
-          debugger
+
           if( duration_time === "20"){
             return setMinutes(date, min + 90 );
           }
@@ -279,12 +299,12 @@ class BookingsNew extends Component {
           let date = today
           let hours = today.getHours();
           let min = today.getMinutes();
-        debugger
+
         return  setHours(setMinutes(date, min), hours);
         }
       });
 
-      return [ ...res, ...res_2, ...cond, ...cond_2, ...cond_3 ];
+      // return [ ...res, ...res_2, ...cond, ...cond_2, ...cond_3 ];
     }
   }
 
