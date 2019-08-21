@@ -39,6 +39,7 @@ export function createBooking(id, content, callback) {
 }
 
 export function appendMessage(message) {
+
   return {
     type: 'MESSAGE_POSTED',
     payload: message

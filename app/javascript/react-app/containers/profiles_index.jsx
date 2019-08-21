@@ -37,7 +37,7 @@ class ProfilesIndex extends Component {
       {
         received: (profiles) => {
           if (profiles.channel === props.selectedChannel) {
-            console.log(profiles);
+            console.log("enter ",profiles);
             props.appendMessage(profiles);
           }
         }
@@ -62,9 +62,9 @@ class ProfilesIndex extends Component {
 
     return this.props.profiles.map((profile) => {
       return (
-        <div className="row">
+        <div className="row" key={profile.id}>
           <div className="offset-sm-3 col-sm-6">
-            <a href={`/profiles/${profile.id}`} key={profile.id}>
+            <a href={`/profiles/${profile.id}`} >
               <div style={style} id="image" >
 
                 <img src={this.renderImg(profile)} alt="" height="42" width="42" id="pic1" />
@@ -84,7 +84,7 @@ class ProfilesIndex extends Component {
         <div className="text-center">
           <h3>list</h3>
         </div>
-        <div className="">
+        <div className="" ref={profile => this.profile = profile}>
          { this.renderProfiles()}
         </div>
       </div>
