@@ -52,10 +52,26 @@ class Api::V1::BookingsController < Api::V1::BaseController
   def booking_time
 
     selected_date = params[:q]
-      #binding.pry
+
       #selected_date.to_date.to_formatted_s(:rfc822) #=> "14 Aug 2019"
      # selected_date.to_datetime.to_formatted_s(:rfc822) => "Wed, 14 Aug 2019 12:24:35 +0000"
     p res =  selected_date.to_date.strftime("%Y-%m-%d 00:00:00")
+    binding.pry
+    p now = DateTime.parse(selected_date).strftime("%H:%M")
+    p from = DateTime.parse(res).strftime("%H:%M")
+
+    busy_now = []
+    busy_now << (0...(now.to_i * 2) ).each do |i|
+       [DateTime.parse(res).strftime("%Y-%m-%d 00:00:00").to_i + 30*60 ]
+    end
+
+    hour = start_time
+    while hour < end_time
+      # ...
+      hour += 3600
+
+
+
 
     p end_point = res.to_date + 1.day
 
