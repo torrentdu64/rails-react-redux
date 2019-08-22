@@ -49,6 +49,26 @@ class Api::V1::BookingsController < Api::V1::BaseController
       render :reply, status: :created
   end
 
+  def time_iterate(start_time, end_time, step, &block)
+      begin
+        yield(start_time)
+      end while (start_time += step) <= end_time
+  end
+
+  def busy_till_now
+    p now = DateTime.parse(selected_date) #.strftime("%H:%M")
+    p from = DateTime.parse(res) #.strftime("%H:%M")
+
+    busy_now = []
+    time_iterate(from, now, 30.minutes) do |t|
+      puts busy_now << t
+    end
+
+     @busy_now = busy_now
+    authorize @busy_now
+    render :busy_till_now, status: 200
+  end
+
   def booking_time
 
     selected_date = params[:q]
@@ -56,19 +76,18 @@ class Api::V1::BookingsController < Api::V1::BaseController
       #selected_date.to_date.to_formatted_s(:rfc822) #=> "14 Aug 2019"
      # selected_date.to_datetime.to_formatted_s(:rfc822) => "Wed, 14 Aug 2019 12:24:35 +0000"
     p res =  selected_date.to_date.strftime("%Y-%m-%d 00:00:00")
-    binding.pry
-    p now = DateTime.parse(selected_date).strftime("%H:%M")
-    p from = DateTime.parse(res).strftime("%H:%M")
 
-    busy_now = []
-    busy_now << (0...(now.to_i * 2) ).each do |i|
-       [DateTime.parse(res).strftime("%Y-%m-%d 00:00:00").to_i + 30*60 ]
-    end
+    # p now = DateTime.parse(selected_date) #.strftime("%H:%M")
+    # p from = DateTime.parse(res) #.strftime("%H:%M")
 
-    hour = start_time
-    while hour < end_time
-      # ...
-      hour += 3600
+    # busy_now = []
+    # time_iterate(from, now, 30.minutes) do |t|
+    #   puts busy_now << t
+    # end
+
+
+
+
 
 
 
@@ -80,9 +99,14 @@ class Api::V1::BookingsController < Api::V1::BaseController
 
 
     p @booking = Booking.where(profile_id: params[:profile_id]).where("start_time  BETWEEN ? AND ?", res, format_end_point )
+    # binding.pry
+
 
     authorize @booking
 
+    #binding.pry
+
+    # binding.pry
     render :booking_time, status: 200
   end
 

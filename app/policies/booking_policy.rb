@@ -22,6 +22,10 @@ class BookingPolicy < ApplicationPolicy
     true
   end
 
+  def busy_till_now?
+    true
+  end
+
 
 
 end

@@ -304,7 +304,7 @@ class BookingsNew extends Component {
         }
       });
 
-      // return [ ...res, ...res_2, ...cond, ...cond_2, ...cond_3 ];
+       return [ ...res, ...res_2, ...cond, ...cond_2, ...cond_3 ];
     }
   }
 

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       resources :profiles, only: [ :index, :show ] do
         resources :bookings, only: [ :create ]
         get 'busy', to: "bookings#booking_time"
+        get 'busy-now', to: "bookings#busy_till_now"
       end
     end
   end
