@@ -56,6 +56,9 @@ class Api::V1::BookingsController < Api::V1::BaseController
   end
 
   def busy_till_now
+    selected_date = params[:q]
+    res =  selected_date.to_date.strftime("%Y-%m-%d 00:00:00")
+
     p now = DateTime.parse(selected_date) #.strftime("%H:%M")
     p from = DateTime.parse(res) #.strftime("%H:%M")
 
@@ -65,7 +68,9 @@ class Api::V1::BookingsController < Api::V1::BaseController
     end
 
      @busy_now = busy_now
+
     authorize @busy_now
+    binding.pry
     render :busy_till_now, status: 200
   end
 

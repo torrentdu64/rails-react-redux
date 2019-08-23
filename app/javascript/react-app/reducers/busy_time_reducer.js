@@ -8,6 +8,11 @@ export default function( state = [] , action){
 
         return action.payload;
 
+      case 'FETCH_PROFILE_BUSY_NOW':
+        console.log('FETCH_PROFILE_BUSY_NOW', action.payload)
+        return action.payload;
+
+
   default:
       return state;
   }

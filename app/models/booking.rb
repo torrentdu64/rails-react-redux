@@ -3,7 +3,7 @@ class Booking < ApplicationRecord
   belongs_to :profile
   # before_save :set_start_time
   #
-  attr_accessor :busy_now
+  # attr_accessor :busy_now
 
 
 
@@ -21,8 +21,7 @@ class Booking < ApplicationRecord
       end_time: end_time,
       duration: duration,
       user_id: user_id,
-      profile_id: profile_id,
-      busy_now: busy_now
+      profile_id: profile_id
     }
   end
 

@@ -7,7 +7,7 @@ import DatePicker from "react-datepicker";
 import setMinutes from "date-fns/setMinutes";
 import setHours from "date-fns/setHours";
 
-import { createBooking, fetchProfileBusyTime } from '../actions';
+import { createBooking, fetchProfileBusyTime, fetchProfileBusyNow } from '../actions';
 
 
 
@@ -35,7 +35,7 @@ class BookingsNew extends Component {
       const selected_date = this.state.startDate;
 
       this.props.fetchProfileBusyTime(id, moment(selected_date) );
-
+      this.props.fetchProfileBusyNow(id, moment(selected_date));
     }
 
 
@@ -51,6 +51,7 @@ class BookingsNew extends Component {
     const selected_date = this.state.startDate;
 
    this.props.fetchProfileBusyTime(id, moment(selected_date) );
+   this.props.fetchProfileBusyNow(id, moment(selected_date));
   }
 
   componentDidMount() {
@@ -59,6 +60,8 @@ class BookingsNew extends Component {
 
 
     this.props.fetchProfileBusyTime(id, moment(selected_date) );
+    this.props.fetchProfileBusyNow(id, moment(selected_date));
+    debugger
   }
 
 
@@ -390,5 +393,5 @@ const mapStateToProps = (state) => {
 }
 
 export default reduxForm({ form: 'newBookingForm', validate  })(
-  connect(mapStateToProps, { createBooking, fetchProfileBusyTime})(BookingsNew)
+  connect(mapStateToProps, { createBooking, fetchProfileBusyTime, fetchProfileBusyNow})(BookingsNew)
 );
