@@ -1,4 +1,5 @@
 class BookingPolicy < ApplicationPolicy
+
   class Scope < Scope
     def resolve
       scope.all
@@ -13,12 +14,16 @@ class BookingPolicy < ApplicationPolicy
     end
   end
 
-  def reply
+  def reply?
     # verif if owner === record.owner
     true
   end
 
   def booking_time?
+    true
+  end
+
+  def busy_till_now?
     true
   end
 

@@ -57,3 +57,17 @@ export function fetchProfileBusyTime(id, selected_date) {
     payload: promise
   }
 }
+
+export async function fetchProfileBusyNow(id, selected_date) {
+
+  // AJAX request
+  // # /api/v1/profiles/:profile_id/busy
+
+  const promise = await fetch(`/api/v1/profiles/${id}/busy-now?q=${selected_date}`)
+    .then(response => response.json());
+
+  return {
+    type: 'FETCH_PROFILE_BUSY_NOW',
+    payload: promise
+  }
+}

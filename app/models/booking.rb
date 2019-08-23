@@ -2,6 +2,8 @@ class Booking < ApplicationRecord
   belongs_to :user
   belongs_to :profile
   # before_save :set_start_time
+  #
+  # attr_accessor :busy_now
 
 
 
