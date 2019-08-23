@@ -60,8 +60,8 @@ class Api::V1::BookingsController < Api::V1::BaseController
 
     res =  selected_date.to_date.strftime("%Y-%m-%d 00:00:00 tt")
 
-     now = DateTime.parse(selected_date).in_time_zone("Pacific/Auckland") - 1.day #.strftime("%H:%M")
-    from = DateTime.parse(res).in_time_zone("Pacific/Auckland") - 1.day #.strftime("%H:%M")
+     now = DateTime.parse(selected_date).in_time_zone("Pacific/Auckland") + 12*60*60  #.strftime("%H:%M")
+    from = DateTime.parse(res).in_time_zone("Pacific/Auckland")  + 12*60*60 #.strftime("%H:%M")
 
     busy_now = []
     time_iterate(from, now, 30.minutes) do |t|
