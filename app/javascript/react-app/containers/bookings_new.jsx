@@ -61,7 +61,7 @@ class BookingsNew extends Component {
 
     this.props.fetchProfileBusyTime(id, moment(selected_date) );
     this.props.fetchProfileBusyNow(id, moment(selected_date));
-    debugger
+
   }
 
 
@@ -178,6 +178,27 @@ class BookingsNew extends Component {
   renderBusy =   ()   =>  {
 
     if( this.props.busy && this.props.busy.length){
+
+      let busy_till_now = [];
+
+      busy_till_now =  this.props.now.map( b => {
+
+        let today = new Date(b);
+
+        let select_day = new Date(b).getDate();
+
+        if( select_day === today.getDate()) {
+
+          let date = today;
+          let hours = today.getHours();
+
+          let min = today.getMinutes();
+
+        return  setHours(setMinutes(date, min), hours);
+        }
+      });
+
+
         // https://github.com/Hacker0x01/react-datepicker/blob/master/docs-site/src/examples/inject_times.jsx
       let res = [];
       res =  this.props.busy.map( b => {
@@ -306,8 +327,10 @@ class BookingsNew extends Component {
         return  setHours(setMinutes(date, min), hours);
         }
       });
-
-       return [ ...res, ...res_2, ...cond, ...cond_2, ...cond_3 ];
+      res
+      // busy_till_now
+        // debugger
+       return [ ...busy_till_now, ...res, ...res_2, ...cond, ...cond_2, ...cond_3 ];
     }
   }
 
@@ -387,7 +410,8 @@ const validate = (values) => {
 const mapStateToProps = (state) => {
 
     return {  formError: state.formError,
-              busy: state.busy
+              busy: state.busy,
+              now: state.now
      }
 
 }

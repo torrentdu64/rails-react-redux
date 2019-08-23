@@ -58,12 +58,12 @@ export function fetchProfileBusyTime(id, selected_date) {
   }
 }
 
-export function fetchProfileBusyNow(id, selected_date) {
+export async function fetchProfileBusyNow(id, selected_date) {
 
   // AJAX request
   // # /api/v1/profiles/:profile_id/busy
 
-  const promise = fetch(`/api/v1/profiles/${id}/busy-now?q=${selected_date}`)
+  const promise = await fetch(`/api/v1/profiles/${id}/busy-now?q=${selected_date}`)
     .then(response => response.json());
 
   return {

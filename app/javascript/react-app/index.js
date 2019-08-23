@@ -16,13 +16,15 @@ import BookingNew from './containers/bookings_new';
 import profilesReducer from './reducers/profiles_reducer';
 import bookingReducer from './reducers/booking_reducer';
 import busyTimeReducer from './reducers/busy_time_reducer';
+import busyNowReducer from './reducers/busy_now_reducer';
 
 
 const reducers = combineReducers({
   profiles: profilesReducer,
   form: formReducer,
   formError: bookingReducer,
-  busy: busyTimeReducer
+  busy: busyTimeReducer,
+  now: busyNowReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -57,20 +57,23 @@ class Api::V1::BookingsController < Api::V1::BaseController
 
   def busy_till_now
     selected_date = params[:q]
-    res =  selected_date.to_date.strftime("%Y-%m-%d 00:00:00")
 
-    p now = DateTime.parse(selected_date) #.strftime("%H:%M")
-    p from = DateTime.parse(res) #.strftime("%H:%M")
+    res =  selected_date.to_date.strftime("%Y-%m-%d 00:00:00 tt")
+
+     now = DateTime.parse(selected_date).in_time_zone("Pacific/Auckland") - 1.day #.strftime("%H:%M")
+    from = DateTime.parse(res).in_time_zone("Pacific/Auckland") - 1.day #.strftime("%H:%M")
 
     busy_now = []
     time_iterate(from, now, 30.minutes) do |t|
-      puts busy_now << t
+       busy_now << t
     end
 
      @busy_now = busy_now
 
-    authorize @busy_now
-    binding.pry
+
+    # binding.pry
+    skip_authorization
+
     render :busy_till_now, status: 200
   end
 
