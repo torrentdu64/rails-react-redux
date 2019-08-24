@@ -33,9 +33,14 @@ class BookingsNew extends Component {
 
       const { id } = this.props.match.params;
       const selected_date = this.state.startDate;
+      const time_right_now =   moment(new Date());
 
       this.props.fetchProfileBusyTime(id, moment(selected_date) );
-      this.props.fetchProfileBusyNow(id, moment(selected_date));
+
+      if(moment(selected_date).getDate() === time_right_now.getDate() ){
+        this.props.fetchProfileBusyNow(id, moment(time_right_now));
+      }
+
     }
 
 
@@ -51,7 +56,11 @@ class BookingsNew extends Component {
     const selected_date = this.state.startDate;
 
    this.props.fetchProfileBusyTime(id, moment(selected_date) );
-   this.props.fetchProfileBusyNow(id, moment(selected_date));
+   const time_right_now = moment(new Date());
+
+      if(moment(selected_date).getDate() === time_right_now.getDate() ){
+        this.props.fetchProfileBusyNow(id, moment(time_right_now));
+      }
   }
 
   componentDidMount() {
@@ -60,7 +69,12 @@ class BookingsNew extends Component {
 
 
     this.props.fetchProfileBusyTime(id, moment(selected_date) );
-    this.props.fetchProfileBusyNow(id, moment(selected_date));
+
+   const time_right_now =  moment(new Date());
+
+      if(moment(selected_date).getDate() === time_right_now.getDate() ){
+        this.props.fetchProfileBusyNow(id, moment(time_right_now));
+      }
 
   }
 
@@ -120,6 +134,8 @@ class BookingsNew extends Component {
     this.setState({modal: true});
     const { id } = this.props.match.params;
     const selected_date = this.state.startDate;
+
+
 
      console.log("my selected date start_time", moment(selected_date))
 
