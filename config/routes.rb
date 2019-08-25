@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
 
 
+  mount RailsAdmin::Engine => '/towercontrol', as: 'rails_admin'
   devise_scope :user do
     devise_for :users, :controllers => { registrations: 'registrations' }
     patch 'verif', to: 'registrations#create_code'
     patch 'confirm', to: 'registrations#verif_code'
   end
+
+
   root to: 'profiles#list'
 
   mount ActionCable.server => "/cable"
