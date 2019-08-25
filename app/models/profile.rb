@@ -7,6 +7,8 @@ class Profile < ApplicationRecord
 
   after_create :broadcast_message
 
+  monetize :price_cents
+
    def as_json(options = {})
     {
       id: id,

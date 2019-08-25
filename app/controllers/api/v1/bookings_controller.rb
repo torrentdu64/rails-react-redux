@@ -5,37 +5,20 @@ class Api::V1::BookingsController < Api::V1::BaseController
 
 
   def create
-
-    p "===================================================================="
-    p @booking = Booking.new(booking_params)
-    p "instance"
-
-    p "===================================================================="
+    @booking = Booking.new(booking_params)
     @booking.user = current_user
     authorize @booking
-    p "===================================================================="
-    p  start_time = @booking.start_time
-    p "instance"
-    p "===================================================================="
-    p end_time =   @booking.start_time
-    p @booking
-    p "@booking.end_time from @booking.start_time"
-    p "===================================================================="
+    start_time = @booking.start_time
+    end_time =   @booking.start_time
+    @booking.end_time = @booking.start_time.to_datetime + Time.rse("#{@booking.duration}").seconds_since_midnight.seconds
+    @booking.end_time
+    @booking.state = 'pending'
+    @booking.amount_cents = @profile.price
 
-    p @booking.end_time = @booking.start_time.to_datetime + Time.parse("#{@booking.duration}").seconds_since_midnight.seconds
-    p "===================================================================="
-    p @booking.end_time
-    p "@booking.end_time"
-    p "===================================================================="
-    p "===================================================================="
+
     if @booking.save # see Message.as_json method
-
     #binding.pry
        #RequestProfileSmsJob.perform_later(@booking.id)
-    p "===================================================================="
-    p @booking
-    p "save booking"
-    p "===================================================================="
 
       render :create, status: :created
     else
