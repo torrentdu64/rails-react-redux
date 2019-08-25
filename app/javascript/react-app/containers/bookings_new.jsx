@@ -72,7 +72,7 @@ class BookingsNew extends Component {
       }
   }
 
-  componentDidMount() {
+  componentDidMount = () =>  {
     const { id } = this.props.match.params;
     const selected_date = this.state.startDate;
 
@@ -81,10 +81,10 @@ class BookingsNew extends Component {
 
     const time_right_now = new Date();
 
-   //    if(selected_date.getDate() === time_right_now.getDate() ){
+       if(selected_date.getDate() === time_right_now.getDate() ){
 
         this.props.fetchProfileBusyNow(id, moment(time_right_now));
-      // }
+       }
 
   }
 
@@ -98,7 +98,7 @@ class BookingsNew extends Component {
     if(nextProps.formError.errors && nextProps.formError.errors.length){
       // dismissModal.setAttribute('data-dismiss', '');
     }else if(Number.isInteger(nextProps.formError.id) && nextProps.formError.id > 0   ){
-
+    this.renderBusy();
 
     // this.props.reset();
     // dismissModal.setAttribute('data-dismiss', 'modal');
@@ -201,20 +201,27 @@ class BookingsNew extends Component {
 
 
 
-  renderBusy =   ()   =>  {
-    const verif_selected_date = this.state.startDate;
-      const verif_right_now = new Date();
+  renderBusy = () =>  {
+    const verif_selected_date =  this.state.startDate;
+      const verif_right_now =  new Date();
 
-    if( this.props.busy && this.props.busy.length  ){
+       let res = [];
+        let cond = [];
+       let cond_2 = [];
+       let cond_3 = [];
+      let res_2 = [];
       let busy_till_now = [];
+
+
+
       if(verif_selected_date.getDate() === verif_right_now.getDate()){
 
-         busy_till_now =  this.props.now.map( b => {
-
-        let today = new Date(b);
+      busy_till_now =  this.props.now.map( b => {
+       //debugger
+       let today = new Date(b);
 
         let select_day = new Date(b).getDate();
-
+        debugger
         if( select_day === today.getDate()) {
 
           let date = today;
@@ -222,11 +229,14 @@ class BookingsNew extends Component {
 
           let min = today.getMinutes();
 
-        return  setHours(setMinutes(date, min), hours);
+        return   setHours(setMinutes(date, min), hours);
         }
       });
 
       }
+
+    if( this.props.busy && this.props.busy.length  ){
+
 
 
 
@@ -234,7 +244,7 @@ class BookingsNew extends Component {
 
 
         // https://github.com/Hacker0x01/react-datepicker/blob/master/docs-site/src/examples/inject_times.jsx
-      let res = [];
+
       res =  this.props.busy.map( b => {
 
         let today = new Date(b.start_time);
@@ -251,7 +261,7 @@ class BookingsNew extends Component {
       });
 
 
-      let cond = [];
+
       cond =  this.props.busy.map( b => {
 
         let today = new Date(b.start_time);
@@ -288,7 +298,7 @@ class BookingsNew extends Component {
         }
       });
 
-      let cond_2 = [];
+
       cond_2 =  this.props.busy.map( b => {
 
       let today = new Date(b.start_time);
@@ -320,7 +330,7 @@ class BookingsNew extends Component {
         }
       });
 
-      let cond_3 = [];
+
       cond_3 =  this.props.busy.map( b => {
 
         let today = new Date(b.start_time);
@@ -346,7 +356,7 @@ class BookingsNew extends Component {
         }
       });
 
-      let res_2 = [];
+
       res_2 =  this.props.busy.map( b => {
 
         let today = new Date(b.end_time);
@@ -364,8 +374,9 @@ class BookingsNew extends Component {
       res
       // busy_till_now
         // debugger
-       return [ ...busy_till_now, ...res, ...res_2, ...cond, ...cond_2, ...cond_3 ];
+
     }
+     return [ ...busy_till_now, ...res, ...res_2, ...cond, ...cond_2, ...cond_3 ];
   }
 
 
