@@ -79,12 +79,12 @@ class BookingsNew extends Component {
 
     this.props.fetchProfileBusyTime(id, moment(selected_date) );
 
-   const time_right_now = new Date();
+    const time_right_now = new Date();
 
-      if(selected_date.getDate() === time_right_now.getDate() ){
+   //    if(selected_date.getDate() === time_right_now.getDate() ){
 
         this.props.fetchProfileBusyNow(id, moment(time_right_now));
-      }
+      // }
 
   }
 
