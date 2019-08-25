@@ -33,11 +33,20 @@ class BookingsNew extends Component {
 
       const { id } = this.props.match.params;
       const selected_date = this.state.startDate;
-      const time_right_now =   moment(new Date());
+
+      const time_right_now = new Date();
+      // var MyDateString;
+
+
+
+
+
+
 
       this.props.fetchProfileBusyTime(id, moment(selected_date) );
 
-      if(moment(selected_date).getDate() === time_right_now.getDate() ){
+      if(selected_date.getDate() === time_right_now.getDate() ){
+
         this.props.fetchProfileBusyNow(id, moment(time_right_now));
       }
 
@@ -56,9 +65,9 @@ class BookingsNew extends Component {
     const selected_date = this.state.startDate;
 
    this.props.fetchProfileBusyTime(id, moment(selected_date) );
-   const time_right_now = moment(new Date());
+   const time_right_now = new Date();
 
-      if(moment(selected_date).getDate() === time_right_now.getDate() ){
+      if(selected_date.getDate() === time_right_now.getDate() ){
         this.props.fetchProfileBusyNow(id, moment(time_right_now));
       }
   }
@@ -70,9 +79,10 @@ class BookingsNew extends Component {
 
     this.props.fetchProfileBusyTime(id, moment(selected_date) );
 
-   const time_right_now =  moment(new Date());
+   const time_right_now = new Date();
 
-      if(moment(selected_date).getDate() === time_right_now.getDate() ){
+      if(selected_date.getDate() === time_right_now.getDate() ){
+
         this.props.fetchProfileBusyNow(id, moment(time_right_now));
       }
 
@@ -192,12 +202,14 @@ class BookingsNew extends Component {
 
 
   renderBusy =   ()   =>  {
+    const verif_selected_date = this.state.startDate;
+      const verif_right_now = new Date();
 
-    if( this.props.busy && this.props.busy.length){
-
+    if( this.props.busy && this.props.busy.length  ){
       let busy_till_now = [];
+      if(verif_selected_date.getDate() === verif_right_now.getDate()){
 
-      busy_till_now =  this.props.now.map( b => {
+         busy_till_now =  this.props.now.map( b => {
 
         let today = new Date(b);
 
@@ -213,6 +225,12 @@ class BookingsNew extends Component {
         return  setHours(setMinutes(date, min), hours);
         }
       });
+
+      }
+
+
+
+
 
 
         // https://github.com/Hacker0x01/react-datepicker/blob/master/docs-site/src/examples/inject_times.jsx
