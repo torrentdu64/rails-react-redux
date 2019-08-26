@@ -11,11 +11,11 @@ class Api::V1::BookingsController < Api::V1::BaseController
     start_time = @booking.start_time
     end_time =   @booking.start_time
     @booking.end_time = @booking.start_time.to_datetime + Time.rse("#{@booking.duration}").seconds_since_midnight.seconds
-    @booking.end_time
+    binding.pry
     @booking.state = 'pending'
     @booking.amount_cents = @profile.price
 
-
+    binding.pry
     if @booking.save # see Message.as_json method
     #binding.pry
        #RequestProfileSmsJob.perform_later(@booking.id)
