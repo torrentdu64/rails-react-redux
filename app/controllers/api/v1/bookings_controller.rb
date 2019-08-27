@@ -1,6 +1,21 @@
 class Api::V1::BookingsController < Api::V1::BaseController
   before_action :set_profile
+  before_action :set_booking, only: [:stripe_customer]
   skip_before_action :authenticate_user!, only: [:reply]
+
+  def stripe_customer
+
+    @booking.state = 'pending'
+    @booking.amount_cents = @profile.price
+
+    customer = Stripe::Customer.create(
+      source: params[:id],
+      email:  params[:stripeEmail]
+    )
+
+    render :stripe_customer, status: :created
+  end
+
 
 
 
@@ -10,14 +25,14 @@ class Api::V1::BookingsController < Api::V1::BaseController
     authorize @booking
     start_time = @booking.start_time
     end_time =   @booking.start_time
-    @booking.end_time = @booking.start_time.to_datetime + Time.rse("#{@booking.duration}").seconds_since_midnight.seconds
-    binding.pry
-    @booking.state = 'pending'
-    @booking.amount_cents = @profile.price
+    @booking.end_time = @booking.start_time.to_datetime + Time.parse("#{@booking.duration}").seconds_since_midnight.seconds
 
-    binding.pry
+
+
+    # binding.pry
     if @booking.save # see Message.as_json method
-    #binding.pry
+
+
        #RequestProfileSmsJob.perform_later(@booking.id)
 
       render :create, status: :created
@@ -102,6 +117,10 @@ class Api::V1::BookingsController < Api::V1::BaseController
   end
 
   private
+
+  def set_booking
+    @booking = Booking.where(user_id: current_user).first
+  end
 
 
   def set_profile

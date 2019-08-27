@@ -7,6 +7,7 @@ import logger from 'redux-logger';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import { createHistory as history } from 'history';
 import { reducer as formReducer } from 'redux-form';
+import { StripeProvider } from 'react-stripe-elements';
 
 import ProfilesIndex from './containers/profiles_index';
 // import PostsNew from './containers/posts_new';
@@ -35,15 +36,17 @@ const store = createStore(reducers, {}, composeEnhancers(applyMiddleware(reduxPr
 
 // render an instance of the component in the DOM
 ReactDOM.render(
-  <Provider store={store}>
-    <Router history={history}>
-      <div className="">
-        <Switch>
-          <Route path="/" exact component={ProfilesIndex} />
-          <Route path="/profiles/:id" exact component={BookingNew} />
-        </Switch>
-      </div>
-    </Router>
-  </Provider>,
+  <StripeProvider apiKey="pk_test_wRZncdxvPwvZgNqo09x4Gxbx">
+    <Provider store={store}>
+      <Router history={history}>
+        <div className="">
+          <Switch>
+            <Route path="/" exact component={ProfilesIndex} />
+            <Route path="/profiles/:id" exact component={BookingNew} />
+          </Switch>
+        </div>
+      </Router>
+    </Provider>
+  </StripeProvider>,
   document.getElementById('root')
 );

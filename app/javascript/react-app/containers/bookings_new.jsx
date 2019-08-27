@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field, reset } from 'redux-form';
-import moment from 'moment'
+import moment from 'moment';
+
+import {Elements} from 'react-stripe-elements';
+import InjectedCheckoutForm from './CheckoutForm';
+
 
 import DatePicker from "react-datepicker";
 import setMinutes from "date-fns/setMinutes";
@@ -18,7 +22,8 @@ class BookingsNew extends Component {
       this.state = {
         startDate: new Date(),
         modal: false,
-        loading: null
+        loading: null,
+        booked: false
       };
       // this.handleChange = this.handleChange.bind(this);
     }
@@ -136,6 +141,7 @@ class BookingsNew extends Component {
 
 
     await this.setState({modal: false});
+    await this.setState({booked: true});
 
   }
 
@@ -178,9 +184,9 @@ class BookingsNew extends Component {
     }
 
     if(this.state.loading && this.state.modal && !this.props.formError.errors){
-
+        // data-dismiss="modal"
       return (
-         <button  className="btn btn-success" data-dismiss="modal"
+         <button  className="btn btn-success"
           onClick={this.renderSuccess}
            >
               Great Success
@@ -221,7 +227,7 @@ class BookingsNew extends Component {
        let today = new Date(b);
 
         let select_day = new Date(b).getDate();
-        debugger
+
         if( select_day === today.getDate()) {
 
           let date = today;
@@ -386,6 +392,15 @@ class BookingsNew extends Component {
 
   render() {
 
+    if (this.state.booked ) {
+      return(  <div>
+          <Elements>
+              <InjectedCheckoutForm />
+          </Elements>
+        </div>
+      )
+    }
+
 
     return (
       <div>
@@ -434,9 +449,13 @@ class BookingsNew extends Component {
           {this.renderBtnSubmit()}
 
         </form>
-        <div>
-        </div>
+
+
+
+
+
       </div>
+
     );
  }
 }
