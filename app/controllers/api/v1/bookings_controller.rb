@@ -5,15 +5,21 @@ class Api::V1::BookingsController < Api::V1::BaseController
 
   def stripe_customer
 
-    @booking.state = 'pending'
-    @booking.amount_cents = @profile.price
-
     customer = Stripe::Customer.create(
-      source: params[:id],
-      email:  params[:stripeEmail]
+      source: params[:token][:id],
+      email:  current_user.email
     )
 
-    render :stripe_customer, status: :created
+    @booking.state = 'pending'
+    @booking.amount_cents =  @profile.price
+    authorize @booking
+    if @booking.save(validate: false)
+    # binding.pry
+      render :stripe_customer, status: :created
+    else
+      render_error
+    end
+
   end
 
 
@@ -119,7 +125,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
   private
 
   def set_booking
-    @booking = Booking.where(user_id: current_user).first
+    @booking = Booking.find_by(id: params[:booking_id])
   end
 
 

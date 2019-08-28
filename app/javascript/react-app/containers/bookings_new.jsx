@@ -395,7 +395,7 @@ class BookingsNew extends Component {
     if (this.state.booked ) {
       return(  <div>
           <Elements>
-              <InjectedCheckoutForm />
+              <InjectedCheckoutForm profile_id={this.props.match.params.id} booking_id={this.props.formError.id}/>
           </Elements>
         </div>
       )

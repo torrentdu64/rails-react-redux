@@ -27,6 +27,14 @@ class BookingPolicy < ApplicationPolicy
     true
   end
 
+  def stripe_customer?
+    if user
+      true
+    else
+      false
+    end
+  end
+
 
 
 end
