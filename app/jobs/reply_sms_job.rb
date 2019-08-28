@@ -15,17 +15,38 @@ class ReplySmsJob < ApplicationJob
       confirmed = affirmation.select{|x| x.match(response) }.length > 0
       declined = negation.select{|x| x.match(response) }.length > 0
 
-       if confirmed
+      if confirmed
       #   payment.charge
       #   send sms info and charge
+        charge = Stripe::Charge.create(
+          customer:     @booking.customer_stripe_id,   # You should store this customer id and re-use it.
+          amount:       @booking.amount_cents,
+          description:  "Payment for booking #{@profile.name} for order #{@booking.id}",
+          currency:     "nzd"
+        )
+
+        @booking.payment = charge.to_json
+        @booking.state = 'paid'
+        @booking.save(validate: false)
+
+          # rescue Stripe::CardError => e
+          #   p e
+          # end
+
         @sms = SmsApi.new(ENV['BURST_API_KEY'], ENV['BURST_API_SECRET'])
         message = "Your Booking is confirm at #{@booking.start_time} with #{@profile.name}"  #is your verification code.
         response = @sms.send(message, "+642041845759" )
-       elsif declined
+
+      elsif declined
+
+        ## declined so destroy the booking
+        @booking.destroy
       #   send info no charge
        @sms = SmsApi.new(ENV['BURST_API_KEY'], ENV['BURST_API_SECRET'])
        message = "Your Booking is declined with #{@profile.name}"  #is your verification code.
        response = @sms.send(message, "+642041845759" )
-       end
+      end
   end
 end
+
+

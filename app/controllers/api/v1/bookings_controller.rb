@@ -10,11 +10,16 @@ class Api::V1::BookingsController < Api::V1::BaseController
       email:  current_user.email
     )
 
+    # binding.pry
+    @booking.customer_stripe_id = customer.id
+    # binding.pry
     @booking.state = 'pending'
-    @booking.amount_cents =  @profile.price
+    @booking.amount_cents =  @profile.price_cents
     authorize @booking
     if @booking.save(validate: false)
     # binding.pry
+
+      RequestProfileSmsJob.perform_later(@booking.id)
       render :stripe_customer, status: :created
     else
       render_error
@@ -39,7 +44,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
     if @booking.save # see Message.as_json method
 
 
-       #RequestProfileSmsJob.perform_later(@booking.id)
+       # RequestProfileSmsJob.perform_later(@booking.id)
 
       render :create, status: :created
     else
@@ -48,10 +53,49 @@ class Api::V1::BookingsController < Api::V1::BaseController
    end
   end
 
+  ## reply and charge
+
   def reply
-      ReplySmsJob.perform_later(params["message_id"], params["response"])
+      p "======================================"
+      p response = ReplySmsJob.perform_later(params["message_id"], params["response"])
+      p "======================================"
+      skip_authorization
+
+      # if yes
+      #   charge
+      # else no
+      #   delete booking
+      # end
+
+      binding.pry
+      #charge_stripe response
+      ## stripe charge customer with response
       render :reply, status: :created
   end
+
+  # def charge_stripe(response)
+
+  #   @booking = Booking.find_by(message_id: response.arguments[0])
+
+  #    charge = Stripe::Charge.create(
+  #     customer:     @booking.customer_stripe_id,   # You should store this customer id and re-use it.
+  #     amount:       @booking.amount_cents,
+  #     description:  "Payment for booking #{@profile.name} for order #{@booking.id}",
+  #     currency:     "nzd"
+  #   )
+
+  # #@order.update(payment: charge.to_json, state: 'paid')
+  # @booking.payment = charge.to_json
+  # @booking.state = 'paid'
+  # if @booking.save(validate: false)
+
+  # else
+
+  # end
+  #   rescue Stripe::CardError => e
+  #     flash[:alert] = e.message
+  #    # redirect_to new_order_payment_path(@order)
+  # end
 
   def time_iterate(start_time, end_time, step, &block)
       begin
