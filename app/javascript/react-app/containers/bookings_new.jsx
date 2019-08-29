@@ -218,9 +218,93 @@ class BookingsNew extends Component {
       let res_2 = [];
       let busy_till_now = [];
 
+      // if my end_time > today
+      // return array + 30 min
+
+     let over_lap_busy = [];
+     let over_lap_busy_2 = [];
+     let over_lap_busy_3 = [];
+
+   over_lap_busy = this.props.busy.map( b =>{
+
+    let today = new Date(b.start_time);
+    let select_day = new Date(this.state.startDate).getDate();
 
 
-      if(verif_selected_date.getDate() === verif_right_now.getDate()){
+      if (select_day > today.getDate() ){
+          debugger
+          let today = new Date(b.end_time);
+          let date = today;
+          let hours = today.getHours();
+          let min = today.getMinutes();
+
+          let duration_hour = new Date(b.duration).getHours();
+          let duration_minute = new Date(b.duration).getMinutes();
+
+          const hour_concat = duration_hour.toString();
+          const min_concat = duration_minute.toString();
+          const duration_time = hour_concat + min_concat;
+          //const duration_time_interger = parseInt(duration_time);
+
+
+
+          debugger
+          if( duration_time === "10"){
+            return setMinutes(date, min - 30 );
+          }
+
+          if( duration_time === "130"){
+            return setMinutes(date, min - 30 );
+          }
+
+          if( duration_time === "20"){
+
+            return setMinutes(date, min - 30 );
+          }
+
+      }
+    })
+
+
+    over_lap_busy_2 = this.props.busy.map( b =>{
+
+    let today = new Date(b.start_time);
+    let select_day = new Date(this.state.startDate).getDate();
+
+
+      if (select_day > today.getDate() ){
+          debugger
+          let today = new Date(b.end_time);
+          let date = today;
+          let hours = today.getHours();
+          let min = today.getMinutes();
+
+          let duration_hour = new Date(b.duration).getHours();
+          let duration_minute = new Date(b.duration).getMinutes();
+
+          const hour_concat = duration_hour.toString();
+          const min_concat = duration_minute.toString();
+          const duration_time = hour_concat + min_concat;
+          //const duration_time_interger = parseInt(duration_time);
+
+
+
+          debugger
+
+          if( duration_time === "130"){
+            return setMinutes(date, min - 60 );
+          }
+
+          if( duration_time === "20"){
+
+            return setMinutes(date, min - 60 );
+          }
+
+      }
+    })
+
+
+    if(verif_selected_date.getDate() === verif_right_now.getDate()){
 
       busy_till_now =  this.props.now.map( b => {
        //debugger
@@ -238,8 +322,7 @@ class BookingsNew extends Component {
         return   setHours(setMinutes(date, min), hours);
         }
       });
-
-      }
+    }
 
     if( this.props.busy && this.props.busy.length  ){
 
@@ -273,6 +356,8 @@ class BookingsNew extends Component {
         let today = new Date(b.start_time);
         let select_day = new Date(this.state.startDate).getDate();
 
+
+
         if( select_day === today.getDate()) {
 
           let date = today;
@@ -302,6 +387,8 @@ class BookingsNew extends Component {
             return setMinutes(date, min + 30 );
           }
         }
+
+
       });
 
 
@@ -330,6 +417,7 @@ class BookingsNew extends Component {
             return setMinutes(date, min + 60 );
           }
 
+
           if( duration_time === "20"){
             return setMinutes(date, min + 60 );
           }
@@ -356,10 +444,13 @@ class BookingsNew extends Component {
           const duration_time = hour_concat + min_concat;
           //const duration_time_interger = parseInt(duration_time);
 
+
+
           if( duration_time === "20"){
             return setMinutes(date, min + 90 );
           }
         }
+
       });
 
 
@@ -382,7 +473,7 @@ class BookingsNew extends Component {
         // debugger
 
     }
-     return [ ...busy_till_now, ...res, ...res_2, ...cond, ...cond_2, ...cond_3 ];
+     return [ ...busy_till_now, ...res, ...res_2, ...cond, ...cond_2, ...cond_3, ...over_lap_busy, ...over_lap_busy_2, ...over_lap_busy_3 ];
   }
 
 

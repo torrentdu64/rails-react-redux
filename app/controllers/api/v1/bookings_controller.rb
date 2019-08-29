@@ -82,13 +82,17 @@ class Api::V1::BookingsController < Api::V1::BaseController
 
   def booking_time
     selected_date = params[:q]
-    #selected_date.to_date - 1.day
+
+    selected_date = selected_date.to_date - 1.day
+
     res =  selected_date.to_date.strftime("%Y-%m-%d 00:00:00")
-    end_point = res.to_date + 1.day
+
+    end_point = res.to_date + 2.day
+
     format_end_point = end_point.strftime("%Y-%m-%d 00:00:00")
 
     @booking = Booking.where(profile_id: params[:profile_id]).where("start_time  BETWEEN ? AND ?", res, format_end_point )
-     binding.pry
+     # binding.pry
     authorize @booking
     #binding.pry
     # binding.pry
