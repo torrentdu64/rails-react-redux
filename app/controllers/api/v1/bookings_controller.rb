@@ -9,7 +9,6 @@ class Api::V1::BookingsController < Api::V1::BaseController
       source: params[:token][:id],
       email:  current_user.email
     )
-
     # binding.pry
     @booking.customer_stripe_id = customer.id
     # binding.pry
@@ -18,7 +17,6 @@ class Api::V1::BookingsController < Api::V1::BaseController
     authorize @booking
     if @booking.save(validate: false)
     # binding.pry
-
       RequestProfileSmsJob.perform_later(@booking.id)
       render :stripe_customer, status: :created
     else
@@ -38,17 +36,10 @@ class Api::V1::BookingsController < Api::V1::BaseController
     end_time =   @booking.start_time
     @booking.end_time = @booking.start_time.to_datetime + Time.parse("#{@booking.duration}").seconds_since_midnight.seconds
 
-
-
     # binding.pry
     if @booking.save # see Message.as_json method
-
-
-       # RequestProfileSmsJob.perform_later(@booking.id)
-
       render :create, status: :created
     else
-
      render_error
    end
   end
@@ -59,43 +50,13 @@ class Api::V1::BookingsController < Api::V1::BaseController
       p "======================================"
       p response = ReplySmsJob.perform_later(params["message_id"], params["response"])
       p "======================================"
-      skip_authorization
-
-      # if yes
-      #   charge
-      # else no
-      #   delete booking
-      # end
-
-      binding.pry
-      #charge_stripe response
-      ## stripe charge customer with response
+      @booking = Booking.find_by(message_id: params["message_id"])
+      authorize @booking
+      #binding.pry
       render :reply, status: :created
   end
 
-  # def charge_stripe(response)
 
-  #   @booking = Booking.find_by(message_id: response.arguments[0])
-
-  #    charge = Stripe::Charge.create(
-  #     customer:     @booking.customer_stripe_id,   # You should store this customer id and re-use it.
-  #     amount:       @booking.amount_cents,
-  #     description:  "Payment for booking #{@profile.name} for order #{@booking.id}",
-  #     currency:     "nzd"
-  #   )
-
-  # #@order.update(payment: charge.to_json, state: 'paid')
-  # @booking.payment = charge.to_json
-  # @booking.state = 'paid'
-  # if @booking.save(validate: false)
-
-  # else
-
-  # end
-  #   rescue Stripe::CardError => e
-  #     flash[:alert] = e.message
-  #    # redirect_to new_order_payment_path(@order)
-  # end
 
   def time_iterate(start_time, end_time, step, &block)
       begin
@@ -105,20 +66,14 @@ class Api::V1::BookingsController < Api::V1::BaseController
 
   def busy_till_now
     selected_date = params[:q]
-
     res =  selected_date.to_date.strftime("%Y-%m-%d 00:00:00 tt")
-
-     now = DateTime.parse(selected_date).in_time_zone("Pacific/Auckland") + 12*60*60  #.strftime("%H:%M")
+    now = DateTime.parse(selected_date).in_time_zone("Pacific/Auckland") + 12*60*60  #.strftime("%H:%M")
     from = DateTime.parse(res).in_time_zone("Pacific/Auckland")  + 12*60*60 #.strftime("%H:%M")
-
     busy_now = []
     time_iterate(from, now, 30.minutes) do |t|
        busy_now << t
     end
-
-     @busy_now = busy_now
-
-
+    @busy_now = busy_now
     # binding.pry
     skip_authorization
 
@@ -126,42 +81,16 @@ class Api::V1::BookingsController < Api::V1::BaseController
   end
 
   def booking_time
-
     selected_date = params[:q]
+    #selected_date.to_date - 1.day
+    res =  selected_date.to_date.strftime("%Y-%m-%d 00:00:00")
+    end_point = res.to_date + 1.day
+    format_end_point = end_point.strftime("%Y-%m-%d 00:00:00")
 
-      #selected_date.to_date.to_formatted_s(:rfc822) #=> "14 Aug 2019"
-     # selected_date.to_datetime.to_formatted_s(:rfc822) => "Wed, 14 Aug 2019 12:24:35 +0000"
-    p res =  selected_date.to_date.strftime("%Y-%m-%d 00:00:00")
-
-    # p now = DateTime.parse(selected_date) #.strftime("%H:%M")
-    # p from = DateTime.parse(res) #.strftime("%H:%M")
-
-    # busy_now = []
-    # time_iterate(from, now, 30.minutes) do |t|
-    #   puts busy_now << t
-    # end
-
-
-
-
-
-
-
-
-    p end_point = res.to_date + 1.day
-
-    p format_end_point = end_point.strftime("%Y-%m-%d 00:00:00")
-
-
-
-    p @booking = Booking.where(profile_id: params[:profile_id]).where("start_time  BETWEEN ? AND ?", res, format_end_point )
-    # binding.pry
-
-
+    @booking = Booking.where(profile_id: params[:profile_id]).where("start_time  BETWEEN ? AND ?", res, format_end_point )
+     binding.pry
     authorize @booking
-
     #binding.pry
-
     # binding.pry
     render :booking_time, status: 200
   end

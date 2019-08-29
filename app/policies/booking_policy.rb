@@ -15,7 +15,6 @@ class BookingPolicy < ApplicationPolicy
   end
 
   def reply?
-    # verif if owner === record.owner
     true
   end
 
