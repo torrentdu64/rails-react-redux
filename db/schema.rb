@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_07_220151) do
+ActiveRecord::Schema.define(version: 2019_08_28_052933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,11 @@ ActiveRecord::Schema.define(version: 2019_08_07_220151) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "message_id"
+    t.string "state"
+    t.string "booking_sku"
+    t.integer "amount_cents", default: 0, null: false
+    t.jsonb "payment"
+    t.string "customer_stripe_id"
     t.index ["profile_id"], name: "index_bookings_on_profile_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
@@ -36,6 +41,7 @@ ActiveRecord::Schema.define(version: 2019_08_07_220151) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.string "photo"
+    t.integer "price_cents", default: 0, null: false
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 

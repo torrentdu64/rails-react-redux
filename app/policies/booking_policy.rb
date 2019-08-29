@@ -15,7 +15,6 @@ class BookingPolicy < ApplicationPolicy
   end
 
   def reply?
-    # verif if owner === record.owner
     true
   end
 
@@ -25,6 +24,14 @@ class BookingPolicy < ApplicationPolicy
 
   def busy_till_now?
     true
+  end
+
+  def stripe_customer?
+    if user
+      true
+    else
+      false
+    end
   end
 
 

@@ -4,7 +4,7 @@ class Booking < ApplicationRecord
   # before_save :set_start_time
   #
   # attr_accessor :busy_now
-
+  monetize :amount_cents
 
 
 

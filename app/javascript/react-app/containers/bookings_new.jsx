@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field, reset } from 'redux-form';
-import moment from 'moment'
+import moment from 'moment';
+
+import {Elements} from 'react-stripe-elements';
+import InjectedCheckoutForm from './CheckoutForm';
+
 
 import DatePicker from "react-datepicker";
 import setMinutes from "date-fns/setMinutes";
@@ -18,7 +22,8 @@ class BookingsNew extends Component {
       this.state = {
         startDate: new Date(),
         modal: false,
-        loading: null
+        loading: null,
+        booked: false
       };
       // this.handleChange = this.handleChange.bind(this);
     }
@@ -136,6 +141,7 @@ class BookingsNew extends Component {
 
 
     await this.setState({modal: false});
+    await this.setState({booked: true});
 
   }
 
@@ -178,9 +184,9 @@ class BookingsNew extends Component {
     }
 
     if(this.state.loading && this.state.modal && !this.props.formError.errors){
-
+        // data-dismiss="modal"
       return (
-         <button  className="btn btn-success" data-dismiss="modal"
+         <button  className="btn btn-success"
           onClick={this.renderSuccess}
            >
               Great Success
@@ -212,16 +218,132 @@ class BookingsNew extends Component {
       let res_2 = [];
       let busy_till_now = [];
 
+      // if my end_time > today
+      // return array + 30 min
+
+     let over_lap_busy = [];
+     let over_lap_busy_2 = [];
+     let over_lap_busy_3 = [];
+
+   over_lap_busy = this.props.busy.map( b =>{
+
+    let today = new Date(b.start_time);
+    let select_day = new Date(this.state.startDate).getDate();
 
 
-      if(verif_selected_date.getDate() === verif_right_now.getDate()){
+      if (select_day > today.getDate() ){
+          debugger
+          let today = new Date(b.end_time);
+          let date = today;
+          let hours = today.getHours();
+          let min = today.getMinutes();
+
+          let duration_hour = new Date(b.duration).getHours();
+          let duration_minute = new Date(b.duration).getMinutes();
+
+          const hour_concat = duration_hour.toString();
+          const min_concat = duration_minute.toString();
+          const duration_time = hour_concat + min_concat;
+          //const duration_time_interger = parseInt(duration_time);
+
+
+
+          debugger
+          if( duration_time === "10"){
+            return setMinutes(date, min - 30 );
+          }
+
+          if( duration_time === "130"){
+            return setMinutes(date, min - 30 );
+          }
+
+          if( duration_time === "20"){
+
+            return setMinutes(date, min - 30 );
+          }
+
+      }
+    })
+
+
+    over_lap_busy_2 = this.props.busy.map( b =>{
+
+    let today = new Date(b.start_time);
+    let select_day = new Date(this.state.startDate).getDate();
+
+
+      if (select_day > today.getDate() ){
+          debugger
+          let today = new Date(b.end_time);
+          let date = today;
+          let hours = today.getHours();
+          let min = today.getMinutes();
+
+          let duration_hour = new Date(b.duration).getHours();
+          let duration_minute = new Date(b.duration).getMinutes();
+
+          const hour_concat = duration_hour.toString();
+          const min_concat = duration_minute.toString();
+          const duration_time = hour_concat + min_concat;
+          //const duration_time_interger = parseInt(duration_time);
+
+
+
+          debugger
+
+          if( duration_time === "130"){
+            return setMinutes(date, min - 60 );
+          }
+
+          if( duration_time === "20"){
+
+            return setMinutes(date, min - 60 );
+          }
+
+      }
+    })
+
+    over_lap_busy_3 = this.props.busy.map( b =>{
+
+    let today = new Date(b.start_time);
+    let select_day = new Date(this.state.startDate).getDate();
+
+
+      if (select_day > today.getDate() ){
+          debugger
+          let today = new Date(b.end_time);
+          let date = today;
+          let hours = today.getHours();
+          let min = today.getMinutes();
+
+          let duration_hour = new Date(b.duration).getHours();
+          let duration_minute = new Date(b.duration).getMinutes();
+
+          const hour_concat = duration_hour.toString();
+          const min_concat = duration_minute.toString();
+          const duration_time = hour_concat + min_concat;
+          //const duration_time_interger = parseInt(duration_time);
+
+
+
+          debugger
+
+          if( duration_time === "20"){
+            return setMinutes(date, min - 90 );
+          }
+
+      }
+    })
+
+
+    if(verif_selected_date.getDate() === verif_right_now.getDate()){
 
       busy_till_now =  this.props.now.map( b => {
        //debugger
        let today = new Date(b);
 
         let select_day = new Date(b).getDate();
-        debugger
+
         if( select_day === today.getDate()) {
 
           let date = today;
@@ -232,8 +354,7 @@ class BookingsNew extends Component {
         return   setHours(setMinutes(date, min), hours);
         }
       });
-
-      }
+    }
 
     if( this.props.busy && this.props.busy.length  ){
 
@@ -267,6 +388,8 @@ class BookingsNew extends Component {
         let today = new Date(b.start_time);
         let select_day = new Date(this.state.startDate).getDate();
 
+
+
         if( select_day === today.getDate()) {
 
           let date = today;
@@ -296,6 +419,8 @@ class BookingsNew extends Component {
             return setMinutes(date, min + 30 );
           }
         }
+
+
       });
 
 
@@ -324,6 +449,7 @@ class BookingsNew extends Component {
             return setMinutes(date, min + 60 );
           }
 
+
           if( duration_time === "20"){
             return setMinutes(date, min + 60 );
           }
@@ -350,10 +476,13 @@ class BookingsNew extends Component {
           const duration_time = hour_concat + min_concat;
           //const duration_time_interger = parseInt(duration_time);
 
+
+
           if( duration_time === "20"){
             return setMinutes(date, min + 90 );
           }
         }
+
       });
 
 
@@ -376,7 +505,7 @@ class BookingsNew extends Component {
         // debugger
 
     }
-     return [ ...busy_till_now, ...res, ...res_2, ...cond, ...cond_2, ...cond_3 ];
+     return [ ...busy_till_now, ...res, ...res_2, ...cond, ...cond_2, ...cond_3, ...over_lap_busy, ...over_lap_busy_2, ...over_lap_busy_3 ];
   }
 
 
@@ -385,6 +514,15 @@ class BookingsNew extends Component {
 // maxTime={moment(new Date()).add( 1 , 'h')}
 
   render() {
+
+    if (this.state.booked ) {
+      return(  <div>
+          <Elements>
+              <InjectedCheckoutForm profile_id={this.props.match.params.id} booking_id={this.props.formError.id}/>
+          </Elements>
+        </div>
+      )
+    }
 
 
     return (
@@ -434,9 +572,13 @@ class BookingsNew extends Component {
           {this.renderBtnSubmit()}
 
         </form>
-        <div>
-        </div>
+
+
+
+
+
       </div>
+
     );
  }
 }

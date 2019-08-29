@@ -21,6 +21,7 @@ Rails.application.routes.draw do
         resources :bookings, only: [ :create ]
         get 'busy', to: "bookings#booking_time"
         get 'busy-now', to: "bookings#busy_till_now"
+        post 'customer', to: "bookings#stripe_customer"
       end
     end
   end
