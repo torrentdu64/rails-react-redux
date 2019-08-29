@@ -303,6 +303,38 @@ class BookingsNew extends Component {
       }
     })
 
+    over_lap_busy_3 = this.props.busy.map( b =>{
+
+    let today = new Date(b.start_time);
+    let select_day = new Date(this.state.startDate).getDate();
+
+
+      if (select_day > today.getDate() ){
+          debugger
+          let today = new Date(b.end_time);
+          let date = today;
+          let hours = today.getHours();
+          let min = today.getMinutes();
+
+          let duration_hour = new Date(b.duration).getHours();
+          let duration_minute = new Date(b.duration).getMinutes();
+
+          const hour_concat = duration_hour.toString();
+          const min_concat = duration_minute.toString();
+          const duration_time = hour_concat + min_concat;
+          //const duration_time_interger = parseInt(duration_time);
+
+
+
+          debugger
+
+          if( duration_time === "20"){
+            return setMinutes(date, min - 90 );
+          }
+
+      }
+    })
+
 
     if(verif_selected_date.getDate() === verif_right_now.getDate()){
 

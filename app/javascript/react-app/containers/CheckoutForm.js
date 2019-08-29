@@ -45,7 +45,26 @@ async submit(ev) {
 
 }
 
+
+
+
 render() {
+//   const style = {
+//   base: {
+//     color: '#32325d',
+//     fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+//     fontSmoothing: 'antialiased',
+//     fontSize: '20px',
+//     '::placeholder': {
+//       color: '#aab7c4'
+//     }
+//   },
+//   invalid: {
+//     color: '#fa755a',
+//     iconColor: '#fa755a'
+//   }
+// };
+
   if (this.state.complete) return <h1>Purchase Complete</h1>;
 
     return (
@@ -53,7 +72,7 @@ render() {
         <p>Would you like to complete the purchase?</p>
          <p>4000005540000008</p>
         <CardElement />
-        <button onClick={this.submit}>Send</button>
+        <button  className="strip-button" onClick={this.submit}>Make request</button>
       </div>
     );
   }
