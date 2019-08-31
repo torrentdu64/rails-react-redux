@@ -66,7 +66,7 @@ class ProfilesIndex extends Component {
 
 
   <div className="view view-cascade overlay">
-    <img className="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/men.jpg" alt="Card image cap" />
+    <img className="card-img-top" src={profile.photo.url ? profile.photo.url : "https://mdbootstrap.com/img/Photos/Others/men.jpg"} alt="Card image cap" />
     <a>
       <div className="mask rgba-white-slight"></div>
     </a>
