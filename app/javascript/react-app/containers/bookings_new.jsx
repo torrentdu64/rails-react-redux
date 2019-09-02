@@ -23,10 +23,17 @@ class BookingsNew extends Component {
         startDate: new Date(),
         modal: false,
         loading: null,
-        booked: false
+        booked: false,
+        value: 30
+
       };
-      // this.handleChange = this.handleChange.bind(this);
+       // this.handleChange = this.handleChange.bind(this);
     }
+
+    handleTimeChange = (event) => {
+    this.setState({value: event.target.value});
+  }
+
 
 
 
@@ -130,6 +137,9 @@ class BookingsNew extends Component {
           value={field.input.value}
           type={field.type}
               {...field.input}
+          min="30"
+          max="120"
+          step="30"
         />
         {this.renderError(field.meta)}
       </div>
@@ -560,14 +570,28 @@ class BookingsNew extends Component {
               component={this.renderField}
             />*/}
 
-
             <Field
+            label="time"
+            name="duration"
+
+            type="range"
+            min="30" max="120"
+            value={this.state.value}
+            onChange={this.handleTimeChange}
+            step="30"
+            component={this.renderField}
+            />
+          {this.state.value}
+
+
+
+            {/*<Field
               label="time"
               name="duration"
               type="text"
               pattern="[0-9]*"
               component={this.renderField}
-            />
+            />*/}
           {/*data-dismiss={this.state.modal}*/}
           {this.renderBtnSubmit()}
 
