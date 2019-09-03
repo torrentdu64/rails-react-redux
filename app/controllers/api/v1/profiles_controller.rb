@@ -5,6 +5,7 @@ class Api::V1::ProfilesController < Api::V1::BaseController
 
 
   def index
+    destroy_booking_no_pay
     @profiles = policy_scope(Profile)
   end
 
@@ -14,6 +15,12 @@ class Api::V1::ProfilesController < Api::V1::BaseController
   end
 
   private
+
+  def destroy_booking_no_pay
+    @booking = Booking.where(payment: nil, user_id: current_user.id )
+
+    @booking.destroy_all
+  end
 
   def set_profile
     @profile = Profile.find(params[:id])
