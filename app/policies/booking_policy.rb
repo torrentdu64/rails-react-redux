@@ -14,6 +14,8 @@ class BookingPolicy < ApplicationPolicy
     end
   end
 
+
+
   def reply?
     true
   end
