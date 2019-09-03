@@ -24,9 +24,13 @@ class BookingsNew extends Component {
         modal: false,
         loading: null,
         booked: false,
-        value: 30
+        value: "30",
+
+        durationFront: 0,
+        durationValue: "00:30"
 
       };
+      // this.onSubmit = this.onSubmit.bind(this);
        // this.handleChange = this.handleChange.bind(this);
     }
 
@@ -66,12 +70,20 @@ class BookingsNew extends Component {
 
 
 
-  onSubmit =  (values) => {
+  onSubmit = ( values) => {
 
     const { id } = this.props.match.params;
     const start_time = this.state.startDate;
-    values = {...values, start_time: start_time};
 
+
+
+
+    // preventDefault();
+
+      const duration = this.state.durationValue;
+
+    values = { ...values, start_time: start_time, duration: duration};
+    debugger
     this.props.createBooking( id, values);
 
     const selected_date = this.state.startDate;
@@ -103,6 +115,7 @@ class BookingsNew extends Component {
 
 
   componentWillReceiveProps  = (nextProps, nextState) => {
+
     //  console.log("api =>>>>>>>>>>>" , nextProps.formError.errors );
     // console.log("api =>>>>>>>>>>>" , nextProps.formError.id );
     // const dismissModal = document.getElementById('book-submit-form');
@@ -111,6 +124,7 @@ class BookingsNew extends Component {
       // dismissModal.setAttribute('data-dismiss', '');
     }else if(Number.isInteger(nextProps.formError.id) && nextProps.formError.id > 0   ){
     this.renderBusy();
+
 
     // this.props.reset();
     // dismissModal.setAttribute('data-dismiss', 'modal');
@@ -242,7 +256,7 @@ class BookingsNew extends Component {
 
 
       if (select_day > today.getDate() ){
-          debugger
+
           let today = new Date(b.end_time);
           let date = today;
           let hours = today.getHours();
@@ -258,7 +272,7 @@ class BookingsNew extends Component {
 
 
 
-          debugger
+
           if( duration_time === "10"){
             return setMinutes(date, min - 30 );
           }
@@ -283,7 +297,7 @@ class BookingsNew extends Component {
 
 
       if (select_day > today.getDate() ){
-          debugger
+
           let today = new Date(b.end_time);
           let date = today;
           let hours = today.getHours();
@@ -299,7 +313,7 @@ class BookingsNew extends Component {
 
 
 
-          debugger
+
 
           if( duration_time === "130"){
             return setMinutes(date, min - 60 );
@@ -320,7 +334,7 @@ class BookingsNew extends Component {
 
 
       if (select_day > today.getDate() ){
-          debugger
+
           let today = new Date(b.end_time);
           let date = today;
           let hours = today.getHours();
@@ -336,7 +350,7 @@ class BookingsNew extends Component {
 
 
 
-          debugger
+
 
           if( duration_time === "20"){
             return setMinutes(date, min - 90 );
@@ -518,6 +532,49 @@ class BookingsNew extends Component {
      return [ ...busy_till_now, ...res, ...res_2, ...cond, ...cond_2, ...cond_3, ...over_lap_busy, ...over_lap_busy_2, ...over_lap_busy_3 ];
   }
 
+  formatDuration = (values) => {
+
+    if(this.state.durationFront === 0){
+        this.setState({ durationValue: "00:30" });
+      }
+      if( this.state.durationFront === 1){
+         this.setState({ durationValue: "1" });
+      }
+      if( this.state.durationFront === 2){
+         this.setState({ durationValue: "01:30" });
+      }
+      if( this.state.durationFront === 3){
+         this.setState({ durationValue: "02:00" });
+      }
+
+  }
+
+  IncrementItem = async (e) => {
+    this.state.durationFront
+
+    if(this.state.durationFront <= 2 && this.state.durationFront >= 0){
+        await this.setState({ durationFront: this.state.durationFront + 1 });
+        await this.formatDuration();
+    }else{
+      this.state.durationFront
+    }
+  }
+
+  DecreaseItem = async (e) => {
+
+    if(this.state.durationFront > 0  ){
+       await this.setState({ durationFront: this.state.durationFront - 1 });
+      await this.formatDuration();
+    }else{
+      this.state.durationFront
+    }
+
+
+
+  }
+
+
+
 
 
 //  minTime={moment(new Date())}
@@ -563,6 +620,10 @@ class BookingsNew extends Component {
               />
              {this.props.formError.errors}
 
+        <div className="btn btn-success" onClick={this.IncrementItem} >Click to increment by 1</div>
+        <div className="btn btn-success" onClick={this.DecreaseItem}>Click to decrease by 1</div>
+            <h1>{this.state.durationValue} hours</h1>
+            <h1>{this.state.durationFront} </h1>
             {/*<Field
               label="date end"
               name="end_time"
@@ -570,7 +631,7 @@ class BookingsNew extends Component {
               component={this.renderField}
             />*/}
 
-            <Field
+            {/*<Field
             label="time"
             name="duration"
 
@@ -581,7 +642,7 @@ class BookingsNew extends Component {
             step="30"
             component={this.renderField}
             />
-          {this.state.value}
+          {this.state.value}*/}
 
 
 
