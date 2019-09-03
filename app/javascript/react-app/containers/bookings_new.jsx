@@ -70,7 +70,7 @@ class BookingsNew extends Component {
 
 
 
-  onSubmit = ( values) => {
+  onSubmit = async ( values) => {
 
     const { id } = this.props.match.params;
     const start_time = this.state.startDate;
@@ -83,12 +83,23 @@ class BookingsNew extends Component {
       const duration = this.state.durationValue;
 
     values = { ...values, start_time: start_time, duration: duration};
-    debugger
-    this.props.createBooking( id, values);
+
+    const responseBooking = await this.props.createBooking( id, values);
+
+    if(responseBooking.payload.id ){
+      await this.setState({modal: false});
+      await this.setState({booked: true});
+
+    }else if(responseBooking.payload.errors && responseBooking.payload.errors.length > 0){
+       await this.setState({modal: true});
+      await this.setState({booked: false});
+    }
+
 
     const selected_date = this.state.startDate;
 
-   this.props.fetchProfileBusyTime(id, moment(selected_date) );
+   await this.props.fetchProfileBusyTime(id, moment(selected_date) );
+
    const time_right_now = new Date();
 
       if(selected_date.getDate() === time_right_now.getDate() ){
@@ -151,23 +162,14 @@ class BookingsNew extends Component {
           value={field.input.value}
           type={field.type}
               {...field.input}
-          min="30"
-          max="120"
-          step="30"
+
         />
         {this.renderError(field.meta)}
       </div>
     );
   }
 
-  renderSuccess = async () => {
 
-
-
-    await this.setState({modal: false});
-    await this.setState({booked: true});
-
-  }
 
   renderCreateBooking =  async () => {
 
@@ -181,7 +183,10 @@ class BookingsNew extends Component {
 
     await this.props.fetchProfileBusyTime(id, moment(selected_date) );
 
-    this.setState({ loading: true});
+    await this.setState({ loading: true});
+
+
+
 
 
   }
@@ -207,24 +212,14 @@ class BookingsNew extends Component {
       return <div>loading ....</div>
     }
 
-    if(this.state.loading && this.state.modal && !this.props.formError.errors){
-        // data-dismiss="modal"
-      return (
-         <button  className="btn btn-success"
-          onClick={this.renderSuccess}
-           >
-              Great Success
-          </button>
-      );
 
-    }else{
       return(
          <button id="book-submit-form" className="btn btn-primary" type="submit"
            onClick={this.renderCreateBooking}>
               Create Booking
           </button>
       );
-    }
+
   }
 
   // disabled={  this.props.pristine || this.props.submitting}
@@ -529,7 +524,7 @@ class BookingsNew extends Component {
         // debugger
 
     }
-     return [ ...busy_till_now, ...res, ...res_2, ...cond, ...cond_2, ...cond_3, ...over_lap_busy, ...over_lap_busy_2, ...over_lap_busy_3 ];
+     return [ ...busy_till_now, ...res, ...res_2,  ...cond, ...cond_2, ...cond_3, ...over_lap_busy, ...over_lap_busy_2, ...over_lap_busy_3 ];
   }
 
   formatDuration = (values) => {
