@@ -1,6 +1,10 @@
-a .link-card{
-  text-decoration: none;
+a:hover {
+    color: #035ac1;
+    text-decoration: none;
+}
 
+.link-card{
+  text-decoration: none;
 }
 
 .card-trip {
@@ -8,7 +12,41 @@ a .link-card{
   background: white;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   margin-bottom: 25px;
+
+  .btn-profile  {
+    border: none;
+    border-radius: 4px;
+    outline: none;
+    text-decoration: none;
+    color: #fff;
+    background: #3333ff;
+    white-space: nowrap;
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 14px;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    text-decoration: none;
+    -webkit-transition: all 150ms ease;
+    transition: all 150ms ease;
+    float: left;
+    margin-left: 12px;
+    margin-top: 28px;
+  }
+
+  .btn-profile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2), 0 3px 6px rgba(0, 0, 0, .08);
+    background-color: #0000e6;
+  }
 }
+
+
+
 
 .card-trip > img {
   height: 200px;
@@ -20,6 +58,8 @@ a .link-card{
   font-size: 16px;
   font-weight: bold;
   margin: 0;
+  color: black;
+  margin-bottom: 8px;
 }
 
 .card-trip p {

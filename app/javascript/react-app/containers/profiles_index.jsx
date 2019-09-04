@@ -66,8 +66,7 @@ class ProfilesIndex extends Component {
               <div className="card-trip-infos">
                 <div>
                   <h2>{profile.name}</h2>
-                  <p>Short description here!</p>
-                  <button>Profile</button>
+                  <button className="btn-profile">Profile</button>
                 </div>
                 <h2 className="card-trip-pricing">£99.99</h2>
                 <img src="https://kitt.lewagon.com/placeholder/users/krokrob" className="card-trip-user avatar-bordered" />
