@@ -1,5 +1,8 @@
-<h1>Profiles#show</h1>
-<p>Find me in app/views/profiles/show.html.erb</p>
+<div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= cl_image_path @profile.photo, height: 300, width: 400, crop: :fill %>)">
+      <h1><%= @profile.name %></h1>
+</div>
+
+
 <div class="container">
   <% if policy(@profile).update? %>
   <div class="row">
@@ -7,13 +10,14 @@
   </div>
   <% end %>
   <% if policy(@profile).destroy? %>
-  <div class="row">
-    <%= link_to "delete", @profile, method: :delete, class: "btn btn-success" %>
-  </div>
+    <div class="row">
+      <%= link_to "delete", @profile, method: :delete, class: "btn btn-success" %>
+    </div>
   <% end %>
-  <div class="row">
+
     <div class="offset-sm-3 col-sm-6">
-      <h1><%= @profile.name %></h1>
+
+
       <h1><%= @profile.description %></h1>
       <h1><%= @profile.phone %></h1>
       <h1>Amount: <%= humanized_money_with_symbol(@profile.price) %></h1>

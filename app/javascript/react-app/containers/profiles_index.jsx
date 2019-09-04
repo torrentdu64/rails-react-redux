@@ -51,11 +51,7 @@ class ProfilesIndex extends Component {
   }
 
 
-
-
   renderProfiles() {
-
-
 
     return this.props.profiles.map((profile) => {
       return (
