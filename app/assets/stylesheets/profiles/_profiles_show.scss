@@ -1,7 +1,10 @@
 .card-category {
+  position: absolute;
+  left: 0;
   background-size: cover;
   background-position: center;
-  height: 270px;
+  height: 80%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,3 +15,15 @@
   border-radius: 5px;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
 }
+
+
+
+
+.profile-name {
+  margin-top: 60%;
+  margin-left: 20%;
+  h4 {
+    width: 50%;
+  }
+}
+
