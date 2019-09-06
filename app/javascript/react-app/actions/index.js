@@ -1,5 +1,6 @@
 export function fetchProfiles() {
   // AJAX request
+  debugger
   const promise = fetch("/api/v1/profiles")
     .then(response => response.json());
 
