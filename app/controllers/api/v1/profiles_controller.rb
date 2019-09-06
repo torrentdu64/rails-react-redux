@@ -5,7 +5,9 @@ class Api::V1::ProfilesController < Api::V1::BaseController
 
 
   def index
-    destroy_booking_no_pay
+    if current_user
+      destroy_booking_no_pay
+    end
     @profiles = policy_scope(Profile)
   end
 

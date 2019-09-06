@@ -1,9 +1,10 @@
+
 .card-category {
-  position: absolute;
+  display: absolute;
   left: 0;
   background-size: cover;
   background-position: center;
-  height: 80%;
+  height: 550px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -16,14 +17,18 @@
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
 }
 
-
-
-
-.profile-name {
-  margin-top: 60%;
-  margin-left: 20%;
-  h4 {
-    width: 50%;
-  }
+.shape{
+  position: absolute;
+  margin-top: -130px;
+  width: 100%;
 }
 
+.mobile-booking{
+  margin-top: -60px;
+  width: 100%;
+}
+
+// .iphone{
+//   margin-top: -90px;
+//   transform: rotate(12deg);
+// }
