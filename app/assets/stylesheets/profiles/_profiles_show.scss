@@ -17,18 +17,184 @@
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
 }
 
-.shape{
+
+.shape-background{
+    background-image: url("mobile-combined-shape.png");
+    background-size:100% 100%;
+    background-repeat:no-repeat;
+    background-position:fixed;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.shape-background{
+  background-image: url("mobile-combined-shape.png");
+  background-size:100% 100%;
+  background-repeat:no-repeat;
+  background-position:fixed;
+  width: 100%;
+  height: 100%;
   position: absolute;
-  margin-top: -130px;
-  width: 100%;
+  margin-top: -107px;
+  // background-repeat:no-repeat;
+  // background-size:100%;
+  // background-position:center;
+  // width: 100%;
+  // height: 100%;
+  // position: absolute;
+  // // background-image: url("mobile-combined-shape.png");
+  // background-image: url(Slice2.png);
+  // background-repeat: no-repeat;
+  // margin-top: -45px;
 }
 
-.mobile-booking{
-  margin-top: -60px;
-  width: 100%;
+.details-profile{
+ position: relative;
+ padding: 20px;
+    /* margin-top: -55px; */
+ top: -50px;
 }
 
-// .iphone{
-//   margin-top: -90px;
-//   transform: rotate(12deg);
+@media (min-width: 550px) {
+  .shape-background{
+    background-image: url(Slice2.png);
+    background-size:100% 100%;
+    background-repeat:no-repeat;
+    background-position:fixed;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    margin-top: -107px;
+  }
+  .details-profile {
+    position: relative;
+    /* padding: 31px; */
+    top: 0;
+    padding: 20px;
+    margin: 10px;
+    width: 65%;
+  }
+
+}
+
+// .booking-shape {
+//   width: 100%;
+//     height: 100%;
+//     top: -3px;
+//     left: 180px;
+//     position: absolute;
+//     background-image: url(profile-show/mobile-path-2.png);
+//     background-repeat: no-repeat;
+//     background-size: 143px 55px;
+// }
+
+
+
+.details-profile h1{
+  margin-left: 10px;
+}
+.details-profile p {
+  font-size: 12px;
+    padding: 15px;
+    margin: -15px 0 0 0;
+}
+
+.section-info{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-image: url(profile-show/mobile-path-1.png);
+    background-repeat: no-repeat;
+    background-size: 273px 222px;
+    margin-top: 100px;
+
+    h3 {
+      font-size: 20px;
+      margin-left: 73px;
+      margin-top: 38px;
+    }
+
+}
+
+
+
+// .info-background{
+//   width: 100%;
+//   height: 100%;
+//   position: absolute;
+//   background-image: url(profile-show/mobile-backgound.png);
+//   background-repeat: no-repeat;
+//   background-size: 456px 1289px;
+
+// }
+
+
+// .phone-shape{
+//   position: relative;
+//   top: -79px;
+//   width: 101%;
+//   left: -5px;
+// }
+
+// .mobile-booking{
+//   width: 100%;
+//   margin: 20px auto;
+
+// }
+
+// .details-profile{
+
+// }
+
+// .profile-card{
+//   position: absolute;
+
+//   left: 0;
+//   top: 101%;
+//   background-color: #ffffff;
+//   padding: 0 20px;
+//   height: 700px;
+//   width: 100%;
+// }
+// .slice{
+//   display: none;
+// }
+
+// @media (min-width: 700px){
+//   .profile-card{
+//     background-color: #ffffff;
+//     padding: 0 20px;
+//     height: 700px;
+//     width: 100%;
+//     display: block;
+//     margin-top: -75px;
+//   }
+
+//   .mobile-booking{
+//     width: 200px;
+//     height: 40px;
+//     float: right;
+//     margin: 15% 4%;
+//   }
+//   .details-profile{
+
+//     float: left;
+//     width: 60%;
+//     padding: 30px;
+//   }
+
+//   .phone-shape{
+//     display: none;
+//   }
+
+//   .slice{
+//    position: relative;
+//     display: block;
+//     left: 0;
+//     width: 100%;
+//     height: 800px;
+//     height: 700px;
+//     top: -110px;
+//   }
 // }
