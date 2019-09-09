@@ -2,18 +2,40 @@
 <div class="head-profile">
     <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= cl_image_path @profile.photo, height: 300, width: 400, crop: :fill %>)">
   </div>
-  <div class="shape-background">
-    <div class="booking-shape">
-    </div>
-  </div>
 
-    <div class="details-profile">
+</div>
+
+<div class="shape-background">
+  <div class="booking-shape">
+    <button type="button" class="btn btn-primary btn-booking" data-toggle="modal" data-target="#exampleModal" >
+        Booking
+    </button>
+  </div>
+  <div class="details-profile">
     <h1><%= @profile.name%></h1>
     <p><%= @profile.description%></p>
   </div>
 </div>
 
 
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="card-product">
+          <%= cl_image_tag @profile.photo %>
+        <div class="card-footer">
+          <div>
+            <h1>Card</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 

@@ -1,7 +1,7 @@
 
 .card-category {
-  display: absolute;
-  left: 0;
+  // display: absolute;
+  // left: 0;
   background-size: cover;
   background-position: center;
   height: 550px;
@@ -18,15 +18,15 @@
 }
 
 
-.shape-background{
-    background-image: url("mobile-combined-shape.png");
-    background-size:100% 100%;
-    background-repeat:no-repeat;
-    background-position:fixed;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-}
+// .shape-background{
+//     background-image: url("mobile-combined-shape.png");
+//     background-size:100% 100%;
+//     background-repeat:no-repeat;
+//     background-position:fixed;
+//     width: 100%;
+//     height: 100%;
+//     position: absolute;
+// }
 
 .shape-background{
   background-image: url("mobile-combined-shape.png");
@@ -34,9 +34,9 @@
   background-repeat:no-repeat;
   background-position:fixed;
   width: 100%;
-  height: 100%;
-  position: absolute;
-  margin-top: -107px;
+  height: 550px;
+  // position: absolute;
+  margin-top: -174px;
   // background-repeat:no-repeat;
   // background-size:100%;
   // background-position:center;
@@ -50,11 +50,33 @@
 }
 
 .details-profile{
- position: relative;
- padding: 20px;
+  padding: 50px 30px 10px 40px;
+ // position: relative;
+ // padding: 20px;
+ // margin-top: 45px;
     /* margin-top: -55px; */
- top: -50px;
+ // top: -50px;
+ //
+  p {
+  font-size: 12px;
+    // padding: 15px;
+    // margin: -15px 0 0 0;
+  }
+
 }
+
+.btn-booking{
+  float: right;
+  margin-right: 32px;
+  margin-top: 18px;
+   //  position: relative;
+   //  float: right;
+   //  right: 10%;
+   // margin-top: 25px
+  }
+
+
+
 
 @media (min-width: 550px) {
   .shape-background{
@@ -63,18 +85,39 @@
     background-repeat:no-repeat;
     background-position:fixed;
     width: 100%;
-    height: 100%;
-    position: absolute;
-    margin-top: -107px;
+    height: 700px;
+    // position: absolute;
+    // margin-top: -107px;
   }
   .details-profile {
-    position: relative;
-    /* padding: 31px; */
-    top: 0;
-    padding: 20px;
-    margin: 10px;
-    width: 65%;
+    padding: 100px 0 0px 40px;
+    // position: relative;
+    // /* padding: 31px; */
+    // top: 0;
+    // padding: 20px;
+    // margin: 80px 40px;
+     width: 65%;
+    h1 {
+      font-size: 48px;
+     }
+    p {
+      font-size: 18px;
+      padding: 15px;
+      margin: -15px 0 0 0;
+     }
+
   }
+
+  .btn-booking{
+    float: right;
+    margin-right: 25%;
+    margin-top: 35px;
+    }
+    // position: relative;
+    // float: right;
+    // right: 25%;
+    // margin-top: 50px;
+
 
 }
 
@@ -94,11 +137,11 @@
 .details-profile h1{
   margin-left: 10px;
 }
-.details-profile p {
-  font-size: 12px;
-    padding: 15px;
-    margin: -15px 0 0 0;
-}
+// .details-profile p {
+//   font-size: 12px;
+//     padding: 15px;
+//     margin: -15px 0 0 0;
+// }
 
 .section-info{
     width: 100%;
