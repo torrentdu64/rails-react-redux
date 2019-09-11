@@ -14,6 +14,8 @@ class ProfilesController < ApplicationController
 
   def show
     session[:profile] = false
+
+     @profiles = policy_scope(Profile)
   end
 
   def new

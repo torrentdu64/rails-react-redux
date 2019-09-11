@@ -15,8 +15,8 @@
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
 }
 
-
-
+// background: rgb(2,0,36);
+// background: linear-gradient(52deg, rgba(2,0,36,0.758140756302521) 0%, rgba(46,46,187,0.654499299719888) 28%, rgba(16,138,231,0.6096813725490196) 63%, rgba(0,200,255,0.7021183473389356) 85%);
 .shape-background{
   background-image: url("mobile-combined-shape.png");
   background-size:100% 100%;
@@ -48,6 +48,45 @@
 
 
 @media (min-width: 550px) {
+ .carousel-inner .item.left.active {
+  transform: translateX(-33%);
+}
+.carousel-inner .item.right.active {
+  transform: translateX(33%);
+}
+
+.carousel-inner .item.next {
+  transform: translateX(33%)
+}
+.carousel-inner .item.prev {
+  transform: translateX(-33%)
+}
+
+.carousel-inner .item.right,
+.carousel-inner .item.left {
+  transform: translateX(0);
+}
+  .card-category {
+    background-size: cover;
+    background-position: center;
+    height: 630px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  }
+
+  .background-profile{
+    background: rgb(2,0,36);
+    background: linear-gradient(52deg, rgba(2,0,36,0.758140756302521) 0%, rgba(46,46,187,0.654499299719888) 28%, rgba(16,138,231,0.6096813725490196) 63%, rgba(0,200,255,0.7021183473389356) 85%);
+  }
+
   .shape-background{
     background-image: url(Slice2.png);
     background-size:100% 100%;
@@ -76,5 +115,17 @@
     margin-right: 25%;
     margin-top: 35px;
     }
+
+  .grid-profile{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2px;
+    padding: 0 30px;
+  }
+
+  .slider-profile{
+    margin-top: 100px;
+  }
+
 }
 
