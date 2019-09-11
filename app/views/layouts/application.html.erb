@@ -9,7 +9,10 @@
     <%= action_cable_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
+
     <script src="https://js.stripe.com/v3/"></script>
+
+
   </head>
   <body>
     <%= render 'shared/navbar' %>
@@ -21,5 +24,6 @@
     <%= render 'shared/footer' %>
     <%= javascript_include_tag 'application' %>
     <%= yield :after_js %>
+    <%= javascript_pack_tag 'slick' %>
   </body>
 </html>

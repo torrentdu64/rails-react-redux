@@ -1,23 +1,63 @@
 <div class="background-profile">
 
-
-<div class="head-profile">
+  <div class="head-profile">
     <div class="card-category d-block w-100" style="background-image: url(<%= cl_image_path @profile.photo %>);">
+    </div>
   </div>
 
-</div>
+  <div class="shape-background">
+    <div class="booking-shape">
 
-<div class="shape-background">
-  <div class="booking-shape">
-    <button type="button" class="btn btn-primary btn-booking" data-toggle="modal" data-target="#exampleModal" >
-        Booking
-    </button>
+
+
+
+
+
+
+
+
+      <button type="button" class="btn btn-primary btn-booking" data-toggle="modal" data-target="#exampleModal" >
+          Booking
+      </button>
+    </div>
+    <div class="details-profile">
+
+      <div class="contain">
+        <div id="left">
+          <h1><%= @profile.name%></h1>
+        <p><%= @profile.description%></p>
+          <!-- <h1>thing</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          </p> -->
+        </div>
+        <div id="right">
+          <ul>
+            <li>
+              <%= image_tag "logo" %>
+              <span>
+                <strong>App</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+              </span>
+            </li>
+            <li>
+              <%= image_tag "logo" %>
+              <span>
+                <strong>App</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+              </span>
+            </li>
+            <li>
+             <%= image_tag "logo" %>
+              <span>
+                <strong>App</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="details-profile">
-    <h1><%= @profile.name%></h1>
-    <p><%= @profile.description%></p>
-  </div>
-</div>
 
 
 
@@ -83,13 +123,13 @@
      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <%= cl_image_tag @profile.photo, class: "d-block w-100" %>
+          <%= cl_image_tag @profile.photo, class: "d-block w-100 h-100" %>
         </div>
         <div class="carousel-item">
-          <%= cl_image_tag @profile.photo, class: "d-block w-100" %>
+          <%= cl_image_tag @profile.photo, class: "d-block w-100 h-100" %>
         </div>
         <div class="carousel-item">
-          <%= cl_image_tag @profile.photo, class: "d-block w-100" %>
+          <%= cl_image_tag @profile.photo, class: "d-block w-100 h-100" %>
         </div>
       </div>
       <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -104,10 +144,10 @@
   </div>
 </section>
 
-<div class="container">
+<!-- <div class="container">
   <div class="row">
     <div class="col-12 col-lg-4">
-      <%= link_to profiles_path(@profile), class: "link-card" do %>
+      <%= link_to profile_path(@profile), class: "link-card" do %>
         <div class="card-trip">
           <%= cl_image_tag @profile.photo %>
           <div class="card-trip-infos">
@@ -122,9 +162,34 @@
       <% end %>
     </div>
   </div>
+</div> -->
+
+
+<div class="container">
+  <div class="row">
+    <div class="autoplay" style="width: 100%;">
+        <% @profiles.each do |p| %>
+          <%= link_to profile_path(p), class: "link-card" do %>
+            <div class="card-trip"  style="margin: 15px" >
+              <% if p.photo.present?  %>
+                <%= cl_image_tag p.photo, width: 200, height: 200 %>
+              <% else %>
+                <img src="https://mdbootstrap.com/img/Photos/Others/men.jpg" />
+              <% end %>
+              <div class="card-trip-infos">
+                <div>
+                  <h2><%= p.name %></h2>
+                  <button class="btn-profile">Profile</button>
+                </div>
+                <h2 class="card-trip-pricing">£99.99</h2>
+                <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-trip-user avatar-bordered" />
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+    </div>
+  </div>
 </div>
-
-
 
 
 
@@ -210,4 +275,5 @@
 <% content_for :after_js do %>
   <%= javascript_pack_tag "application" %>
 <% end %>
+
 
