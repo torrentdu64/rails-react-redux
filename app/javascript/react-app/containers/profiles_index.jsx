@@ -55,7 +55,7 @@ class ProfilesIndex extends Component {
 
     return this.props.profiles.map((profile) => {
       return (
-        <div className="col-12 col-sm-3">
+        <div className="form-index">
           <a href={`/profiles/${profile.id}` } className="link-card">
             <div className="card-trip">
               <img  src={profile.photo.url ? profile.photo.url : "https://mdbootstrap.com/img/Photos/Others/men.jpg"} alt="Card image cap" />
@@ -81,8 +81,8 @@ class ProfilesIndex extends Component {
         <div className="text-center">
           <h3>list</h3>
         </div>
-        <div className="container"  ref={profile => this.profile = profile}>
-          <div className="row">
+        <div className=""  ref={profile => this.profile = profile}>
+          <div className="index-grid">
              { this.renderProfiles()}
           </div>
         </div>

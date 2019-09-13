@@ -11,7 +11,7 @@ a:hover {
   overflow: hidden;
   background: white;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
-  margin-bottom: 25px;
+  margin-bottom: 10px;
 
   .btn-profile  {
     border: none;
@@ -83,3 +83,48 @@ a:hover {
   top: -20px;
   width: 40px;
 }
+
+.index-grid{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 15px;
+}
+
+.form-index{
+  padding: 10px;
+  margin: 0 10px;
+}
+
+@media (min-width: 576px){
+  .index-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 15px;
+  }
+}
+
+@media (min-width: 768px){
+  .index-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 15px;
+  }
+}
+
+
+@media (min-width: 992px){
+  .index-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 15px;
+  }
+}
+
+// @media (min-width: 1200px){
+//   .index-grid{
+//     display: grid;
+//     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+//     grid-gap: 15px;
+//   }
+// }
+

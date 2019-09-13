@@ -6,14 +6,26 @@
 }
 
 .react-datepicker {
-  font-family: $datepicker__font-family;
-  font-size: $datepicker__font-size;
+  // default setting
+  // -----------------
+  // font-family: $datepicker__font-family;
+  // font-size: $datepicker__font-size;
+  // background-color: #fff;
+  // color: $datepicker__text-color;
+  // border: 1px solid $datepicker__border-color;
+  // border-radius: $datepicker__border-radius;
+  // display: inline-block;
+  // position: relative;
+
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 17px;
   background-color: #fff;
-  color: $datepicker__text-color;
-  border: 1px solid $datepicker__border-color;
-  border-radius: $datepicker__border-radius;
+  color: #000;
+  border-radius: 0.3rem;
   display: inline-block;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .react-datepicker--time-only {
@@ -79,7 +91,8 @@
 
 .react-datepicker__header {
   text-align: center;
-  background-color: $datepicker__background-color;
+  // default setting
+  //background-color: $datepicker__background-color;
   border-bottom: 1px solid $datepicker__border-color;
   border-top-left-radius: $datepicker__border-radius;
   border-top-right-radius: $datepicker__border-radius;
@@ -243,7 +256,8 @@
 
 .react-datepicker__time-container {
   float: right;
-  border-left: 1px solid $datepicker__border-color;
+  // default setting
+  // border-left: 1px solid $datepicker__border-color;
   width: 70px;
 
   &--with-today-button {
@@ -260,23 +274,43 @@
     background: white;
 
     .react-datepicker__time-box {
-      width: 70px;
-      overflow-x: hidden;
+      // default setting
+      // width: 70px;
+      // overflow-x: hidden;
+      // margin: 0 auto;
+      // text-align: center;
+
+      width: 340px;
+      overflow-x: auto;
       margin: 0 auto;
       text-align: center;
+
       ul.react-datepicker__time-list {
+        // default setting
+        // list-style: none;
+        // margin: 0;
+        // height: calc(195px + (#{$datepicker__item-size} / 2));
+        // overflow-y: scroll;
+        // padding-right: 0px;
+        // padding-left: 0px;
+        // width: 100%;
+        // box-sizing: content-box;
+
         list-style: none;
-        margin: 0;
-        height: calc(195px + (#{$datepicker__item-size} / 2));
-        overflow-y: scroll;
-        padding-right: 0px;
-        padding-left: 0px;
-        width: 100%;
-        box-sizing: content-box;
+        height: calc(60px + (1.7rem / 2));
+        width: 91%;
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
 
         li.react-datepicker__time-list-item {
-          height: 30px;
+          // default setting
+          // height: 30px;
+          // padding: 5px 10px;
+
+          height: 60px;
           padding: 5px 10px;
+          border-radius: 50%;
           &:hover {
             cursor: pointer;
             background-color: $datepicker__background-color;
@@ -321,7 +355,13 @@
 
 .react-datepicker__day-names,
 .react-datepicker__week {
+  // default setting
+  // white-space: nowrap;
   white-space: nowrap;
+  display: flex;
+  justify-content: space-around;
+  margin: 3%;
+  font-size: larger;
 }
 
 .react-datepicker__day-name,
@@ -342,6 +382,8 @@
     border-radius: $datepicker__border-radius;
     background-color: $datepicker__selected-color;
     color: #fff;
+
+
 
     &:hover {
       background-color: darken($datepicker__selected-color, 5%);
@@ -391,9 +433,18 @@
   &--selected,
   &--in-selecting-range,
   &--in-range {
-    border-radius: $datepicker__border-radius;
-    background-color: $datepicker__selected-color;
+    // border-radius: $datepicker__border-radius;
+    // background-color: $datepicker__selected-color;
+    // color: #fff;
+
+    background-color: #216ba5;
     color: #fff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    top: -7px;
+    line-height: 2;
 
     &:hover {
       background-color: darken($datepicker__selected-color, 5%);
@@ -644,4 +695,90 @@
       cursor: default;
     }
   }
+}
+
+@media (min-width: 500px){
+  .react-datepicker__time-container {
+  float: right;
+  // default setting
+  // border-left: 1px solid $datepicker__border-color;
+  width: 70px;
+
+  &--with-today-button {
+    display: inline;
+    border: 1px solid #aeaeae;
+    border-radius: 0.3rem;
+    position: absolute;
+    right: -72px;
+    top: 0;
+  }
+
+  .react-datepicker__time {
+    position: relative;
+    background: white;
+
+    .react-datepicker__time-box {
+      // default setting
+      // width: 70px;
+      // overflow-x: hidden;
+      // margin: 0 auto;
+      // text-align: center;
+
+      width: 480px;
+      overflow-x: auto;
+      margin: 0 auto;
+      text-align: center;
+
+      ul.react-datepicker__time-list {
+        // default setting
+        // list-style: none;
+        // margin: 0;
+        // height: calc(195px + (#{$datepicker__item-size} / 2));
+        // overflow-y: scroll;
+        // padding-right: 0px;
+        // padding-left: 0px;
+        // width: 100%;
+        // box-sizing: content-box;
+
+        list-style: none;
+        height: calc(60px + (1.7rem / 2));
+        width: 91%;
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+
+        li.react-datepicker__time-list-item {
+          // default setting
+          // height: 30px;
+          // padding: 5px 10px;
+
+          height: 60px;
+          padding: 5px 10px;
+          border-radius: 50%;
+          &:hover {
+            cursor: pointer;
+            background-color: $datepicker__background-color;
+          }
+          &--selected {
+            background-color: $datepicker__selected-color;
+            color: white;
+            font-weight: bold;
+            &:hover {
+              background-color: $datepicker__selected-color;
+            }
+          }
+          &--disabled {
+            color: $datepicker__muted-color;
+
+            &:hover {
+              cursor: default;
+              background-color: transparent;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 }

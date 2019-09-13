@@ -59,11 +59,20 @@ class BookingsNew extends Component {
 
 
 
+
       this.props.fetchProfileBusyTime(id, moment(selected_date) );
 
       if(selected_date.getDate() === time_right_now.getDate() ){
-
         this.props.fetchProfileBusyNow(id, moment(time_right_now));
+
+        const elmnt = document.getElementsByClassName("react-datepicker__time-list-item react-datepicker__time-list-item--disabled");
+        const start_el = document.getElementsByClassName("react-datepicker__time-list");
+        console.log('my selected time', elmnt[elmnt.length - 1]);
+        console.log('target', elmnt[0] );
+        const last_elmnt = elmnt[elmnt.length - 1];
+
+        last_elmnt.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
+
       }
 
     }

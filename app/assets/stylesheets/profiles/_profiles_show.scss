@@ -42,7 +42,19 @@
   float: right;
   margin-right: 32px;
   margin-top: 18px;
-  }
+}
+
+
+.svv-phone{
+  width: 589px;
+  height: 592px;
+}
+
+.autoplay{
+  width: 90%;
+  padding: 10px;
+  margin: auto;
+}
 
 
 
@@ -95,6 +107,7 @@
       margin: -15px 0 0 0;
      }
 
+
   }
 
   .contain{
@@ -143,6 +156,8 @@
         mix-blend-mode: normal;
       }
     }
+
+
   }
 
   .btn-booking{
@@ -162,5 +177,26 @@
     margin-top: 100px;
   }
 
+  .autoplay{
+  width: 100%;
+  }
+
 }
+
+@media (max-width: 900px) {
+  #right{
+    display:none;
+  }
+  .details-profile {
+     h1 {
+      font-size: 36px;
+     }
+     p {
+      font-size: 14px;
+     }
+  }
+
+}
+
+
 
