@@ -5,27 +5,30 @@
     </div>
   </div>
 
+
   <div class="shape-background">
+
     <div class="booking-shape">
 
 
 
+    <button type="button" class="btn btn-outline-primary btn-booking" data-toggle="modal" data-target="#exampleModal">Booking</button>
 
 
 
-
-
-
-      <button type="button" class="btn btn-primary btn-booking" data-toggle="modal" data-target="#exampleModal" >
+     <!--  <button type="button" class="btn btn-primary btn-booking"  >
           Booking
-      </button>
+      </button> -->
     </div>
     <div class="details-profile">
 
       <div class="contain">
         <div id="left">
+          <span class="rectengle3-background"></span>
+          <span class="rectengle4-background"></span>
           <h1><%= @profile.name%></h1>
         <p><%= @profile.description%></p>
+
           <!-- <h1>thing</h1>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
           </p> -->
@@ -57,6 +60,10 @@
         </div>
       </div>
     </div>
+    <span class="rectengle-background"></span>
+    <span class="rectengle2-background"></span>
+
+
     <% image_tag "svv" , class: "svv-phone" %>
   </div>
 
@@ -232,7 +239,7 @@
     <div class="container">
       <div class="row">
            <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        <button onclick="scrollTime()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >
         Booking
         </button>
         <!-- Modal -->
@@ -275,5 +282,4 @@
 <% content_for :after_js do %>
   <%= javascript_pack_tag "application" %>
 <% end %>
-
 

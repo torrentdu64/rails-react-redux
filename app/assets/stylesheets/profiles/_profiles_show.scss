@@ -38,6 +38,65 @@
 
 }
 
+.rectengle-background{
+  background-color: #65c5f4;
+  width: 350px;
+  height: 65px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  transform: skewY(-14deg);
+  box-shadow: inset 0 0 0 2px #e6ebf1;
+  opacity: 0.3;
+}
+
+.rectengle2-background{
+  background-color: #709ce1;
+  width: 250px;
+  height: 65px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  transform: skewY(-14deg);
+  box-shadow: inset 0 0 0 2px #e6ebf1;
+  opacity: 0.3;
+  margin: 54px 0 0 0;
+
+}
+
+.rectengle3-background{
+  background-color: #65c5f4;
+  width: 350px;
+  height: 65px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  transform: skewY(-14deg);
+  box-shadow: inset 0 0 0 2px #e6ebf1;
+  opacity: 0.2;
+  left: -35px;
+  top: 77px;
+}
+
+.rectengle4-background{
+  background-color: #709ce1;
+  width: 250px;
+  height: 65px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  transform: skewY(-14deg);
+  box-shadow: inset 0 0 0 2px #e6ebf1;
+  opacity: 0.1;
+  top: 130px;
+  left: -35px;
+}
+
+
 .btn-booking{
   float: right;
   margin-right: 32px;
@@ -162,8 +221,18 @@
 
   .btn-booking{
     float: right;
-    margin-right: 25%;
-    margin-top: 35px;
+    margin-right: 16%;
+    margin-top: 52px;
+    width: 30%;
+    font-size: 22px;
+    border-radius: 20px;
+    box-shadow: 0 0 1px #ccc;
+    -webkit-transition-duration: 0.5s;
+    -webkit-transition-timing-function: linear;
+    box-shadow:0px 0 0 #31708f  inset;
+    &:hover{
+          box-shadow:400px 0 0 #167FFB inset;
+      }
     }
 
   .grid-profile{

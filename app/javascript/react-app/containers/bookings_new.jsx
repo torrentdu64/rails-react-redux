@@ -27,16 +27,19 @@ class BookingsNew extends Component {
         value: "30",
 
         durationFront: 0,
-        durationValue: "00:30"
+        durationValue: "00:30",
 
       };
+
+
       // this.onSubmit = this.onSubmit.bind(this);
        // this.handleChange = this.handleChange.bind(this);
     }
 
     handleTimeChange = (event) => {
-    this.setState({value: event.target.value});
-  }
+      this.setState({value: event.target.value});
+    }
+
 
 
 
@@ -67,10 +70,7 @@ class BookingsNew extends Component {
 
         const elmnt = document.getElementsByClassName("react-datepicker__time-list-item react-datepicker__time-list-item--disabled");
         const start_el = document.getElementsByClassName("react-datepicker__time-list");
-        console.log('my selected time', elmnt[elmnt.length - 1]);
-        console.log('target', elmnt[0] );
         const last_elmnt = elmnt[elmnt.length - 1];
-
         last_elmnt.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
 
       }
@@ -116,10 +116,11 @@ class BookingsNew extends Component {
       }
   }
 
+
+
   componentDidMount = () =>  {
     const { id } = this.props.match.params;
     const selected_date = this.state.startDate;
-
 
     this.props.fetchProfileBusyTime(id, moment(selected_date) );
 
@@ -186,18 +187,11 @@ class BookingsNew extends Component {
     const { id } = this.props.match.params;
     const selected_date = this.state.startDate;
 
-
-
      console.log("my selected date start_time", moment(selected_date))
 
     await this.props.fetchProfileBusyTime(id, moment(selected_date) );
 
     await this.setState({ loading: true});
-
-
-
-
-
   }
 
 
@@ -581,6 +575,8 @@ class BookingsNew extends Component {
 
 
 
+
+
 //  minTime={moment(new Date())}
 // maxTime={moment(new Date()).add( 1 , 'h')}
 
@@ -596,7 +592,10 @@ class BookingsNew extends Component {
     }
 
 
+
+
     return (
+
       <div>
       {/*onChange={this.onFormChange}*/}
         <form    onSubmit={this.props.handleSubmit(this.onSubmit)}>
@@ -614,19 +613,19 @@ class BookingsNew extends Component {
                 onChange={  (date) => { this.handleChange(date) } }
                 showTimeSelect
                 dateFormat="Pp"
-
                 excludeTimes={this.renderBusy()}
-
-
                 minDate={new Date()}
                 component={this.DatePicker}
 
               />
+
              {this.props.formError.errors}
 
-        <div className="btn btn-success" onClick={this.IncrementItem} >Click to increment by 1</div>
-        <div className="btn btn-success" onClick={this.DecreaseItem}>Click to decrease by 1</div>
-            <h1>{this.state.durationValue} hours</h1>
+          <h1 className="text-center">{this.state.durationValue} {this.state.durationFront === 0 ? 'Minutes' : 'Hours'}</h1>
+        <div className="btn-container">
+          <div id="decrease" className="btn btn-duration" onClick={this.DecreaseItem}><i className="fa fa-minus" ></i></div>
+          <div id="increment" className="btn btn-duration" onClick={this.IncrementItem} ><i className="fas fa-plus"></i></div>
+        </div>
             <h1>{this.state.durationFront} </h1>
             {/*<Field
               label="date end"
