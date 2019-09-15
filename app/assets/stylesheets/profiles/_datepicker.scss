@@ -461,7 +461,8 @@
     padding: 3px;
 
     &:hover {
-      background-color: darken($datepicker__selected-color, 5%);
+      // default setting
+      // background-color: darken($datepicker__selected-color, 5%);
 
     }
   }
@@ -768,12 +769,12 @@
           // height: 30px;
           // padding: 5px 10px;
 
-          height: 60px;
+
           padding: 5px 10px;
-          border-radius: 50%;
+
           &:hover {
             cursor: pointer;
-            background-color: $datepicker__background-color;
+            // background-color: $datepicker__background-color;
           }
           &--selected {
             // background-color: $datepicker__selected-color;
@@ -785,7 +786,7 @@
             border-color: #216ba5;
             border-radius: 8px;
             &:hover {
-              background-color: $datepicker__selected-color;
+              // background-color: $datepicker__selected-color;
             }
           }
           &--disabled {

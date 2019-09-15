@@ -284,7 +284,7 @@
 
   .btn-booking{
     position: relative;
-    z-index: 99999999999;
+    z-index: 3;
     margin-right: 16%;
     margin-top: 52px;
     width: 30%;
@@ -309,6 +309,24 @@
     position: relative;
     z-index: 10;
     }
+  }
+
+  .ligne-badge{
+    border: 2px solid #6e4f8a;
+    height: 2px;
+    position: relative;
+    top: 104px;
+    z-index: 2;
+  }
+
+  .split-badge{
+    position: relative;
+    margin: 0 50%;
+    border-style: solid;
+    width: 46px;
+    border-radius: 50%;
+    bottom: 25px;
+    border-color: #6e4f8a;
   }
 
   .slider-profile{

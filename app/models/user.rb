@@ -6,5 +6,7 @@ class User < ApplicationRecord
   has_many :bookings
   has_many :profiles
 
+  validates :phone, presence: true, format: { with: PHONE_REGEX }
+
   attr_accessor :code
 end

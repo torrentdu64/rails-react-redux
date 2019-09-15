@@ -7,6 +7,7 @@ class Profile < ApplicationRecord
 
   after_create :broadcast_message
 
+  validates :phone, presence: true, format: { with: PHONE_REGEX }
   monetize :price_cents
 
    def as_json(options = {})
