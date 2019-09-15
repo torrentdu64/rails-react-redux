@@ -44,7 +44,7 @@ async submit(ev) {
   try {
     console.log('creating token');
     const { error, token } = await this.props.stripe.createToken({ email: "name"});
-    debugger
+
     console.log('token created');
 
       const response = fetch(`/api/v1/profiles/${this.props.profile_id}/customer`, {
@@ -126,7 +126,7 @@ render() {
           {...createOptions(this.props.fontSize)}
           />
         </label>
-        <button  className="strip-button" onClick={this.submit}>Make request</button>
+        <button  className="btn-profile" onClick={this.submit}>Make request</button>
       </div>
     );
   }

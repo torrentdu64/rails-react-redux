@@ -131,6 +131,7 @@ class BookingsNew extends Component {
         this.props.fetchProfileBusyNow(id, moment(time_right_now));
        }
 
+
   }
 
 
@@ -571,7 +572,13 @@ class BookingsNew extends Component {
 
   }
 
-
+  renderPhoto = () =>{
+    if(this.props.busy[0]){
+      return <img src={this.props.busy[0].photo.url} />
+    }else{
+      return <h1>loading...</h1>
+    }
+  }
 
 
 
@@ -597,6 +604,7 @@ class BookingsNew extends Component {
     return (
 
       <div>
+      {this.renderPhoto()}
       {/*onChange={this.onFormChange}*/}
         <form    onSubmit={this.props.handleSubmit(this.onSubmit)}>
            {/* <Field
