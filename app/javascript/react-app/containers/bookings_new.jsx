@@ -206,9 +206,9 @@ class BookingsNew extends Component {
 
     if(this.state.loading === null){
       return(
-         <button id="book-submit-form" className="btn btn-primary" type="submit"
+         <button id="book-submit-form" className="btn btn-primary btn-booking-position" type="submit"
            onClick={this.renderCreateBooking}>
-              Create Booking
+              Step 1 / 2
           </button>
           );
     }
@@ -580,18 +580,10 @@ class BookingsNew extends Component {
   renderPhoto = () =>{
     if(this.props.profile.photo){
       return(
-        <div className="form-index">
+        <div className="space-image-form-booking">
 
-            <div className="card-trip">
-              <img  src={this.props.profile.photo.url} alt="Card image cap" />
-              <div className="card-trip-infos">
-                <div>
-                  <h2>{this.props.profile.name}</h2>
-                  <button className="btn-profile">Profile</button>
-                </div>
-                <h2 className="card-trip-pricing">£99.99</h2>
-                <img src="https://kitt.lewagon.com/placeholder/users/krokrob" className="card-trip-user avatar-bordered" />
-              </div>
+            <div >
+              <img  src={this.props.profile.photo.url} alt="Card image cap" className="image-booking-form" />
             </div>
 
         </div>
@@ -627,7 +619,7 @@ class BookingsNew extends Component {
 
 
 
-      <div>
+      <div className="grid-booking">
       {this.renderPhoto()}
 
       {/*onChange={this.onFormChange}*/}
@@ -653,13 +645,15 @@ class BookingsNew extends Component {
               />
 
              {this.props.formError.errors}
-
-          <h1 className="text-center">{this.state.durationValue} {this.state.durationFront === 0 ? 'Minutes' : 'Hours'}</h1>
+        <div className= "group-duration">
+           <h1 className="text-center">{this.state.durationValue} {this.state.durationFront === 0 ? 'Minutes' : 'Hours'}</h1>
         <div className="btn-container">
           <div id="decrease" className="btn btn-duration" onClick={this.DecreaseItem}><i className="fa fa-minus" ></i></div>
           <div id="increment" className="btn btn-duration" onClick={this.IncrementItem} ><i className="fas fa-plus"></i></div>
         </div>
-            <h1>{this.state.durationFront} </h1>
+        </div>
+
+           {/* <h1>{this.state.durationFront} </h1>*/}
             {/*<Field
               label="date end"
               name="end_time"

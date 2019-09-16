@@ -48,3 +48,30 @@ form{
   width: 40%;
   height: 350px;
 }
+
+.grid-booking{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.group-duration{
+
+}
+
+.space-image-form-booking{
+  margin-top: 88px;
+}
+
+
+.image-booking-form{
+  height: 600px;
+    width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.btn-booking-position{
+  float: right;
+    margin-right: 50px;
+    margin-top: 20px;
+}
