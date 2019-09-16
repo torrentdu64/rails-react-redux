@@ -1,7 +1,7 @@
 class Api::V1::ProfilesController < Api::V1::BaseController
   skip_before_action :authenticate_user!, only: [:index, :show]
 
-  before_action :set_profile, only: [ :show ]
+  before_action :set_profile, only: [ :show_api ]
 
 
   def index
@@ -13,8 +13,7 @@ class Api::V1::ProfilesController < Api::V1::BaseController
 
 
 
-  def show
-  end
+
 
   private
 
@@ -25,8 +24,11 @@ class Api::V1::ProfilesController < Api::V1::BaseController
   end
 
   def set_profile
-    @profile = Profile.find(params[:id])
-    authorize @profile  # For Pundit
+    p " =====>  profile #{params}"
+
+    @profile = Profile.find(params[:profile_id])
+      # For Pundit
+    p " =====>  proflie #{@profile}"
   end
 
   def render_error

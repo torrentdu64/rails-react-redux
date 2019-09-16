@@ -9,6 +9,15 @@ export function fetchProfiles() {
   }
 }
 
+export  function fetchProfile(profile_id) {
+  // AJAX request
+  const promise = fetch(`/api/v1/profiles/${profile_id}/show_api`)
+    .then(response => response.json());
+  return {
+    type: 'FETCH_PROFILE',
+    payload: promise
+  }
+}
 
 
 export function createBooking(id, content, callback) {

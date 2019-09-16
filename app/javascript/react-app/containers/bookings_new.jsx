@@ -11,7 +11,7 @@ import DatePicker from "react-datepicker";
 import setMinutes from "date-fns/setMinutes";
 import setHours from "date-fns/setHours";
 
-import { createBooking, fetchProfileBusyTime, fetchProfileBusyNow } from '../actions';
+import { createBooking, fetchProfileBusyTime, fetchProfileBusyNow, fetchProfile } from '../actions';
 
 
 
@@ -118,11 +118,14 @@ class BookingsNew extends Component {
 
 
 
-  componentDidMount = () =>  {
+  componentDidMount = async () =>  {
     const { id } = this.props.match.params;
     const selected_date = this.state.startDate;
 
     this.props.fetchProfileBusyTime(id, moment(selected_date) );
+
+
+    await this.props.fetchProfile(this.props.match.params.id);
 
     const time_right_now = new Date();
 
@@ -572,9 +575,27 @@ class BookingsNew extends Component {
 
   }
 
+
+
   renderPhoto = () =>{
-    if(this.props.busy[0]){
-      return <img src={this.props.busy[0].photo.url} />
+    if(this.props.profile.photo){
+      return(
+        <div className="form-index">
+
+            <div className="card-trip">
+              <img  src={this.props.profile.photo.url} alt="Card image cap" />
+              <div className="card-trip-infos">
+                <div>
+                  <h2>{this.props.profile.name}</h2>
+                  <button className="btn-profile">Profile</button>
+                </div>
+                <h2 className="card-trip-pricing">£99.99</h2>
+                <img src="https://kitt.lewagon.com/placeholder/users/krokrob" className="card-trip-user avatar-bordered" />
+              </div>
+            </div>
+
+        </div>
+        )
     }else{
       return <h1>loading...</h1>
     }
@@ -603,10 +624,14 @@ class BookingsNew extends Component {
 
     return (
 
+
+
+
       <div>
       {this.renderPhoto()}
+
       {/*onChange={this.onFormChange}*/}
-        <form    onSubmit={this.props.handleSubmit(this.onSubmit)}>
+        <form    onSubmit={this.props.handleSubmit(this.onSubmit)} >
            {/* <Field
               label="date"
               name="start_time"
@@ -694,11 +719,12 @@ const mapStateToProps = (state) => {
 
     return {  formError: state.formError,
               busy: state.busy,
-              now: state.now
+              now: state.now,
+              profile: state.profile
      }
 
 }
 
 export default reduxForm({ form: 'newBookingForm', validate  })(
-  connect(mapStateToProps, { createBooking, fetchProfileBusyTime, fetchProfileBusyNow})(BookingsNew)
+  connect(mapStateToProps, { createBooking, fetchProfileBusyTime, fetchProfileBusyNow, fetchProfile})(BookingsNew)
 );
