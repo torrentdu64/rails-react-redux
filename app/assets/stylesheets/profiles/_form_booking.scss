@@ -8,7 +8,7 @@
 
 form{
   h1{
-    margin-bottom: 2.5rem;
+    margin-bottom: 0.5rem;
   }
 
 }
@@ -51,15 +51,19 @@ form{
 
 .grid-booking{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 55% 45%;
 }
 
 .group-duration{
+  h1{
+    padding-top: 5px;
+  }
+
 
 }
 
 .space-image-form-booking{
-  margin-top: 88px;
+  // margin-top: 88px;
 }
 
 
