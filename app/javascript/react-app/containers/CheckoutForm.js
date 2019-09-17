@@ -106,21 +106,21 @@ render() {
         {/*<CardElement />*/}
 
 
-        <label>
+        <label id="first-plan">
           Card number
           <CardNumberElement
 
             {...createOptions(this.props.fontSize)}
           />
         </label>
-        <label>
+        <label id="first-plan">
           Expiration date
           <CardExpiryElement
 
             {...createOptions(this.props.fontSize)}
           />
         </label>
-        <label>
+        <label id="first-plan">
           CVC
           <CardCVCElement
           {...createOptions(this.props.fontSize)}

@@ -6,6 +6,74 @@
   }
 }
 
+#first-plan{
+  position: relative;
+  z-index: 1;
+}
+
+.rectengle9-background{
+  background-color: #65c5f4;
+  width: 350px;
+  height: 65px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  transform: skewY(-14deg);
+  box-shadow: inset 0 0 0 2px #e6ebf1;
+  opacity: 0.2;
+  top: 42px;
+  right: 9%;
+}
+
+.rectengle10-background{
+  background-color: #709ce1;
+  width: 250px;
+  height: 65px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  transform: skewY(-14deg);
+  box-shadow: inset 0 0 0 2px #e6ebf1;
+  opacity: 0.1;
+  top: 100px;
+  left: 54.5%;
+}
+
+.rectengle11-background{
+  background-color: #65c5f4;
+  width: 350px;
+  height: 65px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  transform: skewY(14deg);
+  box-shadow: inset 0 0 0 2px #e6ebf1;
+  opacity: 0.2;
+  top: 340px;
+  right: 0%;
+}
+
+.rectengle12-background{
+  background-color: #65c5f4;
+  width: 250px;
+  height: 65px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  transform: skewY(14deg);
+  box-shadow: inset 0 0 0 2px #e6ebf1;
+  opacity: 0.2;
+  top: 388px;
+  right: 0%;
+}
+
+
+
+
 
 input,
     .StripeElement {
@@ -20,6 +88,7 @@ input,
       outline: 0;
       border-radius: 4px;
       background: white;
+      position: relative;
     }
 
     input::placeholder {

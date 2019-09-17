@@ -612,9 +612,13 @@ class BookingsNew extends Component {
                 <div>
                   {this.renderPhoto()}
                 </div>
+                <span className="rectengle9-background"></span>
+                <span className="rectengle10-background"></span>
                 <Elements>
                     <InjectedCheckoutForm profile_id={this.props.match.params.id} booking_id={this.props.formError.id}/>
                 </Elements>
+                <span className="rectengle11-background"></span>
+                <span className="rectengle12-background"></span>
               </div>
       )
     }
