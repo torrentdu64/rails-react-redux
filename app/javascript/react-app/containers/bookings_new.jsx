@@ -219,13 +219,19 @@ class BookingsNew extends Component {
       return <div>loading ....</div>
     }
 
-
-      return(
-         <button id="book-submit-form" className="btn btn-primary" type="submit"
-           onClick={this.renderCreateBooking}>
-              Create Booking
-          </button>
+    return (
+      <h1>Animation</h1>
       );
+
+
+      // return(
+
+
+      //    <button id="book-submit-form" className="btn btn-primary" type="submit"
+      //      onClick={this.renderCreateBooking}>
+      //         Create Booking
+      //     </button>
+      // );
 
   }
 
@@ -237,10 +243,10 @@ class BookingsNew extends Component {
     const verif_selected_date =  this.state.startDate;
       const verif_right_now =  new Date();
 
-       let res = [];
-        let cond = [];
-       let cond_2 = [];
-       let cond_3 = [];
+      let res = [];
+      let cond = [];
+      let cond_2 = [];
+      let cond_3 = [];
       let res_2 = [];
       let busy_till_now = [];
 
@@ -581,11 +587,9 @@ class BookingsNew extends Component {
     if(this.props.profile.photo){
       return(
         <div className="space-image-form-booking">
-
             <div >
               <img  src={this.props.profile.photo.url} alt="Card image cap" className="image-booking-form" />
             </div>
-
         </div>
         )
     }else{
@@ -645,8 +649,7 @@ class BookingsNew extends Component {
                 excludeTimes={this.renderBusy()}
                 minDate={new Date()}
                 component={this.DatePicker}
-
-              />
+            />
 
              {this.props.formError.errors}
         <div className= "group-duration">
