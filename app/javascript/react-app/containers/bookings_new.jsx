@@ -603,11 +603,15 @@ class BookingsNew extends Component {
   render() {
 
     if (this.state.booked ) {
-      return(  <div>
-          <Elements>
-              <InjectedCheckoutForm profile_id={this.props.match.params.id} booking_id={this.props.formError.id}/>
-          </Elements>
-        </div>
+      return(
+              <div className="grid-booking">
+                <div>
+                  {this.renderPhoto()}
+                </div>
+                <Elements>
+                    <InjectedCheckoutForm profile_id={this.props.match.params.id} booking_id={this.props.formError.id}/>
+                </Elements>
+              </div>
       )
     }
 
