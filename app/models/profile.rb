@@ -1,5 +1,5 @@
 class Profile < ApplicationRecord
-  has_many :bookings
+  has_many :bookings, dependent: :delete_all
 
   belongs_to :user
 
