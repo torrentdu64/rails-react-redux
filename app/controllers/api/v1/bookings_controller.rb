@@ -26,6 +26,11 @@ class Api::V1::BookingsController < Api::V1::BaseController
   end
 
 
+  def show_api
+    skip_authorization
+  end
+
+
 
 
 

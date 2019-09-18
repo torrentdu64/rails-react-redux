@@ -11,9 +11,9 @@ import DatePicker from "react-datepicker";
 import setMinutes from "date-fns/setMinutes";
 import setHours from "date-fns/setHours";
 
-import { createBooking, fetchProfileBusyTime, fetchProfileBusyNow } from '../actions';
+import { createBooking, fetchProfileBusyTime, fetchProfileBusyNow, fetchProfile } from '../actions';
 
-
+// import ScrollTimer from "../components/ScrollTimer";
 
 class BookingsNew extends Component {
 
@@ -27,16 +27,19 @@ class BookingsNew extends Component {
         value: "30",
 
         durationFront: 0,
-        durationValue: "00:30"
+        durationValue: "00:30",
 
       };
+      // this.topOfPageRef = React.createRef();
+
       // this.onSubmit = this.onSubmit.bind(this);
        // this.handleChange = this.handleChange.bind(this);
     }
 
     handleTimeChange = (event) => {
-    this.setState({value: event.target.value});
-  }
+      this.setState({value: event.target.value});
+    }
+
 
 
 
@@ -59,11 +62,17 @@ class BookingsNew extends Component {
 
 
 
+
       this.props.fetchProfileBusyTime(id, moment(selected_date) );
 
       if(selected_date.getDate() === time_right_now.getDate() ){
-
         this.props.fetchProfileBusyNow(id, moment(time_right_now));
+
+        const elmnt = document.getElementsByClassName("react-datepicker__time-list-item react-datepicker__time-list-item--disabled");
+        const start_el = document.getElementsByClassName("react-datepicker__time-list");
+        const last_elmnt = elmnt[elmnt.length - 1];
+        last_elmnt.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
+
       }
 
     }
@@ -107,19 +116,25 @@ class BookingsNew extends Component {
       }
   }
 
-  componentDidMount = () =>  {
+
+
+  componentDidMount = async () =>  {
     const { id } = this.props.match.params;
     const selected_date = this.state.startDate;
 
-
     this.props.fetchProfileBusyTime(id, moment(selected_date) );
+
+
+    await this.props.fetchProfile(this.props.match.params.id);
 
     const time_right_now = new Date();
 
        if(selected_date.getDate() === time_right_now.getDate() ){
 
-        this.props.fetchProfileBusyNow(id, moment(time_right_now));
+       await this.props.fetchProfileBusyNow(id, moment(time_right_now));
+
        }
+
 
   }
 
@@ -141,6 +156,19 @@ class BookingsNew extends Component {
     // dismissModal.setAttribute('data-dismiss', 'modal');
     }
   }
+
+  // async componentDidUpdate(prevProps, prevState) {
+
+  //   if(this.props.now.length && this.props.now){
+
+  //   const elmnt = document.getElementsByClassName("react-datepicker__time-list-item react-datepicker__time-list-item--disabled");
+  //   const start_el = document.getElementsByClassName("react-datepicker__time-list");
+  //   const last_elmnt = elmnt[elmnt.length - 1];
+  //   await this.topOfPageRef.current.scrollIntoView();
+  //   // await last_elmnt.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+  //    debugger
+  //   }
+  // }
 
 
 
@@ -177,18 +205,11 @@ class BookingsNew extends Component {
     const { id } = this.props.match.params;
     const selected_date = this.state.startDate;
 
-
-
      console.log("my selected date start_time", moment(selected_date))
 
     await this.props.fetchProfileBusyTime(id, moment(selected_date) );
 
     await this.setState({ loading: true});
-
-
-
-
-
   }
 
 
@@ -199,9 +220,9 @@ class BookingsNew extends Component {
 
     if(this.state.loading === null){
       return(
-         <button id="book-submit-form" className="btn btn-primary" type="submit"
+         <button id="book-submit-form" className="btn btn-primary btn-booking-position" type="submit"
            onClick={this.renderCreateBooking}>
-              Create Booking
+              Step 1 / 2
           </button>
           );
     }
@@ -212,13 +233,19 @@ class BookingsNew extends Component {
       return <div>loading ....</div>
     }
 
-
-      return(
-         <button id="book-submit-form" className="btn btn-primary" type="submit"
-           onClick={this.renderCreateBooking}>
-              Create Booking
-          </button>
+    return (
+      <h1>Animation</h1>
       );
+
+
+      // return(
+
+
+      //    <button id="book-submit-form" className="btn btn-primary" type="submit"
+      //      onClick={this.renderCreateBooking}>
+      //         Create Booking
+      //     </button>
+      // );
 
   }
 
@@ -230,10 +257,10 @@ class BookingsNew extends Component {
     const verif_selected_date =  this.state.startDate;
       const verif_right_now =  new Date();
 
-       let res = [];
-        let cond = [];
-       let cond_2 = [];
-       let cond_3 = [];
+      let res = [];
+      let cond = [];
+      let cond_2 = [];
+      let cond_3 = [];
       let res_2 = [];
       let busy_till_now = [];
 
@@ -570,6 +597,29 @@ class BookingsNew extends Component {
 
 
 
+  renderPhoto = () =>{
+    if(this.props.profile.photo){
+      return(
+        <div className="space-image-form-booking">
+            <div >
+              <img  src={this.props.profile.photo.url} alt="Card image cap" className="image-booking-form" />
+            </div>
+        </div>
+        )
+    }else{
+      return <h1>loading...</h1>
+    }
+  }
+
+  triggerTimer = () => {
+    const elmnt = document.getElementsByClassName("react-datepicker__time-list-item react-datepicker__time-list-item--disabled");
+    const start_el = document.getElementsByClassName("react-datepicker__time-list");
+    const last_elmnt = elmnt[elmnt.length - 1];
+    last_elmnt.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
+  }
+
+
+
 
 
 //  minTime={moment(new Date())}
@@ -578,19 +628,37 @@ class BookingsNew extends Component {
   render() {
 
     if (this.state.booked ) {
-      return(  <div>
-          <Elements>
-              <InjectedCheckoutForm profile_id={this.props.match.params.id} booking_id={this.props.formError.id}/>
-          </Elements>
-        </div>
+      return(
+              <div className="grid-booking">
+                <div>
+                  {this.renderPhoto()}
+                </div>
+                <span className="rectengle9-background"></span>
+                <span className="rectengle10-background"></span>
+                <Elements>
+                    <InjectedCheckoutForm profile_id={this.props.match.params.id} booking_id={this.props.formError.id}/>
+                </Elements>
+                <span className="rectengle11-background"></span>
+                <span className="rectengle12-background"></span>
+              </div>
       )
     }
 
 
+
+
+
+
     return (
-      <div>
+
+
+
+
+      <div className="grid-booking">
+      {this.renderPhoto()}
+
       {/*onChange={this.onFormChange}*/}
-        <form    onSubmit={this.props.handleSubmit(this.onSubmit)}>
+        <form    onSubmit={this.props.handleSubmit(this.onSubmit)} >
            {/* <Field
               label="date"
               name="start_time"
@@ -605,20 +673,25 @@ class BookingsNew extends Component {
                 onChange={  (date) => { this.handleChange(date) } }
                 showTimeSelect
                 dateFormat="Pp"
-
                 excludeTimes={this.renderBusy()}
-
-
                 minDate={new Date()}
                 component={this.DatePicker}
+                ref={this.topOfPageRef}
+            />
+            <div className="btn btn-primary available-time" onClick={this.triggerTimer}>=> </div>
 
-              />
+
+
              {this.props.formError.errors}
+        <div className= "group-duration">
+           <h1 className="text-center">{this.state.durationValue} {this.state.durationFront === 0 ? 'Minutes' : 'Hours'}</h1>
+        <div className="btn-container">
+          <div id="decrease" className="btn btn-duration" onClick={this.DecreaseItem}><i className="fa fa-minus" ></i></div>
+          <div id="increment" className="btn btn-duration" onClick={this.IncrementItem} ><i className="fas fa-plus"></i></div>
+        </div>
+        </div>
 
-        <div className="btn btn-success" onClick={this.IncrementItem} >Click to increment by 1</div>
-        <div className="btn btn-success" onClick={this.DecreaseItem}>Click to decrease by 1</div>
-            <h1>{this.state.durationValue} hours</h1>
-            <h1>{this.state.durationFront} </h1>
+           {/* <h1>{this.state.durationFront} </h1>*/}
             {/*<Field
               label="date end"
               name="end_time"
@@ -678,11 +751,12 @@ const mapStateToProps = (state) => {
 
     return {  formError: state.formError,
               busy: state.busy,
-              now: state.now
+              now: state.now,
+              profile: state.profile
      }
 
 }
 
 export default reduxForm({ form: 'newBookingForm', validate  })(
-  connect(mapStateToProps, { createBooking, fetchProfileBusyTime, fetchProfileBusyNow})(BookingsNew)
+  connect(mapStateToProps, { createBooking, fetchProfileBusyTime, fetchProfileBusyNow, fetchProfile})(BookingsNew)
 );

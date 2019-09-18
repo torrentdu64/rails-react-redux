@@ -20,11 +20,14 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       match '/sms' => 'bookings#reply', :via => :get
-      resources :profiles, only: [ :index, :show ] do
+
+      resources :profiles, only: [ :index ] do
+
         resources :bookings, only: [ :create ]
         get 'busy', to: "bookings#booking_time"
         get 'busy-now', to: "bookings#busy_till_now"
         post 'customer', to: "bookings#stripe_customer"
+        get 'show_api', to: "bookings#show_api"
       end
     end
   end

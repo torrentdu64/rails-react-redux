@@ -14,6 +14,11 @@ class BookingPolicy < ApplicationPolicy
     end
   end
 
+  def show_api?
+    true
+  end
+
+
 
 
   def reply?
