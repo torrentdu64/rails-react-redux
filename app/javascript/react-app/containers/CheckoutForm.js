@@ -1,5 +1,34 @@
 import React, {Component} from 'react';
-import {CardElement, injectStripe} from 'react-stripe-elements';
+import {
+  CardElement,
+  CardNumberElement,
+  CardExpiryElement,
+  CardCVCElement,
+  PostalCodeElement,
+  PaymentRequestButtonElement,
+  injectStripe
+} from 'react-stripe-elements';
+
+const createOptions = (fontSize, padding) => {
+  return {
+    style: {
+      base: {
+        fontSize,
+        color: '#424770',
+        letterSpacing: '0.025em',
+        fontFamily: 'Source Code Pro, monospace',
+        '::placeholder': {
+          color: '#aab7c4',
+        },
+        padding,
+      },
+      invalid: {
+        color: '#9e2146',
+      },
+    },
+  };
+};
+
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -15,7 +44,7 @@ async submit(ev) {
   try {
     console.log('creating token');
     const { error, token } = await this.props.stripe.createToken({ email: "name"});
-    debugger
+
     console.log('token created');
 
       const response = fetch(`/api/v1/profiles/${this.props.profile_id}/customer`, {
@@ -48,6 +77,7 @@ async submit(ev) {
 
 
 
+
 render() {
 //   const style = {
 //   base: {
@@ -69,10 +99,34 @@ render() {
 
     return (
       <div className="checkout">
+
+
         <p>Would you like to complete the purchase?</p>
          <p>4000005540000008</p>
-        <CardElement />
-        <button  className="strip-button" onClick={this.submit}>Make request</button>
+        {/*<CardElement />*/}
+
+
+        <label id="first-plan">
+          Card number
+          <CardNumberElement
+
+            {...createOptions(this.props.fontSize)}
+          />
+        </label>
+        <label id="first-plan">
+          Expiration date
+          <CardExpiryElement
+
+            {...createOptions(this.props.fontSize)}
+          />
+        </label>
+        <label id="first-plan">
+          CVC
+          <CardCVCElement
+          {...createOptions(this.props.fontSize)}
+          />
+        </label>
+        <button  className="btn-profile" onClick={this.submit}>Make request</button>
       </div>
     );
   }

@@ -13,6 +13,10 @@ class ProfilePolicy < ApplicationPolicy
     true
   end
 
+  def show_api?
+    true
+  end
+
 
 
   def create?

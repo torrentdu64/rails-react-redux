@@ -18,6 +18,7 @@ import profilesReducer from './reducers/profiles_reducer';
 import bookingReducer from './reducers/booking_reducer';
 import busyTimeReducer from './reducers/busy_time_reducer';
 import busyNowReducer from './reducers/busy_now_reducer';
+import profileReducer from './reducers/profile_reducer';
 
 
 const reducers = combineReducers({
@@ -25,7 +26,8 @@ const reducers = combineReducers({
   form: formReducer,
   formError: bookingReducer,
   busy: busyTimeReducer,
-  now: busyNowReducer
+  now: busyNowReducer,
+  profile: profileReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

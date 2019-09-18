@@ -14,6 +14,7 @@ class ProfilesController < ApplicationController
 
   def show
     session[:profile] = false
+    @profiles = policy_scope(Profile)
   end
 
   def new
@@ -66,6 +67,5 @@ class ProfilesController < ApplicationController
 
    def set_profile
     @profile = Profile.find(params[:id])
-
    end
 end

@@ -1,5 +1,225 @@
-<h1>Profiles#show</h1>
-<p>Find me in app/views/profiles/show.html.erb</p>
+<div class="background-profile">
+
+  <div class="head-profile">
+    <div class="card-category d-block w-100" style="background-image: url(<%= cl_image_path @profile.photo %>);">
+    </div>
+  </div>
+
+
+  <div class="shape-background">
+
+    <div class="booking-shape">
+
+
+
+    <button type="button" class="btn btn-outline-primary btn-booking" data-toggle="modal" data-target="#exampleModal">Booking</button>
+
+
+
+     <!--  <button type="button" class="btn btn-primary btn-booking"  >
+          Booking
+      </button> -->
+    </div>
+    <div class="details-profile">
+
+      <div class="contain">
+        <div id="left">
+          <span class="rectengle3-background"></span>
+          <span class="rectengle4-background"></span>
+          <h1><%= @profile.name%></h1>
+        <p><%= @profile.description%></p>
+
+          <!-- <h1>thing</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          </p> -->
+        </div>
+        <div id="right">
+          <ul>
+            <li>
+              <%= image_tag "logo2" %>
+              <span>
+                <strong>App</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+              </span>
+            </li>
+            <li>
+              <%= image_tag "logo2" %>
+              <span>
+                <strong>App</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+              </span>
+            </li>
+            <li>
+             <%= image_tag "logo2" %>
+              <span>
+                <strong>App</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <span class="rectengle-background"></span>
+    <span class="rectengle2-background"></span>
+
+
+    <% image_tag "svv" , class: "svv-phone" %>
+  </div>
+
+
+
+
+
+    <div class="grid-profile">
+      <span class="rectengle5-background"></span>
+      <span class="rectengle6-background"></span>
+      <div class="card-product">
+          <%= cl_image_tag @profile.photo %>
+        <div class="card-footer">
+          <div>
+            <h1>Card</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card-product">
+          <%= cl_image_tag @profile.photo %>
+        <div class="card-footer">
+          <div>
+            <h1>Card</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card-product">
+          <%= cl_image_tag @profile.photo %>
+        <div class="card-footer">
+          <div>
+            <h1>Card</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card-product">
+          <%= cl_image_tag @profile.photo %>
+        <div class="card-footer">
+          <div>
+            <h1>Card</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            </p>
+          </div>
+        </div>
+      </div>
+      <span class="rectengle7-background"></span>
+      <span class="rectengle8-background"></span>
+    </div>
+
+<div class="ligne-badge" >
+  <%= image_tag "logo2",  width: 40 , class: "split-badge"%>
+</div>
+
+<section class="slider-profile">
+  <div class="slider-child">
+     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <%= cl_image_tag @profile.photo, class: "d-block w-100 h-100" %>
+        </div>
+        <div class="carousel-item">
+          <%= cl_image_tag @profile.photo, class: "d-block w-100 h-100" %>
+        </div>
+        <div class="carousel-item">
+          <%= cl_image_tag @profile.photo, class: "d-block w-100 h-100" %>
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-12 col-lg-4">
+      <%= link_to profile_path(@profile), class: "link-card" do %>
+        <div class="card-trip">
+          <%= cl_image_tag @profile.photo %>
+          <div class="card-trip-infos">
+            <div>
+              <h2><%= @profile.name %></h2>
+              <button class="btn-profile">Profile</button>
+            </div>
+            <h2 class="card-trip-pricing">£99.99</h2>
+            <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-trip-user avatar-bordered" />
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div> -->
+
+
+<div class="container">
+  <div class="row">
+    <div class="autoplay">
+        <% @profiles.each do |p| %>
+          <%= link_to profile_path(p), class: "link-card" do %>
+            <div class="card-trip"  style="margin: 15px" >
+              <% if p.photo.present?  %>
+                <%= cl_image_tag p.photo, width: 200, height: 200 %>
+              <% else %>
+                <img src="https://mdbootstrap.com/img/Photos/Others/men.jpg" />
+              <% end %>
+              <div class="card-trip-infos">
+                <div>
+                  <h2><%= p.name %></h2>
+                  <button class="btn-profile">Profile</button>
+                </div>
+                <h2 class="card-trip-pricing">£99.99</h2>
+                <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-trip-user avatar-bordered" />
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+    </div>
+  </div>
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="container">
   <% if policy(@profile).update? %>
   <div class="row">
@@ -7,55 +227,61 @@
   </div>
   <% end %>
   <% if policy(@profile).destroy? %>
-  <div class="row">
-    <%= link_to "delete", @profile, method: :delete, class: "btn btn-success" %>
-  </div>
+    <div class="row">
+      <%= link_to "delete", @profile, method: :delete, class: "btn btn-success" %>
+    </div>
   <% end %>
-  <div class="row">
-    <div class="offset-sm-3 col-sm-6">
-      <h1><%= @profile.name %></h1>
-      <h1><%= @profile.description %></h1>
-      <h1><%= @profile.phone %></h1>
-      <h1>Amount: <%= humanized_money_with_symbol(@profile.price) %></h1>
-      <%= cl_image_tag @profile.photo, height: 300, width: 400, crop: :fill %>
+</div>
 
-      <!-- Button trigger modal -->
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-      Booking
-      </button>
-      <!-- Modal -->
-      <div class="modal fade"  id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <% if user_signed_in? && current_user.profile == false && current_user.phone_verif == true %>
-               <div id="root"></div>
-               <% elsif user_signed_in? && current_user.profile == false && current_user.phone_verif == false %>
-               <% session[:verif_phone] = request.url %>
-                <%= link_to "Verif you phone number",   edit_user_registration_path, class: "btn btn-primary" %>
-              <% elsif user_signed_in? && current_user.profile == true %>
-                <h2>You can not BOOKING with this account</h2>
-                <%= link_to "Sing Out", destroy_user_session_path(), method: :delete, class: "btn btn-primary" %>
-              <% else %>
-              <%= link_to "SignIn", new_user_session_path, class: "btn btn-primary" %>
-              <% end %>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+
+
+
+
+     <!--  <h1><%= @profile.phone %></h1>
+      <h1>Amount: <%= humanized_money_with_symbol(@profile.price) %></h1>
+      <%= cl_image_tag @profile.photo, height: 300, width: 400, crop: :fill %> -->
+    <div class="container">
+      <div class="row">
+           <!-- Button trigger modal -->
+        <button onclick="scrollTime()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >
+        Booking
+        </button>
+        <!-- Modal -->
+        <div class="modal fade"  id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog mw-100 w-75" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Make your request</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <% if user_signed_in? && current_user.profile == false && current_user.phone_verif == true %>
+                 <div id="root"></div>
+                 <% elsif user_signed_in? && current_user.profile == false && current_user.phone_verif == false %>
+                 <% session[:verif_phone] = request.url %>
+                  <%= link_to "Verif you phone number",   edit_user_registration_path, class: "btn btn-primary" %>
+                <% elsif user_signed_in? && current_user.profile == true %>
+                  <h2>You can not BOOKING with this account</h2>
+                  <%= link_to "Sing Out", destroy_user_session_path(), method: :delete, class: "btn btn-primary" %>
+                <% else %>
+                <%= link_to "SignIn", new_user_session_path, class: "btn btn-primary" %>
+                <% end %>
+              </div>
+              <div class="modal-footer">
+                <h4 class="text-center">Quick & smooth</h4>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+
+
+
+
+
 
 <% content_for :after_js do %>
   <%= javascript_pack_tag "application" %>
