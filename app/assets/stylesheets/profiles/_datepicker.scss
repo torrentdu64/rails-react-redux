@@ -460,7 +460,8 @@
     position: relative;
     top: -7px;
     padding: 3px;
-
+    animation: mymove 0.4s infinite;
+    animation-iteration-count: 4;
     &:hover {
       // default setting
       // background-color: darken($datepicker__selected-color, 5%);
@@ -804,4 +805,9 @@
   }
 }
 
+}
+
+@keyframes mymove {
+    0%   {transform: scale(1, 1);}
+    100% {transform: scale(1.2, 1.2 );}
 }

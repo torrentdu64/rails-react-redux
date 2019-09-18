@@ -13,7 +13,7 @@ import setHours from "date-fns/setHours";
 
 import { createBooking, fetchProfileBusyTime, fetchProfileBusyNow, fetchProfile } from '../actions';
 
-
+// import ScrollTimer from "../components/ScrollTimer";
 
 class BookingsNew extends Component {
 
@@ -30,7 +30,7 @@ class BookingsNew extends Component {
         durationValue: "00:30",
 
       };
-
+      // this.topOfPageRef = React.createRef();
 
       // this.onSubmit = this.onSubmit.bind(this);
        // this.handleChange = this.handleChange.bind(this);
@@ -131,7 +131,8 @@ class BookingsNew extends Component {
 
        if(selected_date.getDate() === time_right_now.getDate() ){
 
-        this.props.fetchProfileBusyNow(id, moment(time_right_now));
+       await this.props.fetchProfileBusyNow(id, moment(time_right_now));
+
        }
 
 
@@ -155,6 +156,19 @@ class BookingsNew extends Component {
     // dismissModal.setAttribute('data-dismiss', 'modal');
     }
   }
+
+  // async componentDidUpdate(prevProps, prevState) {
+
+  //   if(this.props.now.length && this.props.now){
+
+  //   const elmnt = document.getElementsByClassName("react-datepicker__time-list-item react-datepicker__time-list-item--disabled");
+  //   const start_el = document.getElementsByClassName("react-datepicker__time-list");
+  //   const last_elmnt = elmnt[elmnt.length - 1];
+  //   await this.topOfPageRef.current.scrollIntoView();
+  //   // await last_elmnt.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+  //    debugger
+  //   }
+  // }
 
 
 
@@ -597,6 +611,13 @@ class BookingsNew extends Component {
     }
   }
 
+  triggerTimer = () => {
+    const elmnt = document.getElementsByClassName("react-datepicker__time-list-item react-datepicker__time-list-item--disabled");
+    const start_el = document.getElementsByClassName("react-datepicker__time-list");
+    const last_elmnt = elmnt[elmnt.length - 1];
+    last_elmnt.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
+  }
+
 
 
 
@@ -622,6 +643,8 @@ class BookingsNew extends Component {
               </div>
       )
     }
+
+
 
 
 
@@ -653,7 +676,11 @@ class BookingsNew extends Component {
                 excludeTimes={this.renderBusy()}
                 minDate={new Date()}
                 component={this.DatePicker}
+                ref={this.topOfPageRef}
             />
+            <div className="btn btn-primary available-time" onClick={this.triggerTimer}>=></div>
+
+
 
              {this.props.formError.errors}
         <div className= "group-duration">
