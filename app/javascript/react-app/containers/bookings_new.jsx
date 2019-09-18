@@ -678,7 +678,7 @@ class BookingsNew extends Component {
                 component={this.DatePicker}
                 ref={this.topOfPageRef}
             />
-            <div className="btn btn-primary available-time" onClick={this.triggerTimer}>=></div>
+            <div className="btn btn-primary available-time" onClick={this.triggerTimer}>=> </div>
 
 
 
