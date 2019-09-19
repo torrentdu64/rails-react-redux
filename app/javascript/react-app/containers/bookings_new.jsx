@@ -11,7 +11,7 @@ import DatePicker from "react-datepicker";
 import setMinutes from "date-fns/setMinutes";
 import setHours from "date-fns/setHours";
 
-import { createBooking, fetchProfileBusyTime, fetchProfileBusyNow, fetchProfile } from '../actions';
+import {deleteBooking, createBooking, fetchProfileBusyTime, fetchProfileBusyNow, fetchProfile } from '../actions';
 
 // import ScrollTimer from "../components/ScrollTimer";
 
@@ -618,6 +618,13 @@ class BookingsNew extends Component {
     last_elmnt.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
   }
 
+  backToBook = async () => {
+    await this.setState({ booked: false});
+    const profile_id = this.props.match.params.id
+    const booking_id = this.props.formError.id
+    this.props.deleteBooking(profile_id, booking_id);
+  }
+
 
 
 
@@ -640,6 +647,7 @@ class BookingsNew extends Component {
                 </Elements>
                 <span className="rectengle11-background"></span>
                 <span className="rectengle12-background"></span>
+                <div className="btn btn-danger" onClick={this.backToBook}>  Back </div>
               </div>
       )
     }
@@ -758,5 +766,5 @@ const mapStateToProps = (state) => {
 }
 
 export default reduxForm({ form: 'newBookingForm', validate  })(
-  connect(mapStateToProps, { createBooking, fetchProfileBusyTime, fetchProfileBusyNow, fetchProfile})(BookingsNew)
+  connect(mapStateToProps, { deleteBooking, createBooking, fetchProfileBusyTime, fetchProfileBusyNow, fetchProfile})(BookingsNew)
 );

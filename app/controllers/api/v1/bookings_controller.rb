@@ -107,6 +107,13 @@ class Api::V1::BookingsController < Api::V1::BaseController
     render :booking_time, status: 200
   end
 
+  def destroy
+    @booking = Booking.find_by(id: params[:id])
+    authorize @booking
+    @booking.destroy
+    head :no_content
+  end
+
   private
 
   def set_booking

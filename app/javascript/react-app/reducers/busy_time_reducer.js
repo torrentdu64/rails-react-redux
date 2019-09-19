@@ -8,7 +8,11 @@ export default function( state = [] , action){
 
         return action.payload;
 
-
+      case 'REMOVE_BOOKING':
+      debugger
+      if(state[0].id === action.payload){
+        return [];
+      }
 
   default:
       return state;
