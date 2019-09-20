@@ -620,6 +620,7 @@ class BookingsNew extends Component {
 
   backToBook = async () => {
     await this.setState({ booked: false});
+    await this.setState({ loading: null});
     const profile_id = this.props.match.params.id
     const booking_id = this.props.formError.id
     this.props.deleteBooking(profile_id, booking_id);
@@ -645,9 +646,10 @@ class BookingsNew extends Component {
                 <Elements>
                     <InjectedCheckoutForm profile_id={this.props.match.params.id} booking_id={this.props.formError.id}/>
                 </Elements>
+
                 <span className="rectengle11-background"></span>
                 <span className="rectengle12-background"></span>
-                <div className="btn btn-danger" onClick={this.backToBook}>  Back </div>
+                <div className="btn btn-danger btn-booking-back" onClick={this.backToBook}>  Back </div>
               </div>
       )
     }

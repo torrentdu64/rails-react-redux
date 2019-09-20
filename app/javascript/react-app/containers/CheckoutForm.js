@@ -126,7 +126,7 @@ render() {
           {...createOptions(this.props.fontSize)}
           />
         </label>
-        <button  className="btn-profile" onClick={this.submit}>Make request</button>
+        <button  className="btn-profile btn-pay" onClick={this.submit}> NZD 10 </button>
       </div>
     );
   }
