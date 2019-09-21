@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
-  before_action :clean_unpay_booking, only: [:show]
+  # before_action :clean_unpay_booking, only: [:show]
   skip_before_action :authenticate_user!, only: [:index, :list , :show]
   skip_after_action :verify_authorized, only: [ :list, :show]
 
@@ -15,6 +15,8 @@ class ProfilesController < ApplicationController
 
   def show
     session[:profile] = false
+
+    clean_unpay_booking if current_user
     @profiles = policy_scope(Profile)
   end
 
