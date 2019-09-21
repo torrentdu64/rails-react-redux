@@ -18,7 +18,7 @@ class Api::V1::ProfilesController < Api::V1::BaseController
   private
 
   def destroy_booking_no_pay
-    @booking = Booking.where(payment: nil, user_id: current_user.id )
+    @booking = Booking.where(state: 'create', user_id: current_user.id )
 
     @booking.destroy_all
   end

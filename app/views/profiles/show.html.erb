@@ -179,7 +179,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="autoplay">
+    <div class="autoplay" >
         <% @profiles.each do |p| %>
           <%= link_to profile_path(p), class: "link-card" do %>
             <div class="card-trip"  style="margin: 15px" >
@@ -286,4 +286,6 @@
 <% content_for :after_js do %>
   <%= javascript_pack_tag "application" %>
 <% end %>
+
+
 
