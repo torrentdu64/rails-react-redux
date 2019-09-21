@@ -1,5 +1,6 @@
 class Api::V1::BookingsController < Api::V1::BaseController
   before_action :set_profile
+
   before_action :set_booking, only: [:stripe_customer]
   skip_before_action :authenticate_user!, only: [:reply]
 
@@ -37,13 +38,14 @@ class Api::V1::BookingsController < Api::V1::BaseController
 
 
   def create
+
     @booking = Booking.new(booking_params)
     @booking.user = current_user
     authorize @booking
     start_time = @booking.start_time
     end_time =   @booking.start_time
     @booking.end_time = @booking.start_time.to_datetime + Time.parse("#{@booking.duration}").seconds_since_midnight.seconds
-
+    @booking.state = 'create'
     # binding.pry
     if @booking.save # see Message.as_json method
       render :create, status: :created
@@ -107,6 +109,13 @@ class Api::V1::BookingsController < Api::V1::BaseController
     render :booking_time, status: 200
   end
 
+  def destroy
+    @booking = Booking.find_by(id: params[:id])
+    authorize @booking
+    @booking.destroy
+    head :no_content
+  end
+
   private
 
   def set_booking
@@ -127,6 +136,8 @@ class Api::V1::BookingsController < Api::V1::BaseController
   def booking_params
     params.require(:booking).permit(:start_time, :duration, :user_id, :profile_id)
   end
+
+
 
 end
 

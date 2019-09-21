@@ -1,6 +1,6 @@
 export function fetchProfiles() {
   // AJAX request
-  debugger
+
   const promise = fetch("/api/v1/profiles")
     .then(response => response.json());
 
@@ -45,6 +45,22 @@ export function createBooking(id, content, callback) {
     type: 'BOOKING_POSTED',
     payload: promise // Will be resolved by redux-promise
 
+  };
+}
+
+export function deleteBooking(profile_id,booking_id) {
+  const url = `/api/v1/profiles/${profile_id}/bookings/${booking_id}`;
+
+  const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
+
+
+  fetch(url, { method: 'DELETE' });
+    // then call fetch busy ??
+
+
+  return {
+    type: 'REMOVE_BOOKING',
+    payload: booking_id
   };
 }
 

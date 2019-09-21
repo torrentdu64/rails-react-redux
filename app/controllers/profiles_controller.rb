@@ -1,5 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
+  before_action :clean_unpay_booking, only: [:show]
   skip_before_action :authenticate_user!, only: [:index, :list , :show]
   skip_after_action :verify_authorized, only: [ :list, :show]
 
@@ -68,4 +69,10 @@ class ProfilesController < ApplicationController
    def set_profile
     @profile = Profile.find(params[:id])
    end
+
+   def clean_unpay_booking
+    @booking = current_user.bookings.where(state: 'create')
+    @booking.destroy_all
+  end
+
 end

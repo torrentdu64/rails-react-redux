@@ -6,12 +6,7 @@
   display: none;
 }
 
-form{
-  h1{
-    margin-bottom: 0.5rem;
-  }
 
-}
 
 .btn-duration{
   border-style: solid;
@@ -25,19 +20,21 @@ form{
 .btn-container{
   display: flex;
   justify-content: space-around;
+  position: relative;
+  top: -38px;
 
 
   #decrease{
-      width: 80px;
-      height: 80px;
+      width: 60px;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: center;
   }
 
   #increment{
-      width: 80px;
-      height: 80px;
+      width: 60px;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -50,16 +47,18 @@ form{
 }
 
 .grid-booking{
+
     display: grid;
     grid-template-columns: 55% 45%;
+     grid-template-areas:
+       "left right"
 }
 
 .group-duration{
   h1{
-    padding-top: 5px;
+    position: relative;
+    top: -42px;
   }
-
-
 }
 
 
@@ -79,9 +78,23 @@ form{
 .btn-booking-position{
   float: right;
     margin-right: 50px;
-    margin-top: 20px;
+
 }
 
+.btn-booking-back{
+    grid-area: right;
+    width: 20%;
+    height: 38px;
+    position: relative;
+    opacity: 0.4;
+    top: 74%;
+    left: 20px;
+}
+
+.btn-booking-back:hover{
+   opacity: 1;
+   cursor: pointer;
+}
 
 
 

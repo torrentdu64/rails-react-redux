@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
       resources :profiles, only: [ :index ] do
 
-        resources :bookings, only: [ :create ]
+        resources :bookings, only: [ :create, :destroy ]
         get 'busy', to: "bookings#booking_time"
         get 'busy-now', to: "bookings#busy_till_now"
         post 'customer', to: "bookings#stripe_customer"

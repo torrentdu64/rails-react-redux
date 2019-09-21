@@ -11,7 +11,7 @@ import DatePicker from "react-datepicker";
 import setMinutes from "date-fns/setMinutes";
 import setHours from "date-fns/setHours";
 
-import { createBooking, fetchProfileBusyTime, fetchProfileBusyNow, fetchProfile } from '../actions';
+import {deleteBooking, createBooking, fetchProfileBusyTime, fetchProfileBusyNow, fetchProfile } from '../actions';
 
 // import ScrollTimer from "../components/ScrollTimer";
 
@@ -25,6 +25,8 @@ class BookingsNew extends Component {
         loading: null,
         booked: false,
         value: "30",
+
+        timetouched: null,
 
         durationFront: 0,
         durationValue: "00:30",
@@ -49,6 +51,12 @@ class BookingsNew extends Component {
       await this.setState({
         startDate: date
       });
+
+      await this.setState({
+         timetouched: true
+      });
+
+
 
       const { id } = this.props.match.params;
       const selected_date = this.state.startDate;
@@ -81,6 +89,8 @@ class BookingsNew extends Component {
 
   onSubmit = async ( values) => {
 
+
+
     const { id } = this.props.match.params;
     const start_time = this.state.startDate;
 
@@ -93,7 +103,12 @@ class BookingsNew extends Component {
 
     values = { ...values, start_time: start_time, duration: duration};
 
-    const responseBooking = await this.props.createBooking( id, values);
+      let responseBooking = {};
+      if(this.state.timetouched){
+        responseBooking = await this.props.createBooking( id, values);
+      }
+
+
 
     if(responseBooking.payload.id ){
       await this.setState({modal: false});
@@ -102,6 +117,7 @@ class BookingsNew extends Component {
     }else if(responseBooking.payload.errors && responseBooking.payload.errors.length > 0){
        await this.setState({modal: true});
       await this.setState({booked: false});
+
     }
 
 
@@ -135,13 +151,22 @@ class BookingsNew extends Component {
 
        }
 
+    console.log("renderBtnSubmit  2 ==================")
 
+    await this.setState({ timetouched: false});
   }
 
 
 
   componentWillReceiveProps  = (nextProps, nextState) => {
+    console.log("renderBtnSubmit  5 ==================")
+    if(nextProps.timetouched === null){
+      console.log("renderBtnSubmit  3 ==================")
+    }
+    if(this.props.timetouched === null){
+      console.log("renderBtnSubmit  4 ==================")
 
+    }
     //  console.log("api =>>>>>>>>>>>" , nextProps.formError.errors );
     // console.log("api =>>>>>>>>>>>" , nextProps.formError.id );
     // const dismissModal = document.getElementById('book-submit-form');
@@ -172,8 +197,8 @@ class BookingsNew extends Component {
 
 
 
-  renderError = ({error, touched}) => {
-    if(touched && error){
+  renderError = (meta) => {
+    if(this.props.touched && error){
       return <div>{error}</div>
     }
   }
@@ -201,11 +226,18 @@ class BookingsNew extends Component {
 
   renderCreateBooking =  async () => {
 
+    // state to verif if not touched
+
     this.setState({modal: true});
     const { id } = this.props.match.params;
     const selected_date = this.state.startDate;
 
-     console.log("my selected date start_time", moment(selected_date))
+     console.log("try to disbled btn", this.props.anyTouched )
+      console.log("try to disbled btn", this.newBookingForm)
+      console.log("try to disbled btn", moment(selected_date))
+      console.log("try to disbled btn", moment(selected_date))
+      console.log("try to disbled btn", moment(selected_date))
+      console.log("try to disbled btn", moment(selected_date))
 
     await this.props.fetchProfileBusyTime(id, moment(selected_date) );
 
@@ -216,14 +248,23 @@ class BookingsNew extends Component {
 
 
 
-  renderBtnSubmit = () => {
+  renderBtnSubmit =  () => {
+
+    console.log("renderBtnSubmit  1 ==================")
+    // this.setState({ timetouched: false});
 
     if(this.state.loading === null){
       return(
-         <button id="book-submit-form" className="btn btn-primary btn-booking-position" type="submit"
-           onClick={this.renderCreateBooking}>
+         <button
+          id="book-submit-form"
+          className="btn btn-primary btn-booking-position"
+          type="submit"
+          onClick={this.renderCreateBooking}
+          disabled={ !this.state.timetouched}
+          >
               Step 1 / 2
           </button>
+
           );
     }
 
@@ -546,7 +587,7 @@ class BookingsNew extends Component {
         return  setHours(setMinutes(date, min), hours);
         }
       });
-      res
+      // res
       // busy_till_now
         // debugger
 
@@ -618,6 +659,15 @@ class BookingsNew extends Component {
     last_elmnt.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
   }
 
+  backToBook = async () => {
+    await this.setState({ booked: false});
+    await this.setState({ loading: null});
+    // await this.setState({ timetouched: false});
+    const profile_id = this.props.match.params.id
+    const booking_id = this.props.formError.id
+    this.props.deleteBooking(profile_id, booking_id);
+  }
+
 
 
 
@@ -627,7 +677,8 @@ class BookingsNew extends Component {
 
   render() {
 
-    if (this.state.booked ) {
+    if (this.state.booked) {
+      debugger
       return(
               <div className="grid-booking">
                 <div>
@@ -638,8 +689,10 @@ class BookingsNew extends Component {
                 <Elements>
                     <InjectedCheckoutForm profile_id={this.props.match.params.id} booking_id={this.props.formError.id}/>
                 </Elements>
+
                 <span className="rectengle11-background"></span>
                 <span className="rectengle12-background"></span>
+                <div className="btn btn-danger btn-booking-back" onClick={this.backToBook}>  Back </div>
               </div>
       )
     }
@@ -677,12 +730,14 @@ class BookingsNew extends Component {
                 minDate={new Date()}
                 component={this.DatePicker}
                 ref={this.topOfPageRef}
+
+
             />
             <div className="btn btn-primary available-time" onClick={this.triggerTimer}>=> </div>
 
 
 
-             {this.props.formError.errors}
+             <div>{this.props.formError.errors}</div>
         <div className= "group-duration">
            <h1 className="text-center">{this.state.durationValue} {this.state.durationFront === 0 ? 'Minutes' : 'Hours'}</h1>
         <div className="btn-container">
@@ -722,6 +777,7 @@ class BookingsNew extends Component {
               component={this.renderField}
             />*/}
           {/*data-dismiss={this.state.modal}*/}
+        {/*   () => renderbtn */}
           {this.renderBtnSubmit()}
 
         </form>
@@ -738,6 +794,7 @@ class BookingsNew extends Component {
 
 const validate = (values) => {
   const errors = {};
+
   if(!values.start_time) {
     errors.start_time = "this field is require";
   }
@@ -758,5 +815,5 @@ const mapStateToProps = (state) => {
 }
 
 export default reduxForm({ form: 'newBookingForm', validate  })(
-  connect(mapStateToProps, { createBooking, fetchProfileBusyTime, fetchProfileBusyNow, fetchProfile})(BookingsNew)
+  connect(mapStateToProps, { deleteBooking, createBooking, fetchProfileBusyTime, fetchProfileBusyNow, fetchProfile})(BookingsNew)
 );
