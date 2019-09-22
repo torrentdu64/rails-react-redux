@@ -146,3 +146,32 @@ input,
     .StripeElement.PaymentRequestButton {
       padding: 0;
     }
+
+
+
+
+@media (max-width: 900px) {
+  .btn-pay {
+    left: 154px;
+    top: 5px;
+  }
+  .rectengle9-background{
+    top: 680px;
+  }
+  .rectengle10-background{
+    top: 725px;
+    left: 0%;
+  }
+  .rectengle11-background{
+    top: 940px;
+  }
+  .rectengle12-background{
+    top: 996px;
+  }
+
+
+
+}
+
+
+
