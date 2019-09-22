@@ -27,6 +27,11 @@
   color: #D23333;
 }
 
+@media (max-width: 900px) {
+  .footer-copyright{
+    display: none;
+  }
+}
 // .background-footer{
 //   background-color: #65c5f4;
 //   width: 60%;
