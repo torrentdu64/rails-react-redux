@@ -262,6 +262,7 @@
 
 .react-datepicker__time-container {
   float: right;
+  height: 147px;
   // default setting
   // border-left: 1px solid $datepicker__border-color;
   // width: 70px;
@@ -719,11 +720,14 @@
 }
 
 @media (min-width: 500px){
+
   .react-datepicker__time-container {
   float: right;
+
   // default setting
   // border-left: 1px solid $datepicker__border-color;
   // width: 70px;
+
 
   &--with-today-button {
     display: inline;
