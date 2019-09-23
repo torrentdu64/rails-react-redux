@@ -18,7 +18,16 @@ class Api::V1::BookingsController < Api::V1::BaseController
     authorize @booking
     if @booking.save(validate: false)
     # binding.pry
-    RequestProfileSmsJob.perform_later(@booking.id)
+    # RequestProfileSmsJob.perform_later(@booking.id)
+    # ==================================
+      # @booking = Booking.find(@booking.id)
+      @sms = SmsApi.new(ENV['BURST_API_KEY'], ENV['BURST_API_SECRET'])
+      message = " make reservation reply Yes or No  "  #is your verification code.
+      response = @sms.send(message, "+642041845759" )
+      res = JSON.parse response.raw.options[:response_body]
+      @message_id = res["message_id"]
+      @booking = @booking.update_columns(message_id: @message_id)
+    # ==================================
     render :stripe_customer, status: :created
     else
       render_error
@@ -56,7 +65,50 @@ class Api::V1::BookingsController < Api::V1::BaseController
   ## reply and charge
 
   def reply
-      response = ReplySmsJob.perform_later(params["message_id"], params["response"])
+      # response = ReplySmsJob.perform_later(params["message_id"], params["response"])
+      # ============================================================
+      @booking = Booking.find_by(message_id: params["message_id"])
+      @user = User.find_by(id: @booking.user_id )
+      @profile = Profile.find_by(id: @booking.profile_id )
+
+      affirmation = ["yes" , "Yes", "ok", "Ok", "y", "Y", "YES", "接收", "接 收", "接受" , "接 受"]
+      negation = ["no" , "No", "N", "NO", "n", "na", "Na", "NA", "不接收", "不接受" ]
+
+      confirmed = affirmation.select{|x| x.match(params["response"]) }.length > 0
+      declined = negation.select{|x| x.match(params["response"]) }.length > 0
+
+      if confirmed
+      #   payment.charge
+      #   send sms info and charge
+        charge = Stripe::Charge.create(
+          customer:     @booking.customer_stripe_id,   # You should store this customer id and re-use it.
+          amount:       1000,
+          description:  "Payment for booking #{@profile.name} for order #{@booking.id}",
+          currency:     "nzd"
+        )
+
+        @booking.payment = charge.to_json
+        @booking.state = 'paid'
+        @booking.save(validate: false)
+
+          # rescue Stripe::CardError => e
+          #   p e
+          # end
+
+        @sms = SmsApi.new(ENV['BURST_API_KEY'], ENV['BURST_API_SECRET'])
+        message = "Your Booking is confirm at #{@booking.start_time} with #{@profile.name}"  #is your verification code.
+        response = @sms.send(message, "+642041845759" )
+
+      elsif declined
+
+        ## declined so destroy the booking
+        @booking.destroy
+      #   send info no charge
+       @sms = SmsApi.new(ENV['BURST_API_KEY'], ENV['BURST_API_SECRET'])
+       message = "Your Booking is declined with #{@profile.name}"  #is your verification code.
+       response = @sms.send(message, "+642041845759" )
+      end
+      # ============================================================
       @booking = Booking.find_by(message_id: params["message_id"])
       authorize @booking
       #binding.pry
