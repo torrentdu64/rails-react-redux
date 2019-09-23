@@ -43,6 +43,15 @@ class BookingsNew extends Component {
     }
 
 
+    changeLoadind = async () => {
+      await this.setState({
+        loading: null
+        });
+      await this.setState({
+        booked: false
+        });
+      console.log("changeLoadind", this.state.loading);
+    }
 
 
 
@@ -151,7 +160,7 @@ class BookingsNew extends Component {
 
        }
 
-    console.log("renderBtnSubmit  2 ==================")
+
 
     await this.setState({ timetouched: false});
   }
@@ -159,14 +168,7 @@ class BookingsNew extends Component {
 
 
   componentWillReceiveProps  = (nextProps, nextState) => {
-    console.log("renderBtnSubmit  5 ==================")
-    if(nextProps.timetouched === null){
-      console.log("renderBtnSubmit  3 ==================")
-    }
-    if(this.props.timetouched === null){
-      console.log("renderBtnSubmit  4 ==================")
 
-    }
     //  console.log("api =>>>>>>>>>>>" , nextProps.formError.errors );
     // console.log("api =>>>>>>>>>>>" , nextProps.formError.id );
     // const dismissModal = document.getElementById('book-submit-form');
@@ -678,7 +680,7 @@ class BookingsNew extends Component {
   render() {
 
     if (this.state.booked) {
-      debugger
+
       return(
               <div className="grid-booking">
                 <div>
@@ -687,7 +689,11 @@ class BookingsNew extends Component {
                 <span className="rectengle9-background"></span>
                 <span className="rectengle10-background"></span>
                 <Elements>
-                    <InjectedCheckoutForm profile_id={this.props.match.params.id} booking_id={this.props.formError.id}/>
+                    <InjectedCheckoutForm
+                        profile_id={this.props.match.params.id}
+                        booking_id={this.props.formError.id}
+
+                    />
                 </Elements>
 
                 <span className="rectengle11-background"></span>

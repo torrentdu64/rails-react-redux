@@ -33,9 +33,14 @@ const createOptions = (fontSize, padding) => {
 class CheckoutForm extends Component {
   constructor(props) {
   super(props);
-  this.state = {complete: false};
+  this.state = {
+    complete: false
+  };
   this.submit = this.submit.bind(this);
 }
+
+
+
 
 
 
@@ -57,17 +62,23 @@ async submit(ev) {
         credentials: 'same-origin',
         body: JSON.stringify({token, booking_id: this.props.booking_id })
       })
-      if (response.ok) this.setState({complete: true});
+      if (response.ok){
 
-  } catch(err) {
-    console.log('error', err);
+        this.setState({complete: true})
+      };
+
+  } catch(response) {
+    console.log('error', response);
+    response
+
   }
   // let token = await this.props.stripeToken({ name: 'Name'})
   // let charge = {
   //   token: chargeToken.token.id
   // }
 
-
+  // this.props.changeLoadind
+  this.setState({ complete: true});
 
 
 
@@ -95,7 +106,7 @@ render() {
 //   }
 // };
 
-  if (this.state.complete) return <h1>Purchase Complete</h1>;
+  if (this.state.complete) return <h1 className="msg-right">Purchase Complete bind animation Success Please Check you Phone You Will receive SmS</h1>;
 
     return (
       <div className="checkout">
