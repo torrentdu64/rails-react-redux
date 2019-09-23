@@ -18,7 +18,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
     authorize @booking
     if @booking.save(validate: false)
     # binding.pry
-     # RequestProfileSmsJob.perform_later(@booking.id)
+      RequestProfileSmsJob.perform_later(@booking.id)
     # ==================================
       # @booking = Booking.find(@booking.id)
       # @sms = SmsApi.new(ENV['BURST_API_KEY'], ENV['BURST_API_SECRET'])
