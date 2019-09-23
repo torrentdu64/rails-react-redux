@@ -76,20 +76,20 @@ class Api::V1::BookingsController < Api::V1::BaseController
       affirmation = ["yes" , "Yes", "ok", "Ok", "y", "Y", "YES", "接收", "接 收", "接受" , "接 受"]
       negation = ["no" , "No", "N", "NO", "n", "na", "Na", "NA", "不接收", "不接受" ]
 
-      confirmed = affirmation.select{|x| x.match(params["response"]) }.length > 0
-      declined = negation.select{|x| x.match(params["response"]) }.length > 0
+      p confirmed = affirmation.select{|x| x.match(params["response"]) }.length > 0
+      p declined = negation.select{|x| x.match(params["response"]) }.length > 0
 
       if confirmed
       #   payment.charge
       #   send sms info and charge
-        charge = Stripe::Charge.create(
+      p  charge = Stripe::Charge.create(
           customer:     @booking.customer_stripe_id,   # You should store this customer id and re-use it.
           amount:       @booking.amount_cents,
           description:  "Payment for booking #{@profile.name} for order #{@booking.id}",
           currency:     "nzd"
         )
 
-        @booking.payment = charge.to_json
+        # @booking.payment = charge.to_json
         @booking.state = 'paid'
         @booking.save(validate: false)
 
