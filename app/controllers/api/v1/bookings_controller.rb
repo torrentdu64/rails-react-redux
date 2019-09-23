@@ -19,7 +19,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
     if @booking.save(validate: false)
     # binding.pry
       # RequestProfileSmsJob.perform_later(@booking.id)
-      @booking = Booking.find(booking_id)
+      @booking = Booking.find(@booking.id)
       @sms = SmsApi.new(ENV['BURST_API_KEY'], ENV['BURST_API_SECRET'])
       message = " make reservation reply Yes or No  "  #is your verification code.
       response = @sms.send(message, "+642041845759" )
