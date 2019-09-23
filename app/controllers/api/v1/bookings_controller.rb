@@ -82,7 +82,8 @@ class Api::V1::BookingsController < Api::V1::BaseController
       if confirmed
       #   payment.charge
       #   send sms info and charge
-      p  charge = Stripe::Charge.create(
+      p "before charge"
+      p  Stripe::Charge.create(
           customer:     @booking.customer_stripe_id,   # You should store this customer id and re-use it.
           amount:       @booking.amount_cents,
           description:  "Payment for booking #{@profile.name} for order #{@booking.id}",
@@ -101,7 +102,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
         message = "Your Booking is confirm at #{@booking.start_time} with #{@profile.name}"  #is your verification code.
         response = @sms.send(message, "+642041845759" )
 
-      elsif declined
+      else
 
         ## declined so destroy the booking
         @booking.destroy
