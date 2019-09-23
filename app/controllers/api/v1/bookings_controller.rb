@@ -85,7 +85,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
       p "before charge"
       p  Stripe::Charge.create(
           customer:     @booking.customer_stripe_id,   # You should store this customer id and re-use it.
-          amount:       @booking.amount_cents,
+          amount:       1000,
           description:  "Payment for booking #{@profile.name} for order #{@booking.id}",
           currency:     "nzd"
         )
