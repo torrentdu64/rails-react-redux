@@ -39,7 +39,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
 
   def create
     @booking = Booking.new(booking_params)
-    @booking.user = current_user
+    @booking.user = current_user.id
     authorize @booking
     start_time = @booking.start_time
     end_time =   @booking.start_time
