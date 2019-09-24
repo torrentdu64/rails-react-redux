@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 
 import { fetchProfiles, appendMessage } from '../actions';
 
+import logo from '../assets/images/logo2.png';
+
 class ProfilesIndex extends Component {
   componentWillMount() {
     this.props.fetchProfiles();
@@ -65,7 +67,7 @@ class ProfilesIndex extends Component {
                   <button className="btn-profile">Profile</button>
                 </div>
                 <h2 className="card-trip-pricing">£99.99</h2>
-                <img src="https://kitt.lewagon.com/placeholder/users/krokrob" className="card-trip-user avatar-bordered" />
+                <img src={logo} className="card-trip-user avatar-bordered" />
               </div>
             </div>
           </a>
