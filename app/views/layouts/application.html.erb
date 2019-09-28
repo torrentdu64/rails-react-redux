@@ -24,6 +24,8 @@
     <%= render 'shared/footer' %>
     <%= javascript_include_tag 'application' %>
     <%= yield :after_js %>
+
     <%= javascript_pack_tag 'slick' %>
+    <%= javascript_pack_tag 'sign' %>
   </body>
 </html>

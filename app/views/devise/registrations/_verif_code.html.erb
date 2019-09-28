@@ -1,0 +1,15 @@
+
+  <%= simple_form_for current_user  , :url => {:action=>"verif_code", :controller=>"registrations"} , html: { :onsubmit => "return confirm('Are you sure');"  } do |f| %>
+          <%= f.input :code, required: true %>
+           <% if current_user.errors.any? %>
+              <div class="errors-container">
+                <ul>
+                  <% current_user.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+          <% end %>
+    <%= f.button :submit, "verif code" %>
+  <% end %>
+
