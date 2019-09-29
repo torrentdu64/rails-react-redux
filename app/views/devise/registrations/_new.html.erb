@@ -13,6 +13,8 @@
     <%= f.hidden_field :profile, :value => false %>
     <% end %>
 
+    <%= f.hidden_field :profile_id, :value =>  params[:id] %>
+
     <%= f.input :email,
                 required: true,
                 autofocus: true,

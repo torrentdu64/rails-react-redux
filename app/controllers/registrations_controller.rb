@@ -55,7 +55,17 @@ class RegistrationsController < Devise::RegistrationsController
 
   end
 
+
+  def create
+    super
+
+  end
+
+
+
+
   def sign_up_params
+    raise
     devise_parameter_sanitizer.sanitize(:sign_up)
   end
 
@@ -68,7 +78,7 @@ class RegistrationsController < Devise::RegistrationsController
   private
 
   def sign_up_params
-    params.require(:user).permit(:email, :phone, :password, :password_confirmation, :profile)
+    params.require(:user).permit(:email, :phone, :password, :password_confirmation, :profile, :profile_id)
   end
 
   def account_update_params

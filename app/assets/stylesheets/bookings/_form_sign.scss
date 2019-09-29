@@ -6,14 +6,14 @@
 // }
 
 .wrap-container {
-  background: #f6f5f7;
+  // background: #f6f5f7;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   font-family: 'Montserrat', sans-serif;
   height: 100vh;
-  margin: -20px 0 50px;
+  margin: -62px 0;
 
 
   h1 {
@@ -88,6 +88,45 @@
     margin: 8px 0;
     width: 100%;
   }
+
+  input#user_email {
+    border-radius: 16px;
+  }
+
+  input#user_password {
+    border-radius: 16px;
+  }
+
+  input#user_remember_me {
+    box-shadow: none;
+  }
+
+  input#user_phone{
+    border-radius: 16px;
+  }
+
+  input#user_password_confirmation{
+    border-radius: 16px;
+  }
+
+  input.btn{
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 20px;
+    border: 1px solid #FF4B2B;
+    background-color: #FF4B2B;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    -webkit-transition: -webkit-transform 80ms ease-in;
+    transition: -webkit-transform 80ms ease-in;
+    transition: transform 80ms ease-in;
+    transition: transform 80ms ease-in, -webkit-transform 80ms ease-in;
+  }
+
+
 }
 .container-sign {
   background-color: #fff;
@@ -99,6 +138,7 @@
   width: 768px;
   max-width: 100%;
   min-height: 480px;
+  height: 85%;
 }
 
 .form-container {
@@ -212,6 +252,98 @@
   transform: translateX(20%);
 }
 
+@media (min-width: 550px) {
+  .card-wrapper{
+    display: none;
+  }
+}
+
+// CARD FLIP MOBILE
+//
+
+@media (max-width: 550px) {
+  .wrap-container{
+    display: none;
+  }
+
+  input#user_email {
+    border-radius: 16px;
+  }
+
+  input#user_password {
+    border-radius: 16px;
+  }
+
+  input#user_remember_me {
+    box-shadow: none;
+  }
+
+  input#user_phone{
+    border-radius: 16px;
+  }
+
+  input#user_password_confirmation{
+    border-radius: 16px;
+  }
+
+
+  .card-wrapper{
+    position: relative;
+    width: 310px;
+    height: 600px;
+
+  }
+
+  .card{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: all 0.5s ease;
+    background: white;
+    border: none;
+
+  }
+
+  .active-flip{
+      transform: rotateY(180deg);
+  }
+
+
+
+  .front{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    background: white;
+    #signUpFlip{
+      position: absolute;
+      top: 2px;
+      left: 165px;
+      width: 140px;
+      border-radius: 16px;
+    }
+
+  }
+  .back{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    background: white;
+
+    transform: rotateY(180deg);
+    #signInFlip{
+      position: absolute;
+      top: 2px;
+      left: 165px;
+      width: 140px;
+      border-radius: 16px;
+    }
+  }
+
+}
 
 
 

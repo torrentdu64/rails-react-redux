@@ -5,6 +5,17 @@ class SessionsController < Devise::SessionsController
     super
   end
 
+  def create
+    super
+  end
+
+
+  def new
+    super
+  end
+
+
+
   private
 
   def destroy_booking_no_payment

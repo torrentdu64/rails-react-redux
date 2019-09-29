@@ -2,9 +2,9 @@ Rails.application.routes.draw do
 
 
   devise_scope :user do
-    devise_for :users, :controllers => {
-      registrations: 'registrations',
-      sessions: 'sessions'
+     devise_for :users, :controllers => {
+       registrations: 'registrations',
+       sessions: 'sessions'
     }
     patch 'verif', to: 'registrations#create_code'
     patch 'confirm', to: 'registrations#verif_code'

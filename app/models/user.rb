@@ -9,4 +9,5 @@ class User < ApplicationRecord
   validates :phone, presence: true, format: { with: PHONE_REGEX }
 
   attr_accessor :code
+  attr_accessor :profile_id
 end
