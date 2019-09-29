@@ -18,6 +18,19 @@ class ProfilesController < ApplicationController
 
     clean_unpay_booking if current_user
     @profiles = policy_scope(Profile)
+    if @profiles.present?
+      respond_to do |format|
+
+          format.html { }
+          format.js  # <-- will render `app/views/reviews/create.js.erb`
+        end
+    else
+      respond_to do |format|
+
+        format.html {  }
+        format.js  # <-- idem
+      end
+    end
   end
 
   def new
