@@ -256,7 +256,7 @@
                 <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
+              <div class="modal-body" id="booking-form">
                 <% if user_signed_in? && current_user.profile == false && current_user.phone_verif == true %>
                  <div id="root"></div>
                  <% elsif user_signed_in? && current_user.profile == false && current_user.phone_verif == false %>
@@ -270,7 +270,7 @@
                   <h2>You can not BOOKING with this account</h2>
                   <%= link_to "Sing Out", destroy_user_session_path(), method: :delete, class: "btn btn-primary" %>
                 <% else %>
-                  <div class="wrap-container">
+                  <div class="wrap-container" id="devise-sign">
                     <div class="container-sign" id="container-sign">
                       <div class="form-container sign-up-container">
                         <%= render "devise/registrations/new"%>

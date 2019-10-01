@@ -35,6 +35,41 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 // const middlewares = applyMiddleware(reduxPromise, logger);
 
 const store = createStore(reducers, {}, composeEnhancers(applyMiddleware(reduxPromise, logger)))
+const myroot = document.getElementById('root');
+console.log("myroot",myroot);
+
+MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+
+var observer = new MutationObserver(function(mutations, observer) {
+    // fired when a mutation occurs
+    console.log(mutations, observer);
+    const myroot = document.getElementById('root');
+    console.log("myroot",myroot);
+    ReactDOM.render(
+  <StripeProvider apiKey="pk_test_wRZncdxvPwvZgNqo09x4Gxbx">
+    <Provider store={store}>
+      <Router history={history}>
+        <div className="">
+          <Switch>
+            <Route path="/" exact component={ProfilesIndex} />
+            <Route path="/profiles/:id" exact component={BookingNew} />
+          </Switch>
+        </div>
+      </Router>
+    </Provider>
+  </StripeProvider>,
+  myroot
+);
+    // ...
+});
+
+// define what element should be observed by the observer
+// and what types of mutations trigger the callback
+observer.observe(document, {
+  subtree: true,
+  attributes: true
+
+});
 
 // render an instance of the component in the DOM
 ReactDOM.render(
@@ -50,5 +85,6 @@ ReactDOM.render(
       </Router>
     </Provider>
   </StripeProvider>,
-  document.getElementById('root')
+  myroot
 );
+

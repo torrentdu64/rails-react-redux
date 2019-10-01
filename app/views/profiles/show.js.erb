@@ -1,2 +1,48 @@
 
-alert('coucou');
+
+
+
+
+
+
+
+// if Sign In success
+//
+// select devise form
+//
+// remove from Dom
+//
+// select modal
+//
+// add id="root" to Modal
+//
+//
+//
+
+
+
+<% if user_signed_in? %>
+
+  const deviseSign = document.getElementById('devise-sign');
+  const bookingForm = document.getElementById('booking-form');
+
+
+  bookingForm.removeChild(deviseSign);
+
+  const rootHtml = document.createElement('div');
+  rootHtml.setAttribute("id", "root");
+
+  console.log(rootHtml);
+
+  bookingForm.prepend(rootHtml);
+ <% else %>
+
+    alert('coucou');
+
+
+
+
+<% end %>
+
+
+<%# binding.pry %>
