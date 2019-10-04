@@ -1,5 +1,14 @@
 class RegistrationsController < Devise::RegistrationsController
 
+  # layout 'login'
+  # skip_before_action :require_no_authentication
+  # before_action :resource_name
+
+  # def resource_name
+  #   :user
+  # end
+
+
   def create_code
 
      num = params[:user][:phone]
@@ -56,6 +65,8 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
 
+
+
   def create
     super
 
@@ -65,7 +76,7 @@ class RegistrationsController < Devise::RegistrationsController
 
 
   def sign_up_params
-    raise
+
     devise_parameter_sanitizer.sanitize(:sign_up)
   end
 

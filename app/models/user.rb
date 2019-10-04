@@ -10,4 +10,7 @@ class User < ApplicationRecord
 
   attr_accessor :code
   attr_accessor :profile_id
+
+
+
 end

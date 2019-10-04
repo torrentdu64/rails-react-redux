@@ -18,6 +18,7 @@
 //
 //
 //
+//
 
 
 
@@ -38,11 +39,26 @@
  <% else %>
 
     alert('coucou');
+    const containerSign = document.getElementById('container-sign');
 
+    const deviseSignIn = document.getElementById('session-new');
 
-
+    // remove form Sign In from sign container
+    containerSign.removeChild(deviseSignIn);
+    // append form with errors
+    const divSignInContainer = document.createElement('div');
+    divSignInContainer.setAttribute("id", "session-new");
+    divSignInContainer.setAttribute("class", "form-container sign-in-container");
+    const divForSignIn = document.getElementById('registration-new');
+    containerSign.prepend(divSignInContainer);
+     const newIddeviseSignIn = document.getElementById('session-new');
+     console.log('================>', newIddeviseSignIn )
+    newIddeviseSignIn.insertAdjacentHTML('beforeend', '<%= j render "devise/sessions/new"%>');
 
 <% end %>
+
+
+
 
 
 <%# binding.pry %>

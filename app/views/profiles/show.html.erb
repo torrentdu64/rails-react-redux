@@ -272,10 +272,14 @@
                 <% else %>
                   <div class="wrap-container" id="devise-sign">
                     <div class="container-sign" id="container-sign">
-                      <div class="form-container sign-up-container">
-                        <%= render "devise/registrations/new"%>
+                      <div class="form-container sign-up-container"
+                            id="registration-new"
+                      >
+                        <%= render "devise/registrations/new" %>
                       </div>
-                      <div class="form-container sign-in-container">
+                      <div class="form-container sign-in-container"
+                            id="session-new"
+                      >
                         <%= render "devise/sessions/new"%>
                       </div>
                       <div class="overlay-container">
