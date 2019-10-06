@@ -7,6 +7,7 @@ class RegistrationsController < Devise::RegistrationsController
   # def resource_name
   #   :user
   # end
+  respond_to :html, :js
 
 
   def create_code
@@ -68,8 +69,21 @@ class RegistrationsController < Devise::RegistrationsController
 
 
   def create
-    super
-
+    @user = User.new(sign_up_params)
+    binding.pry
+    if @user.save
+      binding.pry
+      respond_to do |format|
+        format.js { render 'profiles/show' }
+        format.html {  }
+      end
+    else
+      binding.pry
+      respond_to do |format|
+        format.js { render 'profiles/show' , resource: @msg_error}
+        format.html { redirect_to profile_path() }
+      end
+    end
   end
 
 

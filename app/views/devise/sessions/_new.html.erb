@@ -1,6 +1,10 @@
 <h2>Log in</h2>
 
-<%= simple_form_for(User.new({} || resource), as: resource_name, url: user_session_path(resource_name), remote: true) do |f| %>
+<%= simple_form_for(User.new({} || resource), as: resource_name, url: session_path(resource_name), remote: true) do |f| %>
+
+  <% if @msg_error.present? %>
+  <h1><%= @msg_error %></h1>
+  <% end %>
 
   <div class="form-inputs">
     <%= f.input :email,

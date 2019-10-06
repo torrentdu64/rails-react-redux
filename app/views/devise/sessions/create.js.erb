@@ -1,44 +1,5 @@
 
-
-
-
-
-
-
-
-// if Sign In success
-//
-// select devise form
-//
-// remove from Dom
-//
-// select modal
-//
-// add id="root" to Modal
-//
-//
-//
-//
-
-
-
-<% if user_signed_in? %>
-  alert('sign in');
-  const deviseSign = document.getElementById('devise-sign');
-  const bookingForm = document.getElementById('booking-form');
-
-
-  bookingForm.removeChild(deviseSign);
-
-  const rootHtml = document.createElement('div');
-  rootHtml.setAttribute("id", "root");
-
-  console.log(rootHtml);
-
-  bookingForm.prepend(rootHtml);
- <% else %>
-
-    alert('coucou');
+alert('coucou 2');
     const containerSign = document.getElementById('container-sign');
 
     const deviseSignIn = document.getElementById('session-new');
@@ -53,12 +14,7 @@
     containerSign.prepend(divSignInContainer);
      const newIddeviseSignIn = document.getElementById('session-new');
      console.log('================>', newIddeviseSignIn )
-    newIddeviseSignIn.insertAdjacentHTML('beforeend', '<%= j render "devise/sessions/new"%>, resource: resource');
 
-<% end %>
-
+    newIddeviseSignIn.insertAdjacentHTML('beforeend', '<%=  render "devise/sessions/new", resource: @user %>');
 
 
-
-
-<%# binding.pry %>
