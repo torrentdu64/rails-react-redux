@@ -1,0 +1,20 @@
+alert('create_code');
+
+
+// success senario
+//const bodyModal = document.getElementById('booking-form');
+
+const createCode = document.getElementById('create-code');
+
+bodyModal.removeChild(createCode);
+
+const divVerifCodeContainer = document.createElement('div');
+
+divVerifCodeContainer.setAttribute("id", "verif-code");
+// divCreateCodeContainer.setAttribute("class", "I-am-here");
+
+bodyModal.prepend(divVerifCodeContainer);
+
+const idVerifCode = document.getElementById('verif-code');
+
+idVerifCode.insertAdjacentHTML('beforeend', '<%= j render "devise/registrations/verif_code"%>');

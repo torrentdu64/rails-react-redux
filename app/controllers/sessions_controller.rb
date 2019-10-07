@@ -27,13 +27,13 @@ class SessionsController < Devise::SessionsController
       respond_to do |format|
 
         format.js { render 'profiles/show' }
-        format.html { redirect_to profile_path() }
+        format.html { redirect_to profile_path(sign_up_params[:profile_id])  }
       end
     else
       respond_to do |format|
 
-        format.js { render 'profiles/show' , resource: @msg_error}
-        format.html { redirect_to profile_path() }
+        format.js {}
+        format.html { redirect_to profile_path(sign_up_params[:profile_id])  }
       end
     end
  end
@@ -89,7 +89,7 @@ class SessionsController < Devise::SessionsController
 
 
   def sign_in_params
-    params.require(:user).permit(:email, :password, :remenber_me)
+    params.require(:user).permit(:email, :password, :remenber_me, :profile_id)
   end
 
 end

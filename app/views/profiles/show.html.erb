@@ -263,8 +263,11 @@
                  <% session[:verif_phone] = request.url %>
                   <% link_to "Verif you phone number",   edit_user_registration_path, class: "btn btn-primary" %>
                   <% if current_user.phone.present? && current_user.phone_verif == false %>
+
                         <%= render "devise/registrations/create_code" %>
+
                         <%=  render "devise/registrations/verif_code"%>
+
                   <% end %>
                 <% elsif user_signed_in? && current_user.profile == true %>
                   <h2>You can not BOOKING with this account</h2>

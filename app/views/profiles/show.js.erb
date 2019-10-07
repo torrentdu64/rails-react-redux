@@ -22,7 +22,7 @@
 
 
 
-<% if user_signed_in? %>
+<% if user_signed_in? && current_user.phone_verif %>
   alert('sign in');
   const deviseSign = document.getElementById('devise-sign');
   const bookingForm = document.getElementById('booking-form');
@@ -30,30 +30,61 @@
 
   bookingForm.removeChild(deviseSign);
 
+
+
   const rootHtml = document.createElement('div');
   rootHtml.setAttribute("id", "root");
 
-  console.log(rootHtml);
+
 
   bookingForm.prepend(rootHtml);
- <% else %>
+ <% elsif user_signed_in? %>
 
-    alert('coucou');
-    const containerSign = document.getElementById('container-sign');
+    alert('profiles/show');
 
-    const deviseSignIn = document.getElementById('session-new');
+    alert('sign up verif phone');
 
-    // remove form Sign In from sign container
-    containerSign.removeChild(deviseSignIn);
-    // append form with errors
-    const divSignInContainer = document.createElement('div');
-    divSignInContainer.setAttribute("id", "session-new");
-    divSignInContainer.setAttribute("class", "form-container sign-in-container");
-    const divForSignIn = document.getElementById('registration-new');
-    containerSign.prepend(divSignInContainer);
-     const newIddeviseSignIn = document.getElementById('session-new');
-     console.log('================>', newIddeviseSignIn )
-    newIddeviseSignIn.insertAdjacentHTML('beforeend', '<%= j render "devise/sessions/new"%>, resource: resource');
+    const bodyModal = document.getElementById('booking-form');
+    console.log("=================================>",bodyModal);
+    const deviseSign = document.getElementById('devise-sign');
+    console.log("=================================>", deviseSign);
+    bodyModal.removeChild(deviseSign);
+    // remove dom form
+    //
+    // create div and id to append verif phone
+    const divCreateCodeContainer = document.createElement('div');
+
+    divCreateCodeContainer.setAttribute("id", "create-code");
+    // divCreateCodeContainer.setAttribute("class", "I-am-here");
+
+    bodyModal.prepend(divCreateCodeContainer);
+
+    const idCreateCode = document.getElementById('create-code');
+
+    idCreateCode.insertAdjacentHTML('beforeend', '<%= j render "devise/registrations/create_code"%>');
+
+    // divCreateCodeContainer.setAttribute("class", "form-container sign-up-container");
+    //
+    // append form of verif phone
+    //
+    //
+
+
+    // const containerSign = document.getElementById('container-sign');
+
+    // const deviseSignIn = document.getElementById('session-new');
+
+    // // remove form Sign In from sign container
+    // containerSign.removeChild(deviseSignIn);
+    // // append form with errors
+    // const divSignInContainer = document.createElement('div');
+    // divSignInContainer.setAttribute("id", "session-new");
+    // divSignInContainer.setAttribute("class", "form-container sign-in-container");
+    // const divForSignIn = document.getElementById('registration-new');
+    // containerSign.prepend(divSignInContainer);
+    //  const newIddeviseSignIn = document.getElementById('session-new');
+    //  console.log('================>', newIddeviseSignIn )
+    // newIddeviseSignIn.insertAdjacentHTML('beforeend', '<%= j render "devise/sessions/new"%>, resource: resource');
 
 <% end %>
 

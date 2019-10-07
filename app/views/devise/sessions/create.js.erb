@@ -1,5 +1,7 @@
 
-alert('coucou 2');
+alert('device session create');
+<% if @msg_error.present? %>
+alert('msg_error');
     const containerSign = document.getElementById('container-sign');
 
     const deviseSignIn = document.getElementById('session-new');
@@ -13,8 +15,7 @@ alert('coucou 2');
     const divForSignIn = document.getElementById('registration-new');
     containerSign.prepend(divSignInContainer);
      const newIddeviseSignIn = document.getElementById('session-new');
-     console.log('================>', newIddeviseSignIn )
 
-    newIddeviseSignIn.insertAdjacentHTML('beforeend', '<%=  render "devise/sessions/new", resource: @user %>');
+    newIddeviseSignIn.insertAdjacentHTML('beforeend', '<%= j render "devise/sessions/new"%>, resource: resource');
 
-
+<% end %>
