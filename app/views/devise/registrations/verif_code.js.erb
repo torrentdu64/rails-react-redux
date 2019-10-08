@@ -1,9 +1,9 @@
-alert('verif code');
 
 
 
-<% if %>
-  alert('add root id');
+
+<% if current_user.phone_verif %>
+
 
   const verifCode = document.getElementById('verif-code');
 
@@ -19,6 +19,24 @@ alert('verif code');
 
 
 
-<% else %>
+<% elsif current_user.phone_verif == false %>
+
+alert('wrong code');
+
+const verifCode = document.getElementById('verif-code');
+
+bodyModal.removeChild(verifCode);
+
+const newDivVerifCodeContainer = document.createElement('div');
+
+newDivVerifCodeContainer.setAttribute("id", "verif-code");
+// divCreateCodeContainer.setAttribute("class", "I-am-here");
+
+bodyModal.prepend(newDivVerifCodeContainer);
+
+const idVerifCode = document.getElementById('verif-code');
+
+idVerifCode.insertAdjacentHTML('beforeend', '<%= j render "devise/registrations/verif_code" , current_user:  current_user %>');
+
 
 <% end %>

@@ -61,7 +61,7 @@ class RegistrationsController < Devise::RegistrationsController
         flash[:alert] = "success verif"
 
         # redirect_to  "#{session[:verif_phone]}"
-
+        binding.pry
         respond_to do |format|
           format.js { render "devise/registrations/verif_code" }
           format.html { redirect_to  edit_user_registration_path }
@@ -70,9 +70,10 @@ class RegistrationsController < Devise::RegistrationsController
     elsif current_user.code_conf != params[:user][:code] && session[:v] <= 3
       flash[:alert] = "Code wrong just #{ 3 - session[:v] } attempt possible"
       session[:v] = session[:v] + 1
-
+      binding.pry
+      current_user.errors[:base] << "Wrong code, you have #{ 4 - session[:v]} before to be ban"
       respond_to do |format|
-        format.js { render "devise/registrations/verif_code" }
+        format.js {  }
         format.html { redirect_to  edit_user_registration_path }
       end
 
