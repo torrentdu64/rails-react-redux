@@ -73,7 +73,7 @@ class RegistrationsController < Devise::RegistrationsController
       binding.pry
       current_user.errors[:base] << "Wrong code, you have #{ 4 - session[:v]} before to be ban"
       respond_to do |format|
-        format.js {  }
+        format.js { }
         format.html { redirect_to  edit_user_registration_path }
       end
 

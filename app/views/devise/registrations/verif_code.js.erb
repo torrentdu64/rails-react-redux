@@ -5,9 +5,9 @@
 <% if current_user.phone_verif %>
 
 
-  const verifCode = document.getElementById('verif-code');
+  let successVerifCode = document.getElementById('verif-code');
 
-  bodyModal.removeChild(verifCode);
+  bodyModal.removeChild(successVerifCode);
 
   const rootId = document.createElement('div');
 
@@ -19,24 +19,52 @@
 
 
 
-<% elsif current_user.phone_verif == false %>
+<% else  %>
 
-alert('wrong code');
+<% if session[:v] > 1 %>
+   alert('change error');
+   const newErrorIdVerifCode = document.getElementById('verif-code');
+    bodyModal.removeChild(newErrorIdVerifCode);
+    const newErrorDivVerifCodeContainer = document.createElement('div');
 
-const verifCode = document.getElementById('verif-code');
 
-bodyModal.removeChild(verifCode);
 
-const newDivVerifCodeContainer = document.createElement('div');
+  newErrorDivVerifCodeContainer.setAttribute("id", "verif-code");
+  // divCreateCodeContainer.setAttribute("class", "I-am-here");
 
-newDivVerifCodeContainer.setAttribute("id", "verif-code");
-// divCreateCodeContainer.setAttribute("class", "I-am-here");
+  console.log("===================>",newErrorDivVerifCodeContainer);
 
-bodyModal.prepend(newDivVerifCodeContainer);
 
-const idVerifCode = document.getElementById('verif-code');
+    bodyModal.prepend(newErrorDivVerifCodeContainer);
+    const newError2IdVerifCode = document.getElementById('verif-code');
+    newError2IdVerifCode.insertAdjacentHTML('beforeend', '<%= j render "devise/registrations/verif_code" , current_user:  current_user %>');
+  <% else %>
 
-idVerifCode.insertAdjacentHTML('beforeend', '<%= j render "devise/registrations/verif_code" , current_user:  current_user %>');
+  alert('wrong code');
 
+  let errorVerifCode = document.getElementById('verif-code');
+  console.log("===================>",errorVerifCode);
+
+  bodyModal.removeChild(errorVerifCode);
+
+  console.log("===================>",bodyModal);
+
+  const newDivVerifCodeContainer = document.createElement('div');
+
+
+
+  newDivVerifCodeContainer.setAttribute("id", "verif-code");
+  // divCreateCodeContainer.setAttribute("class", "I-am-here");
+
+  console.log("===================>",newDivVerifCodeContainer);
+
+  bodyModal.prepend(newDivVerifCodeContainer);
+
+  const newIdVerifCode = document.getElementById('verif-code');
+
+  console.log("===================>",idVerifCode);
+
+   newIdVerifCode.insertAdjacentHTML('beforeend', '<%= j render "devise/registrations/verif_code" , current_user:  current_user %>');
+  <% end %>
 
 <% end %>
