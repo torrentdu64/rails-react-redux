@@ -34,12 +34,20 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // const middlewares = applyMiddleware(reduxPromise, logger);
 
+
 const myroot = document.getElementById('root');
-console.log("myroot",myroot);
 debugger
-const initialState = {
-  profiles: JSON.parse(myroot.dataset.profiles)
-};
+
+
+  const initialState = {};
+if( myroot.dataset.profiles !== undefined ){
+    const initialState  = {
+      profiles: JSON.parse(myroot.dataset.profiles)
+    };
+}
+
+
+
 
 
 const store = createStore(reducers, initialState, composeEnhancers(applyMiddleware(reduxPromise, logger)))
@@ -94,4 +102,10 @@ ReactDOM.render(
   </StripeProvider>,
   myroot
 );
+
+
+
+
+
+
 
