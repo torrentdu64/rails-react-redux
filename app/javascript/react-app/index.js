@@ -34,9 +34,16 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // const middlewares = applyMiddleware(reduxPromise, logger);
 
-const store = createStore(reducers, {}, composeEnhancers(applyMiddleware(reduxPromise, logger)))
 const myroot = document.getElementById('root');
 console.log("myroot",myroot);
+debugger
+const initialState = {
+  profiles: JSON.parse(myroot.dataset.profiles)
+};
+
+
+const store = createStore(reducers, initialState, composeEnhancers(applyMiddleware(reduxPromise, logger)))
+
 
 MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 

@@ -6,7 +6,9 @@ class ProfilesController < ApplicationController
 
 
   def list
+
     session[:profile] = true
+     @profiles = policy_scope(Profile)
   end
 
   def index
@@ -18,7 +20,6 @@ class ProfilesController < ApplicationController
 
     clean_unpay_booking if current_user
     @profiles = policy_scope(Profile)
-
 
     if @profile.present?
       respond_to do |format|
