@@ -243,7 +243,7 @@
     <div class="container">
       <div class="row">
            <!-- Button trigger modal -->
-        <button onclick="scrollTime()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >
+        <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >
         Booking
         </button>
         <!-- Modal -->
@@ -256,18 +256,70 @@
                 <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
+              <div class="modal-body" id="booking-form">
                 <% if user_signed_in? && current_user.profile == false && current_user.phone_verif == true %>
                  <div id="root"></div>
                  <% elsif user_signed_in? && current_user.profile == false && current_user.phone_verif == false %>
                  <% session[:verif_phone] = request.url %>
-                  <%= link_to "Verif you phone number",   edit_user_registration_path, class: "btn btn-primary" %>
+                  <% link_to "Verif you phone number",   edit_user_registration_path, class: "btn btn-primary" %>
+                  <% if current_user.phone.present? && current_user.phone_verif == false %>
+
+                        <%= render "devise/registrations/create_code" %>
+
+                        <%=  render "devise/registrations/verif_code"%>
+
+                  <% end %>
                 <% elsif user_signed_in? && current_user.profile == true %>
                   <h2>You can not BOOKING with this account</h2>
                   <%= link_to "Sing Out", destroy_user_session_path(), method: :delete, class: "btn btn-primary" %>
                 <% else %>
-                <%= link_to "SignIn", new_user_session_path, class: "btn btn-primary" %>
+                  <div class="wrap-container" id="devise-sign">
+                    <div class="container-sign" id="container-sign">
+                      <div class="form-container sign-up-container"
+                            id="registration-new"
+                      >
+                        <%= render "devise/registrations/new" %>
+                      </div>
+                      <div class="form-container sign-in-container"
+                            id="session-new"
+                      >
+                        <%= render "devise/sessions/new"%>
+                      </div>
+                      <div class="overlay-container">
+                        <div class="overlay">
+                          <div class="overlay-panel overlay-left">
+                            <h1>Welcome Back!</h1>
+                            <p>To keep connected with us please login with your personal info</p>
+                            <button class="ghost" id="signIn">Sign In</button>
+                          </div>
+                          <div class="overlay-panel overlay-right">
+                            <h1>Hello, Friend!</h1>
+                            <p>Enter your personal details and start journey with us</p>
+                            <button class="ghost" id="signUp">Sign Up</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 <% end %>
+
+                <div class="card-wrapper flip-left">
+                  <div class="card" id="cardFlip">
+                    <div class="front">
+                    <button class="btn btn-primary"
+                            id="signUpFlip"
+                    >Sign Up</button>
+                    <%= render "devise/sessions/new"%>
+                  </div>
+                    <div class="back">
+                      <button class="btn btn-primary"
+                            id="signInFlip"
+                    >Sign In</button>
+                    <%= render "devise/registrations/new"%>
+                    </div>
+                  </div>
+                </div>
+
               </div>
               <div class="modal-footer">
                 <h4 class="text-center">Quick & smooth</h4>

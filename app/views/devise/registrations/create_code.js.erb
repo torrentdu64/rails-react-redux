@@ -1,0 +1,53 @@
+alert('create_code');
+
+
+// success senario
+//const bodyModal = document.getElementById('booking-form');
+<% if current_user.errors.present? %>
+
+alert('wrong code');
+
+let verifCode = document.getElementById('verif-code');
+console.log("===================>",verifCode);
+
+bodyModal.removeChild(verifCode);
+
+console.log("===================>",bodyModal);
+
+const newDivVerifCodeContainer = document.createElement('div');
+
+
+
+newDivVerifCodeContainer.setAttribute("id", "verif-code");
+// divCreateCodeContainer.setAttribute("class", "I-am-here");
+
+console.log("===================>",newDivVerifCodeContainer);
+
+bodyModal.prepend(newDivVerifCodeContainer);
+
+const idVerifCode = document.getElementById('verif-code');
+
+console.log("===================>",idVerifCode);
+
+// idVerifCode.insertAdjacentHTML('beforeend', '<%= j render "devise/registrations/verif_code" , current_user:  current_user %>');
+
+
+<% else %>
+
+alert('new code attempt')
+const createCode = document.getElementById('create-code');
+
+bodyModal.removeChild(createCode);
+
+const divVerifCodeContainer = document.createElement('div');
+
+divVerifCodeContainer.setAttribute("id", "verif-code");
+// divCreateCodeContainer.setAttribute("class", "I-am-here");
+
+bodyModal.prepend(divVerifCodeContainer);
+
+const idVerifCode = document.getElementById('verif-code');
+
+idVerifCode.insertAdjacentHTML('beforeend', '<%= j render "devise/registrations/verif_code"%>');
+
+<% end %>

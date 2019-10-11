@@ -18,11 +18,12 @@ module RailsReactRedux
     config.time_zone = "Pacific/Auckland"
     config.active_record.default_timezone = :local
     # config.active_record.time_zone_aware_attributes = false
-
+    config.action_view.embed_authenticity_token_in_remote_forms = true
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
     config.active_job.queue_adapter = :sidekiq
+
   end
 end

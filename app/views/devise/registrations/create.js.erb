@@ -1,0 +1,28 @@
+
+
+<% if  resource.errors.present? %>
+
+    const containerSign = document.getElementById('container-sign');
+
+    const deviseSignUp = document.getElementById('registration-new');
+
+    // remove form Sign In from sign container
+    containerSign.removeChild(deviseSignUp);
+    // append form with errors
+    const divSignUpContainer = document.createElement('div');
+
+    divSignUpContainer.setAttribute("id", "registration-new");
+
+    divSignUpContainer.setAttribute("class", "form-container sign-up-container");
+
+    const divForSignIn = document.getElementById('session-new');
+
+    containerSign.prepend(divSignUpContainer);
+
+    const newIddeviseSignUp = document.getElementById('registration-new');
+
+    newIddeviseSignUp.insertAdjacentHTML('beforeend', '<%= j render "devise/registrations/new"%>, resource: resource');
+
+
+<% end %>
+
