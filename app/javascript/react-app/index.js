@@ -35,8 +35,76 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 // const middlewares = applyMiddleware(reduxPromise, logger);
 
 
-const myroot = document.getElementById('root');
-debugger
+let myroot = document.getElementById('root');
+
+
+// if (!document.getElementById('root')) {
+//     var div = document.createElement("div");
+//     div.id = 'root';
+//     document.body.appendChild(div);
+// }
+
+
+// if (myroot === null) {
+//   while( true ){
+//     setTimeout(function() {
+//         myroot = document.getElementById('root');
+//     }, 500);
+//     console.log("loop");
+//     if( myroot !== null){
+//       break
+//     }
+//   }
+// }else{
+//   console.log("display route");
+// }
+
+
+MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+
+var observer = new MutationObserver(function(mutations, observer) {
+    // look through all mutations that just occured
+    for(var i=0; i<mutations.length; ++i) {
+        // look through all added nodes of this mutation
+        for(var j=0; j<mutations[i].addedNodes.length; ++j) {
+            // was a child added with ID of 'bar'?
+            if(mutations[i].addedNodes[j].id == "root") {
+               myroot = document.getElementById('root');
+                ReactDOM.render(
+                <StripeProvider apiKey="pk_test_wRZncdxvPwvZgNqo09x4Gxbx">
+                  <Provider store={store}>
+                    <Router history={history}>
+                      <div className="">
+                        <Switch>
+                          <Route path="/" exact component={ProfilesIndex} />
+                          <Route path="/profiles/:id" exact component={BookingNew} />
+                        </Switch>
+                      </div>
+                    </Router>
+                  </Provider>
+                </StripeProvider>,
+                myroot
+              );
+            }
+        }
+    }
+});
+
+observer.observe(document, {
+  attributes: true,
+  childList: true,
+  characterData: true,
+  subtree : true
+});
+
+
+
+//
+//
+//     console.log("in the loop");
+//
+
+
 
 
 //   const initialState = {};
@@ -58,38 +126,40 @@ debugger
 const store = createStore(reducers, {}, composeEnhancers(applyMiddleware(reduxPromise, logger)))
 
 
-MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+// MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
-var observer = new MutationObserver(function(mutations, observer) {
-    // fired when a mutation occurs
-    console.log(mutations, observer);
-    const myroot = document.getElementById('root');
-    console.log("myroot",myroot);
-    ReactDOM.render(
-  <StripeProvider apiKey="pk_test_wRZncdxvPwvZgNqo09x4Gxbx">
-    <Provider store={store}>
-      <Router history={history}>
-        <div className="">
-          <Switch>
-            <Route path="/" exact component={ProfilesIndex} />
-            <Route path="/profiles/:id" exact component={BookingNew} />
-          </Switch>
-        </div>
-      </Router>
-    </Provider>
-  </StripeProvider>,
-  myroot
-);
-    // ...
-});
+// var observer = new MutationObserver(function(mutations, observer) {
+//     // fired when a mutation occurs
+//     console.log(mutations, observer);
+//     const myroot = document.getElementById('root');
+//     console.log("myroot",myroot);
 
-// define what element should be observed by the observer
-// and what types of mutations trigger the callback
-observer.observe(document, {
-  subtree: true,
-  attributes: true
+//     ReactDOM.render(
+//   <StripeProvider apiKey="pk_test_wRZncdxvPwvZgNqo09x4Gxbx">
+//     <Provider store={store}>
+//       <Router history={history}>
+//         <div className="">
+//           <Switch>
+//             <Route path="/" exact component={ProfilesIndex} />
+//             <Route path="/profiles/:id" exact component={BookingNew} />
+//           </Switch>
+//         </div>
+//       </Router>
+//     </Provider>
+//   </StripeProvider>,
+//   myroot
+// );
+//     // ...
+// });
 
-});
+// // define what element should be observed by the observer
+// // and what types of mutations trigger the callback
+// observer.observe(document, {
+//   attributes: true,
+//   childList: true,
+//   characterData: true,
+//   subtree : true
+// });
 
 // render an instance of the component in the DOM
 ReactDOM.render(
