@@ -67,7 +67,7 @@ var observer = new MutationObserver(function(mutations, observer) {
     for(var i=0; i<mutations.length; ++i) {
         // look through all added nodes of this mutation
         for(var j=0; j<mutations[i].addedNodes.length; ++j) {
-            // was a child added with ID of 'bar'?
+            // was a child added with ID of 'root'?
             if(mutations[i].addedNodes[j].id == "root") {
                myroot = document.getElementById('root');
                 ReactDOM.render(
