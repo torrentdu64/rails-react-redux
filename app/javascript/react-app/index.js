@@ -39,18 +39,23 @@ const myroot = document.getElementById('root');
 debugger
 
 
-  const initialState = {};
-if( myroot.dataset.profiles !== undefined ){
-    const initialState  = {
-      profiles: JSON.parse(myroot.dataset.profiles)
-    };
-}
+//   const initialState = {};
+// if( myroot.dataset.profiles !== undefined || myroot.dataset.profiles !==  "undefined"){
+//     const initialState  = {
+//       profiles: JSON.parse(myroot.dataset.profiles)
+//     };
+// }else{
+//   const initialState  = {};
+// }
 
 
 
 
 
-const store = createStore(reducers, initialState, composeEnhancers(applyMiddleware(reduxPromise, logger)))
+//const store = createStore(reducers, initialState, composeEnhancers(applyMiddleware(reduxPromise, logger)))
+
+
+const store = createStore(reducers, {}, composeEnhancers(applyMiddleware(reduxPromise, logger)))
 
 
 MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
