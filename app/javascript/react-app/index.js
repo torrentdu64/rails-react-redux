@@ -66,6 +66,9 @@ var observer = new MutationObserver(function(mutations, observer) {
                 </StripeProvider>,
                 myroot
               );
+
+               const initialState = {};
+
             }
         }
     }
@@ -81,22 +84,34 @@ observer.observe(document, {
 
 
 
+  const initialState  = {};
+
+try{
 
 
-  const initialState = {};
-if( myroot.dataset.profiles !== undefined || myroot.dataset.profiles !==  "undefined" || myroot.dataset !== null){
   debugger
+if( myroot.dataset.profiles !== undefined || myroot.dataset.profiles !==  "undefined" || myroot !== null ){
+  if(myroot.dataset.profiles === "undefined"){
+    const initialState  = {};
+  }else{
+    debugger;
     const initialState  = {
-
       profiles: JSON.parse(myroot.dataset.profiles)
     };
+  }
 }else{
-  debugger
+  debugger;
   const initialState  = {
-
     profiles: []
   };
 }
+
+}catch(err){
+  console.log("myroot", err)
+
+
+}
+
 
 
 
