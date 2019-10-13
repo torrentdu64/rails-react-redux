@@ -35,13 +35,9 @@
   const rootHtml = document.createElement('div');
   rootHtml.setAttribute("id", "root");
   rootHtml.setAttribute("data-profiles", "undefined");
-  let jBook = "<%=  j @booking.to_json %>"
-  alert("<%=  j @booking.to_json %>")
-  console.log("json ==============================>", jBook)
-  console.log("json ==============================>", <%=  raw @booking.to_json %>)
-  console.log("json ==============================>", <%=  raw @booking.to_json.to_s.html_safe %>)
-  console.log("json ==============================>", jBook)
-  // rootHtml.setAttribute("data-booking", "<%=  j @jsbooking %>");
+  let jsonBooking = "<%= j @booking.to_json %>"
+  jsonBooking =  jsonBooking.replace(/(&quot\;)/g,"\"");
+  rootHtml.setAttribute("data-booking", jsonBooking);
 
 
   bookingForm.prepend(rootHtml);
