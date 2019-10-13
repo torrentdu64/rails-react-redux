@@ -1,6 +1,7 @@
 
   <%= simple_form_for current_user  , :url => {:action=>"verif_code", :controller=>"registrations"} , html: { :onsubmit => "return confirm('Are you sure');", remote: true  } do |f| %>
           <%= f.input :code, required: true %>
+          <%= f.hidden_field :profile_id, :value => @profile_id %>
           <% if current_user.errors[:base].present? %>
            <h1><%= current_user.errors[:base][0] %></h1>
           <% end %>

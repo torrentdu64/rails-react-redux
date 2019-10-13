@@ -35,6 +35,7 @@ class RegistrationsController < Devise::RegistrationsController
       # response = @sms.send(message, current_user.phone )
       #=================================================================================
       binding.pry
+      @profile_id = params[:user][:profile_id]
       respond_to do |format|
         format.js { }
         format.html { redirect_to  edit_user_registration_path }
@@ -61,7 +62,10 @@ class RegistrationsController < Devise::RegistrationsController
         flash[:alert] = "success verif"
 
         # redirect_to  "#{session[:verif_phone]}"
+        @booking = Booking.where(profile_id: params[:user][:profile_id] )
+
         binding.pry
+
         respond_to do |format|
           format.js { render "devise/registrations/verif_code" }
           format.html { redirect_to  edit_user_registration_path }
@@ -98,7 +102,7 @@ class RegistrationsController < Devise::RegistrationsController
     # @user = User.new(sign_up_params)
 
     build_resource(sign_up_params)
-
+    @profile_id = sign_up_params[:profile_id]
     if resource.save
       # binding.pry
       sign_up(resource_name, resource)
