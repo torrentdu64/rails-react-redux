@@ -56,7 +56,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
     end_time =   @booking.start_time
     @booking.end_time = @booking.start_time.to_datetime + Time.parse("#{@booking.duration}").seconds_since_midnight.seconds
     @booking.state = 'create'
-    # binding.pry
+     #binding.pry
     if @booking.save # see Message.as_json method
       render :create, status: :created
     else

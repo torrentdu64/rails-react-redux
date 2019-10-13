@@ -21,6 +21,11 @@ class ProfilesController < ApplicationController
     clean_unpay_booking if current_user
     @profiles = policy_scope(Profile)
 
+    #give booking from profile id and pass to a job
+    # manage case user connect multy-tabs
+    @booking = Booking.where(profile_id: @profile.id )
+    #generate busy_till-now with move method to model ??
+
     if @profile.present?
       respond_to do |format|
 
