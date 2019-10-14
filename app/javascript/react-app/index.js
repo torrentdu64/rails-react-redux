@@ -90,19 +90,22 @@ try{
 
 
   debugger
-if( myroot.dataset.profiles !== undefined || myroot.dataset.profiles !==  "undefined" || myroot !== null ){
-  if(myroot.dataset.profiles === "undefined"){
+if( myroot.dataset.booking !== undefined || myroot.dataset.profiles !== undefined || myroot.dataset.profiles !==  "undefined" || myroot !== null ){
+  if(myroot.dataset.profiles === "undefined" && myroot.dataset.booking === "undefined"){
+    debugger
     const initialState  = {};
   }else{
     debugger;
     const initialState  = {
-      profiles: JSON.parse(myroot.dataset.profiles)
+      profiles: JSON.parse(myroot.dataset.profiles),
+      busy: JSON.parse(myroot.dataset.booking)
     };
   }
 }else{
   debugger;
   const initialState  = {
-    profiles: []
+    profiles: [],
+    busy: []
   };
 }
 
