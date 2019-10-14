@@ -23,6 +23,8 @@ class SessionsController < Devise::SessionsController
       end
     end
 
+@booking = Booking.where(profile_id: sign_in_params[:profile_id] )
+
   if user.present?
       respond_to do |format|
 

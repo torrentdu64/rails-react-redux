@@ -12,6 +12,9 @@
   const rootId = document.createElement('div');
 
   rootId.setAttribute("id", "root");
+  let jsonBooking = "<%= j @booking.to_json %>"
+  jsonBooking =  jsonBooking.replace(/(&quot\;)/g,'"');
+  rootId.setAttribute("data-booking", jsonBooking);
   // divCreateCodeContainer.setAttribute("class", "I-am-here");
 
   bodyModal.prepend(rootId);

@@ -18,14 +18,21 @@ class ProfilesController < ApplicationController
   def show
     session[:profile] = false
 
-    clean_unpay_booking if current_user
+    #clean_unpay_booking if current_user
     @profiles = policy_scope(Profile)
 
+    #give booking from profile id and pass to a job
+    # manage case user connect multy-tabs
+    @booking = Booking.where(profile_id: @profile.id )
+    #generate busy_till-now with move method to model ??
+
+
+    @booking = @booking.to_json
     if @profile.present?
       respond_to do |format|
 
           format.html { }
-          format.js  # <-- will render `app/views/reviews/create.js.erb`
+          format.js  { render "profiles/show", booking: @booking }# <-- will render `app/views/reviews/create.js.erb`
         end
     else
       respond_to do |format|

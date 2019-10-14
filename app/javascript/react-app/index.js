@@ -38,26 +38,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 let myroot = document.getElementById('root');
 
 
-// if (!document.getElementById('root')) {
-//     var div = document.createElement("div");
-//     div.id = 'root';
-//     document.body.appendChild(div);
-// }
 
-
-// if (myroot === null) {
-//   while( true ){
-//     setTimeout(function() {
-//         myroot = document.getElementById('root');
-//     }, 500);
-//     console.log("loop");
-//     if( myroot !== null){
-//       break
-//     }
-//   }
-// }else{
-//   console.log("display route");
-// }
 
 
 MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
@@ -85,6 +66,9 @@ var observer = new MutationObserver(function(mutations, observer) {
                 </StripeProvider>,
                 myroot
               );
+
+               const initialState = {};
+
             }
         }
     }
@@ -99,31 +83,47 @@ observer.observe(document, {
 
 
 
-//
-//
-//     console.log("in the loop");
-//
+
+  const initialState  = {};
+
+try{
+
+
+  debugger
+if( myroot.dataset.booking !== undefined || myroot.dataset.profiles !== undefined || myroot.dataset.profiles !==  "undefined" || myroot !== null ){
+  if(myroot.dataset.profiles === "undefined" && myroot.dataset.booking === "undefined"){
+    debugger
+    const initialState  = {};
+  }else{
+    debugger;
+    const initialState  = {
+      profiles: JSON.parse(myroot.dataset.profiles),
+      busy: JSON.parse(myroot.dataset.booking)
+    };
+  }
+}else{
+  debugger;
+  const initialState  = {
+    profiles: [],
+    busy: []
+  };
+}
+
+}catch(err){
+  console.log("myroot", err)
+
+
+}
 
 
 
 
-//   const initialState = {};
-// if( myroot.dataset.profiles !== undefined || myroot.dataset.profiles !==  "undefined"){
-//     const initialState  = {
-//       profiles: JSON.parse(myroot.dataset.profiles)
-//     };
-// }else{
-//   const initialState  = {};
-// }
 
 
+const store = createStore(reducers, initialState, composeEnhancers(applyMiddleware(reduxPromise, logger)))
 
 
-
-//const store = createStore(reducers, initialState, composeEnhancers(applyMiddleware(reduxPromise, logger)))
-
-
-const store = createStore(reducers, {}, composeEnhancers(applyMiddleware(reduxPromise, logger)))
+//const store = createStore(reducers, {}, composeEnhancers(applyMiddleware(reduxPromise, logger)))
 
 
 // MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
