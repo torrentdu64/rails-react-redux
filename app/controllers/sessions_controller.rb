@@ -23,19 +23,19 @@ class SessionsController < Devise::SessionsController
       end
     end
 
-@booking = Booking.where(profile_id: sign_in_params[:profile_id] )
+    @booking = Booking.where(profile_id: sign_in_params[:profile_id] )
 
   if user.present?
       respond_to do |format|
 
         format.js { render 'profiles/show' }
-        format.html { redirect_to profile_path(sign_up_params[:profile_id])  }
+        format.html { redirect_to profile_path(sign_in_params[:profile_id])  }
       end
     else
       respond_to do |format|
 
         format.js {}
-        format.html { redirect_to profile_path(sign_up_params[:profile_id])  }
+        format.html { redirect_to profile_path(sign_in_params[:profile_id])  }
       end
     end
  end

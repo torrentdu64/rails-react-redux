@@ -128,8 +128,8 @@ class Api::V1::BookingsController < Api::V1::BaseController
   def busy_till_now
     selected_date = params[:q]
     res =  selected_date.to_date.strftime("%Y-%m-%d 00:00:00 tt")
-    now = DateTime.parse(selected_date).in_time_zone("Pacific/Auckland") + 12*60*60  #.strftime("%H:%M")
-    from = DateTime.parse(res).in_time_zone("Pacific/Auckland")  + 12*60*60 #.strftime("%H:%M")
+    now = DateTime.parse(selected_date).in_time_zone("Pacific/Auckland") + 11*60*60  # here handle timezone 12*60*60
+    from = DateTime.parse(res).in_time_zone("Pacific/Auckland")  + 11*60*60 # here handle timezone 12*60*60
     busy_now = []
     time_iterate(from, now, 30.minutes) do |t|
        busy_now << t

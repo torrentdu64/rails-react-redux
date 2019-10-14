@@ -163,6 +163,7 @@ class BookingsNew extends Component {
 
 
     await this.setState({ timetouched: false});
+
   }
 
 
@@ -175,6 +176,9 @@ class BookingsNew extends Component {
       // dismissModal.setAttribute('data-dismiss', '');
     if(nextProps.formError.errors && nextProps.formError.errors.length){
       // dismissModal.setAttribute('data-dismiss', '');
+      debugger
+      this.setState({loading: null});
+
     }else if(Number.isInteger(nextProps.formError.id) && nextProps.formError.id > 0   ){
     this.renderBusy();
 
@@ -275,6 +279,7 @@ class BookingsNew extends Component {
     if(this.state.loading === false){
       return <div>loading ....</div>
     }
+
 
     return (
       <h1>Animation</h1>
