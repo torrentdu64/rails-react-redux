@@ -63,15 +63,18 @@ async submit(ev) {
         body: JSON.stringify({token, booking_id: this.props.booking_id })
       })
       if (response.ok){
-
+        debugger
+        console.log("response ok ", response)
         this.setState({complete: true})
       };
 
   } catch(response) {
+    debugger
     console.log('error', response);
     response
 
   }
+
   // let token = await this.props.stripeToken({ name: 'Name'})
   // let charge = {
   //   token: chargeToken.token.id

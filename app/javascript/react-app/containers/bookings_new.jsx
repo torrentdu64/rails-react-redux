@@ -667,12 +667,18 @@ class BookingsNew extends Component {
   }
 
   backToBook = async () => {
+     // if( this.props.complete ) {
+     //    console.log("complete")
+     // }else{
     await this.setState({ booked: false});
     await this.setState({ loading: null});
     // await this.setState({ timetouched: false});
     const profile_id = this.props.match.params.id
     const booking_id = this.props.formError.id
     this.props.deleteBooking(profile_id, booking_id);
+     // }
+
+
   }
 
 
@@ -697,7 +703,6 @@ class BookingsNew extends Component {
                     <InjectedCheckoutForm
                         profile_id={this.props.match.params.id}
                         booking_id={this.props.formError.id}
-
                     />
                 </Elements>
 
