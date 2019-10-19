@@ -65,7 +65,7 @@ async submit(ev) {
       if (response.ok){
         debugger
         console.log("response ok ", response)
-        this.setState({complete: true})
+        this.props.updateCompleted(true);
       };
 
   } catch(response) {
@@ -83,7 +83,7 @@ async submit(ev) {
   // this.props.changeLoadind
   //this.setState({ complete: true});
 
-  this.props.updateCompleted(true);
+  // this.props.updateCompleted(true);
 
 
 
