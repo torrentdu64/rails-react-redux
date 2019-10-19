@@ -52,7 +52,7 @@ async submit(ev) {
 
     console.log('token created');
 
-      const response = fetch(`/api/v1/profiles/${this.props.profile_id}/customer`, {
+      const response = await fetch(`/api/v1/profiles/${this.props.profile_id}/customer`, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -81,7 +81,9 @@ async submit(ev) {
   // }
 
   // this.props.changeLoadind
-  this.setState({ complete: true});
+  //this.setState({ complete: true});
+
+  this.props.updateCompleted(true);
 
 
 
@@ -109,7 +111,7 @@ render() {
 //   }
 // };
 
-  if (this.state.complete) return <h1 className="msg-right">Purchase Complete bind animation Success Please Check you Phone You Will receive SmS</h1>;
+  if (this.props.completed) return <h1 className="msg-right">Purchase Complete bind animation Success Please Check you Phone You Will receive SmS</h1>;
 
     return (
       <div className="checkout">
