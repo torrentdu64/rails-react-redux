@@ -30,6 +30,7 @@ class BookingsNew extends Component {
 
         durationFront: 0,
         durationValue: "00:30",
+        completed: false
 
       };
       // this.topOfPageRef = React.createRef();
@@ -667,14 +668,38 @@ class BookingsNew extends Component {
   }
 
   backToBook = async () => {
+     // if( this.props.complete ) {
+     //    console.log("complete")
+     // }else{
     await this.setState({ booked: false});
     await this.setState({ loading: null});
     // await this.setState({ timetouched: false});
     const profile_id = this.props.match.params.id
     const booking_id = this.props.formError.id
     this.props.deleteBooking(profile_id, booking_id);
+     // }
+
+
   }
 
+  renderBackBooking = () => {
+    debugger
+    if(this.state.completed){
+      return <div></div>
+    }else{
+      return (
+         <div className="btn btn-danger btn-booking-back"
+              onClick={this.backToBook}
+            >  Back
+          </div>
+
+        )
+    }
+  }
+
+  updateCompleted = (results) => {
+   this.setState({completed:results});
+  }
 
 
 
@@ -697,13 +722,15 @@ class BookingsNew extends Component {
                     <InjectedCheckoutForm
                         profile_id={this.props.match.params.id}
                         booking_id={this.props.formError.id}
-
+                        updateCompleted={this.updateCompleted}
+                        completed={this.state.completed}
                     />
                 </Elements>
 
                 <span className="rectengle11-background"></span>
                 <span className="rectengle12-background"></span>
-                <div className="btn btn-danger btn-booking-back" onClick={this.backToBook}>  Back </div>
+                {this.renderBackBooking()}
+               {/* <div className="btn btn-danger btn-booking-back" onClick={this.backToBook}>  Back </div>*/}
               </div>
       )
     }

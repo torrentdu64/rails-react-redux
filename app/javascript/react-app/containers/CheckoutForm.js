@@ -52,7 +52,7 @@ async submit(ev) {
 
     console.log('token created');
 
-      const response = fetch(`/api/v1/profiles/${this.props.profile_id}/customer`, {
+      const response = await fetch(`/api/v1/profiles/${this.props.profile_id}/customer`, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -63,22 +63,27 @@ async submit(ev) {
         body: JSON.stringify({token, booking_id: this.props.booking_id })
       })
       if (response.ok){
-
-        this.setState({complete: true})
+        debugger
+        console.log("response ok ", response)
+        this.props.updateCompleted(true);
       };
 
   } catch(response) {
+    debugger
     console.log('error', response);
     response
 
   }
+
   // let token = await this.props.stripeToken({ name: 'Name'})
   // let charge = {
   //   token: chargeToken.token.id
   // }
 
   // this.props.changeLoadind
-  this.setState({ complete: true});
+  //this.setState({ complete: true});
+
+  // this.props.updateCompleted(true);
 
 
 
@@ -106,7 +111,7 @@ render() {
 //   }
 // };
 
-  if (this.state.complete) return <h1 className="msg-right">Purchase Complete bind animation Success Please Check you Phone You Will receive SmS</h1>;
+  if (this.props.completed) return <h1 className="msg-right">Purchase Complete bind animation Success Please Check you Phone You Will receive SmS</h1>;
 
     return (
       <div className="checkout">
