@@ -5,13 +5,15 @@ class Api::V1::BookingsController < Api::V1::BaseController
   skip_before_action :authenticate_user!, only: [:reply]
 
   def stripe_customer
-    binding.pry
+
 
     begin
       # Use Stripe's library to make requests...
       customer = Stripe::Customer.create(
           source: params[:token][:id],
           email:  current_user.email
+          # customer: '{{CUSTOMER_ID}}',
+          # payment_method: '{{PAYMENT_METHOD_ID}}'
       )
     rescue Stripe::CardError => e
       puts "Status is: #{e.http_status}"
@@ -47,18 +49,18 @@ class Api::V1::BookingsController < Api::V1::BaseController
       # Something else happened, completely unrelated to Stripe
       p e
     end
-    binding.pry
+
     # binding.pry
     @booking.customer_stripe_id = customer.id
     # binding.pry
     @booking.state = 'pending'
     @booking.amount_cents =  @profile.price_cents
     authorize @booking
-    binding.pry
+
 
     if @booking.save(validate: false)
     # binding.pry
-            #RequestProfileSmsJob.perform_later(@booking.id) uncomment here !!!!!!
+            RequestProfileSmsJob.perform_later(@booking.id) #uncomment here !!!!!!
     # ==================================
       # @booking = Booking.find(@booking.id)
       # @sms = SmsApi.new(ENV['BURST_API_KEY'], ENV['BURST_API_SECRET'])
