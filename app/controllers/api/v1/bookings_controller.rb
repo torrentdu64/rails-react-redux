@@ -11,10 +11,12 @@ class Api::V1::BookingsController < Api::V1::BaseController
       # Use Stripe's library to make requests...
       customer = Stripe::Customer.create(
           source: params[:token][:id],
-          email:  current_user.email
+          email:  current_user.email,
+          phone: current_user.phone
           # customer: '{{CUSTOMER_ID}}',
           # payment_method: '{{PAYMENT_METHOD_ID}}'
       )
+      binding.pry
     rescue Stripe::CardError => e
       puts "Status is: #{e.http_status}"
       puts "Type is: #{e.error.type}"
@@ -50,7 +52,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
       p e
     end
 
-    # binding.pry
+    binding.pry
     @booking.customer_stripe_id = customer.id
     # binding.pry
     @booking.state = 'pending'
@@ -60,7 +62,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
 
     if @booking.save(validate: false)
     # binding.pry
-            RequestProfileSmsJob.perform_later(@booking.id) #uncomment here !!!!!!
+             # RequestProfileSmsJob.perform_later(@booking.id) #uncomment here !!!!!!
     # ==================================
       # @booking = Booking.find(@booking.id)
       # @sms = SmsApi.new(ENV['BURST_API_KEY'], ENV['BURST_API_SECRET'])
@@ -155,7 +157,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
       # ============================================================
       @booking = Booking.find_by(message_id: params["message_id"])
       authorize @booking
-      #binding.pry
+      binding.pry
       render :reply, status: :created
   end
 
