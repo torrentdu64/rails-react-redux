@@ -66,7 +66,7 @@ async submit(ev) {
         debugger
         console.log("response ok ", response)
         this.props.updateCompleted(true);
-      };
+      }
 
   } catch(response) {
     debugger

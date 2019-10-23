@@ -12,12 +12,15 @@ class Api::V1::BookingsController < Api::V1::BaseController
       customer = Stripe::Customer.create(
           source: params[:token][:id],
           email:  current_user.email,
-          phone: current_user.phone
-          # customer: '{{CUSTOMER_ID}}',
+          phone: current_user.phone,
+          #customer: '{{CUSTOMER_ID}}'
           # payment_method: '{{PAYMENT_METHOD_ID}}'
       )
-      binding.pry
+
     rescue Stripe::CardError => e
+
+      @booking.errors[:stripe_error] << e
+
       puts "Status is: #{e.http_status}"
       puts "Type is: #{e.error.type}"
       puts "Charge ID is: #{e.error.charge}"
@@ -26,31 +29,34 @@ class Api::V1::BookingsController < Api::V1::BaseController
       puts "Decline code is: #{e.error.decline_code}" if e.error.decline_code
       puts "Param is: #{e.error.param}" if e.error.param
       puts "Message is: #{e e.error.message}" if e.error.message
-    rescue Stripe::RateLimitError => e
-      # Too many requests made to the API too quickly
-      p e
-    rescue Stripe::InvalidRequestError => e
-      # Invalid parameters were supplied to Stripe's API
-      #
-      p e
-    rescue Stripe::AuthenticationError => e
-      # Authentication with Stripe's API failed
-      # (maybe you changed API keys recently)
-      #
-      p e
-    rescue Stripe::APIConnectionError => e
-      # Network communication with Stripe failed
-      #
-      p e
-    rescue Stripe::StripeError => e
-      # Display a very generic error to the user, and maybe send
-      # yourself an email
-      #
-      p e
-    rescue => e
-      # Something else happened, completely unrelated to Stripe
-      p e
+    # rescue Stripe::RateLimitError => e
+    #   # Too many requests made to the API too quickly
+    #   p e
+    # rescue Stripe::InvalidRequestError => e
+    #   # Invalid parameters were supplied to Stripe's API
+    #   #
+    #   p e
+    # rescue Stripe::AuthenticationError => e
+    #   # Authentication with Stripe's API failed
+    #   # (maybe you changed API keys recently)
+    #   #
+    #   p e
+    # rescue Stripe::APIConnectionError => e
+    #   # Network communication with Stripe failed
+    #   #
+    #   p e
+    # rescue Stripe::StripeError => e
+    #   # Display a very generic error to the user, and maybe send
+    #   # yourself an email
+    #   #
+    #   p e
+    # rescue => e
+    #   # Something else happened, completely unrelated to Stripe
+    #   p e
     end
+
+
+
 
     binding.pry
     @booking.customer_stripe_id = customer.id
