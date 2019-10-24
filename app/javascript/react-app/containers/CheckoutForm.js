@@ -46,7 +46,7 @@ class CheckoutForm extends Component {
 
 async submit(ev) {
   ev.preventDefault();
-  try {
+
     console.log('creating token');
     const { error, token } = await this.props.stripe.createToken({ email: "name"});
 
@@ -67,14 +67,13 @@ async submit(ev) {
         console.log("response ok ", response)
         this.props.updateCompleted(true);
       }
+      if(response.status == 422){
+        debugger
+      }
 
-  } catch(response) {
-    debugger
-    console.log('error', response);
-    response
 
-  }
 
+   debugger
   // let token = await this.props.stripeToken({ name: 'Name'})
   // let charge = {
   //   token: chargeToken.token.id

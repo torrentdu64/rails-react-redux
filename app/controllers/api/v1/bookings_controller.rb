@@ -12,7 +12,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
       customer = Stripe::Customer.create(
           source: params[:token][:id],
           email:  current_user.email,
-          phone: current_user.phone,
+          phone: current_user.phone
           #customer: '{{CUSTOMER_ID}}'
           # payment_method: '{{PAYMENT_METHOD_ID}}'
       )
@@ -21,14 +21,16 @@ class Api::V1::BookingsController < Api::V1::BaseController
 
       @booking.errors[:stripe_error] << e
 
-      puts "Status is: #{e.http_status}"
-      puts "Type is: #{e.error.type}"
-      puts "Charge ID is: #{e.error.charge}"
-      # The following fields are optional
-      puts "Code is: #{e.error.code}" if e.error.code
-      puts "Decline code is: #{e.error.decline_code}" if e.error.decline_code
-      puts "Param is: #{e.error.param}" if e.error.param
-      puts "Message is: #{e e.error.message}" if e.error.message
+      # puts "Status is: #{e.http_status}"
+      # puts "Type is: #{e.error.type}"
+      # puts "Charge ID is: #{e.error.charge}"
+      # # The following fields are optional
+      # puts "Code is: #{e.error.code}" if e.error.code
+      # puts "Decline code is: #{e.error.decline_code}" if e.error.decline_code
+      # puts "Param is: #{e.error.param}" if e.error.param
+      # puts "Message is: #{e e.error.message}" if e.error.message
+
+
     # rescue Stripe::RateLimitError => e
     #   # Too many requests made to the API too quickly
     #   p e
@@ -58,30 +60,35 @@ class Api::V1::BookingsController < Api::V1::BaseController
 
 
 
-    binding.pry
-    @booking.customer_stripe_id = customer.id
-    # binding.pry
-    @booking.state = 'pending'
-    @booking.amount_cents =  @profile.price_cents
-    authorize @booking
 
+      binding.pry
+      if !customer.nil?
+      @booking.customer_stripe_id = customer.id
+      # binding.pry
+      @booking.state = 'pending'
+      @booking.amount_cents =  @profile.price_cents
+      end
+      authorize @booking
+      if @booking.errors[:stripe_error].present?
+      render :payment_error, status: :unprocessable_entity
 
-    if @booking.save(validate: false)
-    # binding.pry
-             # RequestProfileSmsJob.perform_later(@booking.id) #uncomment here !!!!!!
-    # ==================================
-      # @booking = Booking.find(@booking.id)
-      # @sms = SmsApi.new(ENV['BURST_API_KEY'], ENV['BURST_API_SECRET'])
-      # message = " make reservation reply Yes or No  "  #is your verification code.
-      # response = @sms.send(message, "+642041845759" )
-      # res = JSON.parse response.raw.options[:response_body]
-      # @message_id = res["message_id"]
-      # @booking = @booking.update_columns(message_id: @message_id)
-    # ==================================
-    render :stripe_customer, status: :created
-    else
-      render_error
-    end
+      elsif @booking.save(validate: false)
+
+      # binding.pry
+               # RequestProfileSmsJob.perform_later(@booking.id) #uncomment here !!!!!!
+      # ==================================
+        # @booking = Booking.find(@booking.id)
+        # @sms = SmsApi.new(ENV['BURST_API_KEY'], ENV['BURST_API_SECRET'])
+        # message = " make reservation reply Yes or No  "  #is your verification code.
+        # response = @sms.send(message, "+642041845759" )
+        # res = JSON.parse response.raw.options[:response_body]
+        # @message_id = res["message_id"]
+        # @booking = @booking.update_columns(message_id: @message_id)
+      # ==================================
+      render :stripe_customer, status: :created
+
+      end
+
 
   end
 

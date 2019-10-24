@@ -1,1 +1,1 @@
-json.extract! @e
+json.array! @booking.errors.messages
