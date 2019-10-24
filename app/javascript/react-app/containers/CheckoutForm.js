@@ -65,9 +65,13 @@ async submit(ev) {
       if (response.ok){
         debugger
         console.log("response ok ", response)
+        document.getElementById('stripe-error').innerHTML = "";
         this.props.updateCompleted(true);
       }
       if(response.status == 422){
+
+         document.getElementById('stripe-error').innerHTML = "Error";
+
         debugger
       }
 
@@ -115,7 +119,7 @@ render() {
     return (
       <div className="checkout">
 
-
+        <div  id="stripe-error"></div>
         <p>Would you like to complete the purchase?</p>
          <p>4000005540000008</p>
         {/*<CardElement />*/}

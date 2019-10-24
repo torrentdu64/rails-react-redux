@@ -5,8 +5,6 @@ class Api::V1::BookingsController < Api::V1::BaseController
   skip_before_action :authenticate_user!, only: [:reply]
 
   def stripe_customer
-
-
     begin
       # Use Stripe's library to make requests...
       customer = Stripe::Customer.create(
@@ -16,11 +14,8 @@ class Api::V1::BookingsController < Api::V1::BaseController
           #customer: '{{CUSTOMER_ID}}'
           # payment_method: '{{PAYMENT_METHOD_ID}}'
       )
-
     rescue Stripe::CardError => e
-
       @booking.errors[:stripe_error] << e
-
       # puts "Status is: #{e.http_status}"
       # puts "Type is: #{e.error.type}"
       # puts "Charge ID is: #{e.error.charge}"
@@ -29,8 +24,6 @@ class Api::V1::BookingsController < Api::V1::BaseController
       # puts "Decline code is: #{e.error.decline_code}" if e.error.decline_code
       # puts "Param is: #{e.error.param}" if e.error.param
       # puts "Message is: #{e e.error.message}" if e.error.message
-
-
     # rescue Stripe::RateLimitError => e
     #   # Too many requests made to the API too quickly
     #   p e
@@ -57,22 +50,18 @@ class Api::V1::BookingsController < Api::V1::BaseController
     #   p e
     end
 
-
-
-
-
-      binding.pry
-      if !customer.nil?
+    if !customer.nil?
       @booking.customer_stripe_id = customer.id
       # binding.pry
       @booking.state = 'pending'
       @booking.amount_cents =  @profile.price_cents
-      end
-      authorize @booking
-      if @booking.errors[:stripe_error].present?
-      render :payment_error, status: :unprocessable_entity
+    end
 
-      elsif @booking.save(validate: false)
+    authorize @booking
+
+    if @booking.errors[:stripe_error].present?
+      render :payment_error, status: :unprocessable_entity
+    elsif @booking.save(validate: false)
 
       # binding.pry
                # RequestProfileSmsJob.perform_later(@booking.id) #uncomment here !!!!!!
@@ -87,9 +76,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
       # ==================================
       render :stripe_customer, status: :created
 
-      end
-
-
+    end
   end
 
 
