@@ -258,7 +258,7 @@
               </div>
               <div class="modal-body" id="booking-form">
                 <% if user_signed_in? && current_user.profile == false && current_user.phone_verif == true %>
-                 <div id="root" data-profiles="undefined" data-booking="<%= @booking.to_json %>" ></div>
+                 <div id="root" data-user="<%= current_user.email %>" data-profiles="undefined" data-booking="<%= @booking.to_json %>" ></div>
                  <% elsif user_signed_in? && current_user.profile == false && current_user.phone_verif == false %>
                  <% session[:verif_phone] = request.url %>
                   <% link_to "Verif you phone number",   edit_user_registration_path, class: "btn btn-primary" %>

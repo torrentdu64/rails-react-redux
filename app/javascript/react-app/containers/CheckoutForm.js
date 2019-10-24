@@ -46,7 +46,7 @@ class CheckoutForm extends Component {
 
 async submit(ev) {
   ev.preventDefault();
-
+    debugger
     console.log('creating token');
     const { error, token } = await this.props.stripe.createToken({ email: "name"});
 
@@ -62,16 +62,14 @@ async submit(ev) {
         credentials: 'same-origin',
         body: JSON.stringify({token, booking_id: this.props.booking_id })
       })
-      if (response.ok){
+      if(response.ok){
         debugger
         console.log("response ok ", response)
         document.getElementById('stripe-error').innerHTML = "";
         this.props.updateCompleted(true);
       }
       if(response.status == 422){
-
-         document.getElementById('stripe-error').innerHTML = "Error";
-
+         document.getElementById('stripe-error').innerHTML = "Error: Trouble with your Credentials please check your Banks account";
         debugger
       }
 
