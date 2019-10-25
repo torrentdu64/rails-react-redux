@@ -46,11 +46,11 @@ class CheckoutForm extends Component {
 
 async submit(ev) {
   ev.preventDefault();
-    debugger
-    console.log('creating token');
-    const { error, token } = await this.props.stripe.createToken({ email: "name"});
 
-    console.log('token created');
+    console.log('creating token');
+    const { error, token } = await this.props.stripe.createToken({ email: this.props.email});
+debugger
+    console.log('token created', token );
 
       const response = await fetch(`/api/v1/profiles/${this.props.profile_id}/customer`, {
         method: 'POST',

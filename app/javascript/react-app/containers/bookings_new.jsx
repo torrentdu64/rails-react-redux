@@ -729,7 +729,7 @@ class BookingsNew extends Component {
                         booking_id={this.props.formError.id}
                         updateCompleted={this.updateCompleted}
                         completed={this.state.completed}
-                        email={this.props.email}
+                        email={this.state.email}
                     />
                 </Elements>
 
