@@ -46,11 +46,11 @@ class CheckoutForm extends Component {
 
 async submit(ev) {
   ev.preventDefault();
-  try {
-    console.log('creating token');
-    const { error, token } = await this.props.stripe.createToken({ email: "name"});
 
-    console.log('token created');
+    console.log('creating token');
+    const { error, token } = await this.props.stripe.createToken({ email: this.props.email});
+
+    console.log('token created', token );
 
       const response = await fetch(`/api/v1/profiles/${this.props.profile_id}/customer`, {
         method: 'POST',
@@ -62,18 +62,19 @@ async submit(ev) {
         credentials: 'same-origin',
         body: JSON.stringify({token, booking_id: this.props.booking_id })
       })
-      if (response.ok){
-        debugger
+      if(response.ok){
+
         console.log("response ok ", response)
+        document.getElementById('stripe-error').innerHTML = "";
         this.props.updateCompleted(true);
-      };
+      }
+      if(response.status == 422){
+         document.getElementById('stripe-error').innerHTML = "Error: Trouble with your Credentials please check your Banks account";
 
-  } catch(response) {
-    debugger
-    console.log('error', response);
-    response
+      }
 
-  }
+
+
 
   // let token = await this.props.stripeToken({ name: 'Name'})
   // let charge = {
@@ -116,7 +117,7 @@ render() {
     return (
       <div className="checkout">
 
-
+        <div  id="stripe-error"></div>
         <p>Would you like to complete the purchase?</p>
          <p>4000005540000008</p>
         {/*<CardElement />*/}

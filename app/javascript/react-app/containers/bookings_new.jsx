@@ -30,7 +30,8 @@ class BookingsNew extends Component {
 
         durationFront: 0,
         durationValue: "00:30",
-        completed: false
+        completed: false,
+        email: ''
 
       };
       // this.topOfPageRef = React.createRef();
@@ -164,6 +165,10 @@ class BookingsNew extends Component {
 
 
     await this.setState({ timetouched: false});
+    const email_data = document.getElementById('root');
+    const email = email_data.dataset.user;
+    this.setState({email: email})
+      debugger
 
   }
 
@@ -724,6 +729,7 @@ class BookingsNew extends Component {
                         booking_id={this.props.formError.id}
                         updateCompleted={this.updateCompleted}
                         completed={this.state.completed}
+                        email={this.state.email}
                     />
                 </Elements>
 
