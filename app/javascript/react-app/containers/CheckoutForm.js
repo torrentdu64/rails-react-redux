@@ -49,7 +49,7 @@ async submit(ev) {
 
     console.log('creating token');
     const { error, token } = await this.props.stripe.createToken({ email: this.props.email});
-debugger
+
     console.log('token created', token );
 
       const response = await fetch(`/api/v1/profiles/${this.props.profile_id}/customer`, {
@@ -63,19 +63,19 @@ debugger
         body: JSON.stringify({token, booking_id: this.props.booking_id })
       })
       if(response.ok){
-        debugger
+
         console.log("response ok ", response)
         document.getElementById('stripe-error').innerHTML = "";
         this.props.updateCompleted(true);
       }
       if(response.status == 422){
          document.getElementById('stripe-error').innerHTML = "Error: Trouble with your Credentials please check your Banks account";
-        debugger
+
       }
 
 
 
-   debugger
+
   // let token = await this.props.stripeToken({ name: 'Name'})
   // let charge = {
   //   token: chargeToken.token.id
