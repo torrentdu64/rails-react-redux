@@ -35,7 +35,7 @@ class ReplySmsJob < ApplicationJob
 
         @sms = SmsApi.new(ENV['BURST_API_KEY'], ENV['BURST_API_SECRET'])
         message = "Your Booking is confirm at #{@booking.start_time} with #{@profile.name}"  #is your verification code.
-        response = @sms.send(message, "+642041845759" )
+        response = @sms.send(message, @user.phone )
 
       elsif declined
 
@@ -44,7 +44,7 @@ class ReplySmsJob < ApplicationJob
       #   send info no charge
        @sms = SmsApi.new(ENV['BURST_API_KEY'], ENV['BURST_API_SECRET'])
        message = "Your Booking is declined with #{@profile.name}"  #is your verification code.
-       response = @sms.send(message, "+642041845759" )
+       response = @sms.send(message,  @user.phone )
       end
   end
 end

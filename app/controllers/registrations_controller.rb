@@ -13,11 +13,9 @@ class RegistrationsController < Devise::RegistrationsController
   def create_code
 
      num = params[:user][:phone]
-
      if num[0..2] == "+64"
           num[0..2] = "0"
      end
-
      val = num.scan(/\+/) ? false : true
      num = num.gsub(/\s+/, "")
      session[:v] = 0
@@ -30,11 +28,11 @@ class RegistrationsController < Devise::RegistrationsController
       @short = rand.to_s[2..7]
       current_user.update_attributes(phone: format_phone , code_conf: @short)
       # ===============================================================================
-      # @sms = SmsApi.new(ENV['BURST_API_KEY'], ENV['BURST_API_SECRET'])
-      # message = "#{@short} is your verification code. "  #is your verification code.
-      # response = @sms.send(message, current_user.phone )
+      @sms = SmsApi.new(ENV['BURST_API_KEY'], ENV['BURST_API_SECRET'])
+      message = "#{@short} is your verification code. "  #is your verification code.
+      response = @sms.send(message, current_user.phone )
       #=================================================================================
-      binding.pry
+
       @profile_id = params[:user][:profile_id]
       respond_to do |format|
         format.js { }
@@ -60,39 +58,28 @@ class RegistrationsController < Devise::RegistrationsController
     if current_user.code_conf == params[:user][:code]
         current_user.update(phone_verif: true)
         flash[:alert] = "success verif"
-
         # redirect_to  "#{session[:verif_phone]}"
         @booking = Booking.where(profile_id: params[:user][:profile_id] )
-
-        binding.pry
-
         respond_to do |format|
           format.js { render "devise/registrations/verif_code" }
           format.html { redirect_to  edit_user_registration_path }
         end
-
     elsif current_user.code_conf != params[:user][:code] && session[:v] <= 3
       flash[:alert] = "Code wrong just #{ 3 - session[:v] } attempt possible"
       session[:v] = session[:v] + 1
-      binding.pry
       current_user.errors[:base] << "Wrong code, you have #{ 4 - session[:v]} before to be ban"
       respond_to do |format|
         format.js { }
         format.html { redirect_to  edit_user_registration_path }
       end
-
       # redirect_to  edit_user_registration_path
-
     elsif session[:v] >= 4
       flash[:alert] = "this number is ban"
-
       respond_to do |format|
         format.js { redirect_to root_path }
         format.html { redirect_to root_path }
       end
-
     end
-
   end
 
 
@@ -100,7 +87,6 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     # @user = User.new(sign_up_params)
-
     build_resource(sign_up_params)
     @profile_id = sign_up_params[:profile_id]
     if resource.save
@@ -111,7 +97,6 @@ class RegistrationsController < Devise::RegistrationsController
         format.html {  redirect_to profile_path(sign_up_params[:profile_id]) }
       end
     else
-
       respond_to do |format|
         format.js { }
         format.html { redirect_to profile_path(sign_up_params[:profile_id]) }
