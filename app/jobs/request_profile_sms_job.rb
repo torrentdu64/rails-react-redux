@@ -3,6 +3,7 @@ class RequestProfileSmsJob < ApplicationJob
 
   def perform(booking_id)
       @booking = Booking.find(booking_id)
+      @profile = Profile.find_by(id: @booking.profile_id )
       @sms = SmsApi.new(ENV['BURST_API_KEY'], ENV['BURST_API_SECRET'])
       message = " make reservation reply Yes or No  "  #is your verification code.
       response = @sms.send(message, "+642041845759" )
