@@ -1,4 +1,4 @@
-<h1>Profiles#edit</h1>
+<!-- <h1>Profiles#edit</h1>
 <p>Find me in app/views/profiles/edit.html.erb</p>
 
 <%= simple_form_for @profile  do |f| %>
@@ -21,15 +21,21 @@
     <%= f.button :submit, "update" %>
   </div>
 <% end %>
+ <img class=""  src="#" alt="your image" />
+<div class="preview">
+
+</div> -->
 
 <%= simple_form_for @profile  do |f| %>
 <div class="background-profile">
 
   <div class="head-profile">
-    <div class="card-category d-block w-100" style="background-image: url(<%= cl_image_path @profile.photo %>);">
+    <div class="card-category d-block w-100" id="img_prev_photoone" style="background-image: url(<%= cl_image_path @profile.photo %>);">
 
-      <%= f.input :photo, :input_html => {:onchange => "readURL(this);"} %>
+      <%= f.input :photo, :input_html => {:onchange => "readURL(this)"} %>
       <%= f.input :photo_cache, as: :hidden %>
+
+
     </div>
   </div>
 
@@ -347,9 +353,13 @@
 
 <% content_for :after_js do %>
   <%= javascript_pack_tag "application" %>
+  <% javascript_pack_tag 'preview_image' %>
 <% end %>
 
+
+
 <script>
+
 function readURL(input) {
 
 
@@ -357,22 +367,33 @@ function readURL(input) {
         if (input.files && input.files[0]) {
           var reader = new FileReader();
 
+          reader.onload = (e) => {
+
+
+            if (input.id == 'profile_photo'){
+
+              var img = document.getElementById('img_prev_photoone');
+              img.style.background = "url(" + e.target.result +")";
+              img.style.backgroundSize = "cover";
+              img.style.backgroundPosition = "center center";
+              img.style.height = 630;
+
+            }
 
 
 
 
-             var backgound = document.querySelector('.card-category')
-             console.log("backgound", backgound)
-             backgound.style.background = `url(${input.files[0]})`
-             var backgound = document.querySelector('.card-category')
-             console.log("backgound", )
-           }
+
+          };
+
+         var test = reader.readAsDataURL(input.files[0]);
+          console.log("test", test)
+        }
+      }
 
 
 
 
-
-}
 </script>
 
 
