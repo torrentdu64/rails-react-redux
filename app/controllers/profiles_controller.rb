@@ -63,6 +63,8 @@ class ProfilesController < ApplicationController
   end
 
   def edit
+
+
     if current_user.profile === true
        authorize @profile
     end

@@ -21,3 +21,359 @@
     <%= f.button :submit, "update" %>
   </div>
 <% end %>
+
+<%= simple_form_for @profile  do |f| %>
+<div class="background-profile">
+
+  <div class="head-profile">
+    <div class="card-category d-block w-100" style="background-image: url(<%= cl_image_path @profile.photo %>);">
+
+      <%= f.input :photo, :input_html => {:onchange => "readURL(this);"} %>
+      <%= f.input :photo_cache, as: :hidden %>
+    </div>
+  </div>
+
+
+  <div class="shape-background">
+
+    <div class="booking-shape">
+
+
+
+    <button type="button" class="btn btn-outline-primary btn-booking" data-toggle="modal" data-target="#exampleModal">Booking</button>
+
+
+
+     <!--  <button type="button" class="btn btn-primary btn-booking"  >
+          Booking
+      </button> -->
+    </div>
+    <div class="details-profile">
+
+      <div class="contain">
+        <div id="left">
+          <span class="rectengle3-background"></span>
+          <span class="rectengle4-background"></span>
+          <h1><%= f.input :name %></h1>
+          <p><%= f.input :description %></p>
+
+          <!-- <h1>thing</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          </p> -->
+        </div>
+        <div id="right">
+          <ul>
+            <li>
+              <%= image_tag "logo2.png" %>
+              <span>
+                <strong>App</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+              </span>
+            </li>
+            <li>
+              <%= image_tag "logo2.png" %>
+              <span>
+                <strong>App</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+              </span>
+            </li>
+            <li>
+             <%= image_tag "logo2.png" %>
+              <span>
+                <strong>App</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <span class="rectengle-background"></span>
+    <span class="rectengle2-background"></span>
+
+
+    <%# image_tag "svv" , class: "svv-phone" %>
+  </div>
+
+
+
+
+
+    <div class="grid-profile">
+      <span class="rectengle5-background"></span>
+      <span class="rectengle6-background"></span>
+      <div class="card-product">
+          <%= cl_image_tag @profile.photo %>
+        <div class="card-footer">
+          <div>
+            <h1>Card</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card-product">
+          <%= cl_image_tag @profile.photo %>
+        <div class="card-footer">
+          <div>
+            <h1>Card</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card-product">
+          <%= cl_image_tag @profile.photo %>
+        <div class="card-footer">
+          <div>
+            <h1>Card</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card-product">
+          <%= cl_image_tag @profile.photo %>
+        <div class="card-footer">
+          <div>
+            <h1>Card</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            </p>
+          </div>
+        </div>
+      </div>
+      <span class="rectengle7-background"></span>
+      <span class="rectengle8-background"></span>
+    </div>
+
+<div class="ligne-badge" >
+  <%= image_tag "logo2.png",  width: 40 , class: "split-badge"%>
+</div>
+
+<section class="slider-profile">
+  <div class="slider-child">
+     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <%= cl_image_tag @profile.photo, class: "d-block w-100 h-100" %>
+        </div>
+        <div class="carousel-item">
+          <%= cl_image_tag @profile.photo, class: "d-block w-100 h-100" %>
+        </div>
+        <div class="carousel-item">
+          <%= cl_image_tag @profile.photo, class: "d-block w-100 h-100" %>
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-12 col-lg-4">
+      <%= link_to profile_path(@profile), class: "link-card" do %>
+        <div class="card-trip">
+          <%= cl_image_tag @profile.photo %>
+          <div class="card-trip-infos">
+            <div>
+              <h2><%= @profile.name %></h2>
+              <button class="btn-profile">Profile</button>
+            </div>
+            <h2 class="card-trip-pricing">£99.99</h2>
+            <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-trip-user avatar-bordered" />
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div> -->
+
+
+<div class="container">
+  <div class="row">
+    <div class="autoplay" >
+
+    </div>
+  </div>
+</div>
+
+
+
+
+</div>
+
+<% end %>
+
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+  <% if policy(@profile).update? %>
+  <div class="row">
+    <%= link_to "edit profile", edit_profile_path(), class: "btn btn-success" %>
+  </div>
+  <% end %>
+  <% if policy(@profile).destroy? %>
+    <div class="row">
+      <%= link_to "delete", @profile, method: :delete, class: "btn btn-success" %>
+    </div>
+  <% end %>
+</div>
+
+
+
+
+
+     <!--  <h1><%= @profile.phone %></h1>
+      <h1>Amount: <%= humanized_money_with_symbol(@profile.price) %></h1>
+      <%= cl_image_tag @profile.photo, height: 300, width: 400, crop: :fill %> -->
+    <div class="container">
+      <div class="row">
+           <!-- Button trigger modal -->
+        <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >
+        Booking
+        </button>
+        <!-- Modal -->
+        <div class="modal fade"  id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog mw-100 w-75" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Make your request</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body" id="booking-form">
+                <% if user_signed_in? && current_user.profile == false && current_user.phone_verif == true %>
+                 <div id="root" data-user="<%= current_user.email %>" data-profiles="undefined" data-booking="<%= @booking.to_json %>" ></div>
+                 <% elsif user_signed_in? && current_user.profile == false && current_user.phone_verif == false %>
+                 <% session[:verif_phone] = request.url %>
+                  <% link_to "Verif you phone number",   edit_user_registration_path, class: "btn btn-primary" %>
+                  <% if current_user.phone.present? && current_user.phone_verif == false %>
+
+                        <%= render "devise/registrations/create_code" %>
+
+                        <%=  render "devise/registrations/verif_code"%>
+
+                  <% end %>
+                <% elsif user_signed_in? && current_user.profile == true %>
+                  <h2>You can not BOOKING with this account</h2>
+                  <%= link_to "Sing Out", destroy_user_session_path(), method: :delete, class: "btn btn-primary" %>
+                <% else %>
+                  <div class="wrap-container" id="devise-sign">
+                    <div class="container-sign" id="container-sign">
+                      <div class="form-container sign-up-container"
+                            id="registration-new"
+                      >
+                        <%= render "devise/registrations/new" %>
+                      </div>
+                      <div class="form-container sign-in-container"
+                            id="session-new"
+                      >
+                        <%= render "devise/sessions/new"%>
+                      </div>
+                      <div class="overlay-container">
+                        <div class="overlay">
+                          <div class="overlay-panel overlay-left">
+                            <h1>Welcome Back!</h1>
+                            <p>To keep connected with us please login with your personal info</p>
+                            <button class="ghost" id="signIn">Sign In</button>
+                          </div>
+                          <div class="overlay-panel overlay-right">
+                            <h1>Hello, Friend!</h1>
+                            <p>Enter your personal details and start journey with us</p>
+                            <button class="ghost" id="signUp">Sign Up</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+
+                <div class="card-wrapper flip-left">
+                  <div class="card" id="cardFlip">
+                    <div class="front">
+                    <button class="btn btn-primary"
+                            id="signUpFlip"
+                    >Sign Up</button>
+                    <%= render "devise/sessions/new"%>
+                  </div>
+                    <div class="back">
+                      <button class="btn btn-primary"
+                            id="signInFlip"
+                    >Sign In</button>
+                    <%= render "devise/registrations/new"%>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="modal-footer">
+                <h4 class="text-center">Quick & smooth</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+<% content_for :after_js do %>
+  <%= javascript_pack_tag "application" %>
+<% end %>
+
+<script>
+function readURL(input) {
+
+
+
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+
+
+
+
+             var backgound = document.querySelector('.card-category')
+             console.log("backgound", backgound)
+             backgound.style.background = `url(${input.files[0]})`
+             var backgound = document.querySelector('.card-category')
+             console.log("backgound", )
+           }
+
+
+
+
+
+}
+</script>
+
+
+
